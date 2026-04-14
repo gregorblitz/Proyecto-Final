@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74ba8cd6b72612f4eabc39719ce75029, type: 3}
+  m_Name: Data_Llave
+  m_EditorClassIdentifier: Assembly-CSharp::ItemData
+  itemName: Llave
+  icon: {fileID: 1905595272, guid: 5415c492d12878849b81237b65512048, type: 3}
+  dropPrefab: {fileID: 4353022600090206762, guid: 6c01c0847f2f8024fb9a3f918736a681, type: 3}
+  description: 
+  isConsumable: 0

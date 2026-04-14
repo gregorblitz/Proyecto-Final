@@ -82,15 +82,15 @@
                     "name": "Sprint",
                     "type": "Button",
                     "id": "641cd816-40e6-41b4-8c3d-04687c349290",
-                    "expectedControlType": "",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Crawl",
+                    "name": "Inventory",
                     "type": "Button",
-                    "id": "9b9ad278-7245-455e-80b2-07c8f7ec0659",
+                    "id": "1f3e68cb-b673-44c0-8b78-c1b5cbab1d66",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -485,12 +485,12 @@
                 },
                 {
                     "name": "",
-                    "id": "4e779261-319a-4623-8ca5-5bfe6a395594",
-                    "path": "<Keyboard>/c",
+                    "id": "ea8e7b01-faf5-4b82-a35e-fd5df792c0bc",
+                    "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Crawl",
+                    "action": "Inventory",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
