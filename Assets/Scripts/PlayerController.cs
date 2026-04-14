@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     private InputAction moveAction;
     private InputAction lookAction;
     private InputAction jumpAction;
+    private InputAction crawlAction;
 
     private Vector2 moveAnim;
     private Vector2 lookAnim;
@@ -22,6 +23,10 @@ public class PlayerController : MonoBehaviour
         moveAction = InputSystem.actions.FindAction("Move");
         lookAction = InputSystem.actions.FindAction("Look");
         jumpAction = InputSystem.actions.FindAction("Jump");
+
+        // Busca la acción Crawl creada en el Input Action Asset
+        crawlAction = InputSystem.actions.FindAction("Crawl");
+        
         // Guarda referencia del Rigidbody 
         rigidbody = GetComponent<Rigidbody>();
         //guarda referencia animator
@@ -51,6 +56,10 @@ public class PlayerController : MonoBehaviour
         {
             Jump();
         }
+
+        // IsPressed() es true si se presiona C, y false si se suelta.
+        // Se le pasa directamente al Animator.
+        animator.SetBool("isCrawling", crawlAction.IsPressed());
     }
 
     public void Jump()
@@ -68,9 +77,42 @@ public class PlayerController : MonoBehaviour
     }
     private void Walking()
     {
+
+        //Se comenta para que tambien avance cuando solo presiona la letra C
         // moveAnim.y es 1 (W) o -1 (S) o 0 (nada). 
-        animator.SetFloat("Speed", moveAnim.y);
-        rigidbody.MovePosition(rigidbody.position + transform.forward * moveAnim.y * walkSpeed * Time.deltaTime);
+        //animator.SetFloat("Speed", moveAnim.y);
+        //rigidbody.MovePosition(rigidbody.position + transform.forward * moveAnim.y * walkSpeed * Time.deltaTime);
+
+        //Guarda el input original (que presiona el jugador en W o S)
+        float inputY = moveAnim.y;
+        
+        //Revisa si el botón de gatear se presiono en este momento
+        bool isCrawling = crawlAction.IsPressed();
+
+        //Si gatea, forzar el valor a 1 (como si presionara la W)
+        if (isCrawling)
+        {
+            // Si se presiona la tecla S o joystick abajo para retroceder
+            if (moveAnim.y < -0.1f)
+            {
+                inputY = -1f; // Forzar el valor para retroceder por defecto
+            }
+            else
+            {
+                inputY = 1f; // si no toca S, avanza adelante
+            }
+        }
+
+        //Reducir velocidad al gatear
+        float currentSpeed = walkSpeed;
+        if (isCrawling)
+        {
+            currentSpeed = walkSpeed * 0.5f; // Gatea a la mitad de velocidad normal
+        }
+
+        //Aplica la animación y el movimiento con las nuevas variables
+        animator.SetFloat("Speed", inputY);
+        rigidbody.MovePosition(rigidbody.position + transform.forward * inputY * currentSpeed * Time.deltaTime);
     }
 
     private void Rotating()
