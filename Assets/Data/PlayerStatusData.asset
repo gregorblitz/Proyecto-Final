@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8335ff52484e8424a8a3f07296bd6c24, type: 3}
+  m_Name: PlayerStatusData
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerStatusData
+  maxHealth: 100
+  maxOxygen: 100
+  maxMadness: 100
+  healthRegenRate: 5
+  oxygenDecayRate: 2
+  madnessIncreaseRate: 1.5
+  madnessThresholdForEnemies: 70
+  madnessDamageOxygenRate: 10
+  damageZoneHealthLoss: 15
+  oxygenZoneLoss: 20
+  madnessZoneGain: 25
+  sanityZoneLoss: 20
