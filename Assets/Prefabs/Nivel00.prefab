@@ -2347,6 +2347,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Nivel0
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: ab9090fbaf8480d4bbb950243e485d01, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1467617036184069371, guid: ab9090fbaf8480d4bbb950243e485d01, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 

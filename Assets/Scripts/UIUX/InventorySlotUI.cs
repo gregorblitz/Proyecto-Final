@@ -13,10 +13,16 @@ public class InventorySlotUI : MonoBehaviour, IPointerClickHandler // Implementa
     
     private FA_InventoryPanelUI inventoryPanel;
 
+    [Header("Visualización de Selección")]
+    //public GameObject selectionVisual; // Arrastra aquí un objeto hijo que sea el borde resaltado
+    public Color selectionColor = Color.yellow;
+
     private void Awake()
     {
         inventoryPanel = GetComponentInParent<FA_InventoryPanelUI>();
+        
     }
+
 
     public void SetSlot(ItemData item)
     {
@@ -37,9 +43,14 @@ public class InventorySlotUI : MonoBehaviour, IPointerClickHandler // Implementa
     {
         if (currentItem == null) return;
 
+        int myIndex = transform.GetSiblingIndex();
+        inventoryPanel.selectedSlotIndex = myIndex;
+        inventoryPanel.UpdateSlotSelection();
+
         // CLICK IZQUIERDO: Equipar o Usar
         if (eventData.button == PointerEventData.InputButton.Left)
         {
+            /*
             // 1. Buscamos el sistema en el jugador y le pasamos el ítem
             SystemsController systems = FindFirstObjectByType<SystemsController>();
             if (systems != null)
@@ -59,12 +70,17 @@ public class InventorySlotUI : MonoBehaviour, IPointerClickHandler // Implementa
             {
                 inventoryPanel.ToggleInventory(); 
             }
+            */
+            UseThisItem();
         }
         // CLICK DERECHO: Soltar (Ya lo tienes implementado)
         else if (eventData.button == PointerEventData.InputButton.Right)
         {
             DropItem();
         }
+
+        
+
     }
 
     private void DropItem()
@@ -87,6 +103,31 @@ public class InventorySlotUI : MonoBehaviour, IPointerClickHandler // Implementa
             else
             {
                 Debug.LogError("No se encontró un objeto con la Tag 'Player' para tirar el ítem.");
+            }
+        }
+    }
+
+    public void SetSelected(bool isSelected)
+    {
+        if (isSelected)
+        {
+            icon.color = selectionColor; // Cambia el color del ícono para indicar selección
+        }
+    }
+
+    public void UseThisItem()
+    {
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        ItemEffectHandler effectHandler = player.GetComponent<ItemEffectHandler>();
+
+        if (effectHandler != null && currentItem != null)
+        {
+            effectHandler.UseItem(currentItem);
+
+            if (currentItem.isConsumable)
+            {
+                InventoryManager.Instance.RemoveItem(currentItem);
+                ClearSlot();
             }
         }
     }
