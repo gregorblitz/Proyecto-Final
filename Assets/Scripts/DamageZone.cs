@@ -17,6 +17,7 @@ public class DamageZone : MonoBehaviour
 
     void Start()
     {
+        playerStatus = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStatus>();
         zoneCollider = GetComponent<Collider>();
         if (zoneCollider == null)
             Debug.LogWarning("DamageZone necesita un Collider (preferiblemente Trigger)");
@@ -26,7 +27,6 @@ public class DamageZone : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            playerStatus = other.GetComponent<PlayerStatus>();
             if (continuous) InvokeRepeating("ApplyEffect", 0f, 1f);
             else ApplyEffect();
         }
