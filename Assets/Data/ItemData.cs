@@ -22,4 +22,10 @@ public class ItemData : ScriptableObject
     [Header("Propiedades")]
     public bool isConsumable;
     // Aquí podrías añadir un valor si es consumible, ej: cantidad de curación
+
+    // En tu script ItemData.cs existente, añade:
+    public enum ItemEffect { None, Heal, RestoreOxygen, ReduceMadness }
+    [Header("Efectos")]
+    public ItemEffect effectType;
+    public float effectAmount;
 }
