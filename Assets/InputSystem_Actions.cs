@@ -185,7 +185,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""Crawl"",
                     ""type"": ""Button"",
-                    ""id"": ""495ab8ea-579a-43e8-988b-9968d6879a27"",
+                    ""id"": ""dc3c0fb8-eab9-4ae2-adfc-45bd98b30a4e"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -591,7 +591,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""be33aad8-544a-40e7-89b1-bf4819f1cdd3"",
+                    ""id"": ""7cfa0e39-46ac-4151-bf7c-b3e5ed972a0b"",
                     ""path"": ""<Keyboard>/c"",
                     ""interactions"": """",
                     ""processors"": """",
