@@ -28,7 +28,7 @@
                     "name": "Attack",
                     "type": "Button",
                     "id": "6c2ab1b8-8984-453a-af3d-a3c78ae1679a",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -100,6 +100,15 @@
                     "name": "Crawl",
                     "type": "Button",
                     "id": "dc3c0fb8-eab9-4ae2-adfc-45bd98b30a4e",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Flashlight",
+                    "type": "Button",
+                    "id": "543357de-03ee-4b80-a594-c6013ef586d7",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -495,7 +504,7 @@
                 {
                     "name": "",
                     "id": "ea8e7b01-faf5-4b82-a35e-fd5df792c0bc",
-                    "path": "<Keyboard>/e",
+                    "path": "<Keyboard>/i",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -511,6 +520,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Crawl",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c7daebcb-1486-4f65-8e6b-de6999c83a33",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Flashlight",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
