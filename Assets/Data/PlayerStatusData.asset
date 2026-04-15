@@ -15,12 +15,12 @@ MonoBehaviour:
   maxHealth: 100
   maxOxygen: 100
   maxMadness: 100
-  healthRegenRate: 5
-  oxygenDecayRate: 2
-  madnessIncreaseRate: 1.5
-  madnessThresholdForEnemies: 70
+  healthRegenRate: 2
+  oxygenDecayRate: 0.2
+  madnessIncreaseRate: 0.5
+  madnessThresholdForEnemies: 60
   madnessDamageOxygenRate: 10
-  damageZoneHealthLoss: 15
-  oxygenZoneLoss: 20
-  madnessZoneGain: 25
+  damageZoneHealthLoss: 10
+  oxygenZoneLoss: 15
+  madnessZoneGain: 28.1
   sanityZoneLoss: 20

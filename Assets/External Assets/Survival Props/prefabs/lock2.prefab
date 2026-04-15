@@ -11,7 +11,7 @@ PrefabInstance:
     - target: {fileID: -8770001514308624492, guid: 95f6e094ca372f2448edab4ac5452589, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 706bd4a3eb87fec4aa565cc5a4631432, type: 2}
+      objectReference: {fileID: 2100000, guid: ba7447ba960db184fb85d68d7317d4f1, type: 2}
     - target: {fileID: -8679921383154817045, guid: 95f6e094ca372f2448edab4ac5452589, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0
@@ -55,19 +55,19 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 95f6e094ca372f2448edab4ac5452589, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 706bd4a3eb87fec4aa565cc5a4631432, type: 2}
+      objectReference: {fileID: 2100000, guid: ba7447ba960db184fb85d68d7317d4f1, type: 2}
     - target: {fileID: -7022354242589380717, guid: 95f6e094ca372f2448edab4ac5452589, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 706bd4a3eb87fec4aa565cc5a4631432, type: 2}
+      objectReference: {fileID: 2100000, guid: ba7447ba960db184fb85d68d7317d4f1, type: 2}
     - target: {fileID: -6071799943635029624, guid: 95f6e094ca372f2448edab4ac5452589, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 706bd4a3eb87fec4aa565cc5a4631432, type: 2}
+      objectReference: {fileID: 2100000, guid: ba7447ba960db184fb85d68d7317d4f1, type: 2}
     - target: {fileID: -941387578205571701, guid: 95f6e094ca372f2448edab4ac5452589, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 706bd4a3eb87fec4aa565cc5a4631432, type: 2}
+      objectReference: {fileID: 2100000, guid: ba7447ba960db184fb85d68d7317d4f1, type: 2}
     - target: {fileID: 919132149155446097, guid: 95f6e094ca372f2448edab4ac5452589, type: 3}
       propertyPath: m_Name
       value: lock2
