@@ -35,18 +35,35 @@ public class InventorySlotUI : MonoBehaviour, IPointerClickHandler // Implementa
     // He añadido esto para dar un toque AAA con el Nuevo Input System y detección de ratón
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (currentItem != null)
+        if (currentItem == null) return;
+
+        // CLICK IZQUIERDO: Equipar o Usar
+        if (eventData.button == PointerEventData.InputButton.Left)
         {
-            if (eventData.button == PointerEventData.InputButton.Left)
+            // 1. Buscamos el sistema en el jugador y le pasamos el ítem
+            SystemsController systems = FindFirstObjectByType<SystemsController>();
+            if (systems != null)
             {
-                // Aquí podrías implementar el uso del ítem (ej: curar, encender linterna)
-                Debug.Log($"Usando item: {currentItem.itemName}");
+                systems.EquipItem(currentItem);
             }
-            else if (eventData.button == PointerEventData.InputButton.Right)
+            
+            // Ahora preguntamos si el TIPO es Consumable
+            if (currentItem.type == ItemData.ItemType.Consumable)
             {
-                // El click derecho tira el ítem
-                DropItem();
+                InventoryManager.Instance.RemoveItem(currentItem);
+                ClearSlot();
             }
+            
+            // 3. Cerramos el inventario automáticamente tras elegir
+            if (inventoryPanel != null) 
+            {
+                inventoryPanel.ToggleInventory(); 
+            }
+        }
+        // CLICK DERECHO: Soltar (Ya lo tienes implementado)
+        else if (eventData.button == PointerEventData.InputButton.Right)
+        {
+            DropItem();
         }
     }
 
