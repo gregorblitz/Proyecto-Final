@@ -21,6 +21,8 @@ public class DamageZone : MonoBehaviour
         zoneCollider = GetComponent<Collider>();
         if (zoneCollider == null)
             Debug.LogWarning("DamageZone necesita un Collider (preferiblemente Trigger)");
+
+        GetComponent<MeshRenderer>().material.color = gizmoColor; // Para que el objeto también sea visible en juego, no solo en el editor
     }
 
     void OnTriggerEnter(Collider other)

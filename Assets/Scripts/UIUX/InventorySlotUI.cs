@@ -19,7 +19,8 @@ public class InventorySlotUI : MonoBehaviour, IPointerClickHandler // Implementa
 
     private void Awake()
     {
-        inventoryPanel = GetComponentInParent<FA_InventoryPanelUI>();
+        inventoryPanel = FindFirstObjectByType<FA_InventoryPanelUI>();
+        Debug.Log(inventoryPanel.name);
         
     }
 
@@ -35,7 +36,7 @@ public class InventorySlotUI : MonoBehaviour, IPointerClickHandler // Implementa
     {
         currentItem = null;
         icon.sprite = null;
-        icon.enabled = false;
+        //icon.enabled = false;
     }
 
     // He añadido esto para dar un toque AAA con el Nuevo Input System y detección de ratón
@@ -44,6 +45,7 @@ public class InventorySlotUI : MonoBehaviour, IPointerClickHandler // Implementa
         if (currentItem == null) return;
 
         int myIndex = transform.GetSiblingIndex();
+        Debug.Log("Slot " + myIndex + " clickeado con " + currentItem.itemName);
         inventoryPanel.selectedSlotIndex = myIndex;
         inventoryPanel.UpdateSlotSelection();
 
@@ -92,8 +94,8 @@ public class InventorySlotUI : MonoBehaviour, IPointerClickHandler // Implementa
             GameObject player = GameObject.FindGameObjectWithTag("Player");
             if (player != null)
             {
-                // Instanciar el prefab 1.5 metros frente al jugador, 1 metro arriba.
-                Vector3 spawnPos = player.transform.position + player.transform.forward * 1.5f + Vector3.up * 1f;
+                // Instanciar el prefab 1.5 metros frente al jugador, 
+                Vector3 spawnPos = player.transform.position + player.transform.forward * -0.5f ;
                 Instantiate(currentItem.dropPrefab, spawnPos, Quaternion.identity);
 
                 // Borrarlo del manager y de la UI
@@ -109,10 +111,9 @@ public class InventorySlotUI : MonoBehaviour, IPointerClickHandler // Implementa
 
     public void SetSelected(bool isSelected)
     {
-        if (isSelected)
-        {
-            icon.color = selectionColor; // Cambia el color del ícono para indicar selección
-        }
+             
+       icon.color = isSelected ? selectionColor: Color.white; // Cambia el color del ícono para indicar selección
+
     }
 
     public void UseThisItem()

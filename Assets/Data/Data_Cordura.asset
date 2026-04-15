@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74ba8cd6b72612f4eabc39719ce75029, type: 3}
   m_Name: Data_Cordura
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
-  itemName: Curacion
+  itemName: Cordura
   type: 0
-  icon: {fileID: 21300000, guid: c857f7511fbe8204dbe57242a463c4ea, type: 3}
-  dropPrefab: {fileID: 5112952847852368009, guid: 9e8310a59c540704ca4304cc26796daa, type: 3}
+  icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+  dropPrefab: {fileID: 7182220364031747004, guid: 5606f7b51585c224c9a2887bccdccd63, type: 3}
   description: 
   isConsumable: 1
-  effectType: 1
+  effectType: 3
   effectAmount: 20
   value: 0
   interactionID: 

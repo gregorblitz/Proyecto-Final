@@ -140,7 +140,7 @@ public class FA_InventoryPanelUI : MonoBehaviour
             if (slot != null)
             {
                 // Activamos o desactivamos el resaltado visual
-                slot.icon.color = Color.white;
+                
                 slot.SetSelected(i == selectedSlotIndex);
             }
         }
