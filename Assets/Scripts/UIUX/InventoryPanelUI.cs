@@ -120,8 +120,9 @@ public class FA_InventoryPanelUI : MonoBehaviour
         if (scrollValue != 0)
         {
             // Cambiamos el índice (hacia arriba o hacia abajo)
-            if (scrollValue > 0) selectedSlotIndex--;
-            else selectedSlotIndex++;
+            selectedSlotIndex = scrollValue > 0 ? selectedSlotIndex - 1 : selectedSlotIndex + 1;
+            //if (scrollValue > 0) selectedSlotIndex--;
+            //else selectedSlotIndex++;
 
             // Aseguramos que el índice se mantenga dentro del rango de slots
             int totalSlots = slotsParent.childCount;
