@@ -245,6 +245,7 @@ GameObject:
   - component: {fileID: 147378625}
   - component: {fileID: 147378626}
   - component: {fileID: 147378627}
+  - component: {fileID: 147378628}
   m_Layer: 0
   m_Name: CinemachineCamera
   m_TagString: Untagged
@@ -260,8 +261,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 147378623}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.16820128, y: 0, z: 0, w: 0.9857527}
-  m_LocalPosition: {x: -6.56, y: 1.93, z: -6.6499996}
+  m_LocalRotation: {x: 0.2468659, y: -0.0019565518, z: 0.0004984337, w: 0.9690476}
+  m_LocalPosition: {x: -6.479, y: 3.032, z: -7.007}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -287,11 +288,11 @@ MonoBehaviour:
   m_StreamingVersion: 20241001
   m_LegacyPriority: 0
   Target:
-    TrackingTarget: {fileID: 1563483013}
+    TrackingTarget: {fileID: 1927233726}
     LookAtTarget: {fileID: 0}
     CustomLookAtTarget: 0
   Lens:
-    FieldOfView: 60
+    FieldOfView: 80
     OrthographicSize: 5
     NearClipPlane: 0.3
     FarClipPlane: 1000
@@ -328,7 +329,7 @@ MonoBehaviour:
     AngularDampingMode: 0
     RotationDamping: {x: 0, y: 0, z: 0}
     QuaternionDamping: 1
-  FollowOffset: {x: 0, y: 1.29, z: -1.8}
+  FollowOffset: {x: 0, y: 1.51, z: -1.59}
 --- !u!114 &147378627
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -341,7 +342,46 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e8b78ac948f05a46a6d8339a503172b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineHardLookAt
-  LookAtOffset: {x: 0, y: 0, z: 1.87}
+  LookAtOffset: {x: 0, y: -2.49, z: 5}
+--- !u!114 &147378628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 147378623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbe43d662878a7c43bcd44d43c9e2094, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineDeoccluder
+  CollideAgainst:
+    serializedVersion: 2
+    m_Bits: 1
+  IgnoreTag: 
+  TransparentLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  MinimumDistanceFromTarget: 0.3
+  AvoidObstacles:
+    Enabled: 1
+    DistanceLimit: 0
+    MinimumOcclusionTime: 0
+    CameraRadius: 0.4
+    UseFollowTarget:
+      Enabled: 1
+      YOffset: 0
+    Strategy: 0
+    MaximumEffort: 3
+    SmoothingTime: 0
+    Damping: 0.4
+    DampingWhenOccluded: 0.2
+  ShotQualityEvaluation:
+    Enabled: 0
+    OptimalDistance: 10
+    NearLimit: 5
+    FarLimit: 30
+    MaxQualityBoost: 0.2
 --- !u!1 &235928669
 GameObject:
   m_ObjectHideFlags: 0
@@ -611,7 +651,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 80
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -637,8 +677,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.16820128, y: 0, z: 0, w: 0.9857527}
-  m_LocalPosition: {x: -6.56, y: 1.93, z: -6.6499996}
+  m_LocalRotation: {x: 0.2468659, y: -0.0019565518, z: 0.0004984337, w: 0.9690476}
+  m_LocalPosition: {x: -6.456112, y: 2.1203318, z: -6.085045}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1940,9 +1980,43 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 1901188617852496355, guid: 0732c85ef0ba0fd459110662542ca700, type: 3}
+      insertIndex: 0
+      addedObject: {fileID: 1927233726}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0732c85ef0ba0fd459110662542ca700, type: 3}
+--- !u!1 &1927233725
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1927233726}
+  m_Layer: 0
+  m_Name: Camera Tarjet
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1927233726
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1927233725}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.081, y: 0.882, z: -0.567}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1563483013}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1983930670
 PrefabInstance:
   m_ObjectHideFlags: 0
