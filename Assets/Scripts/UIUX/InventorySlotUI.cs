@@ -13,10 +13,17 @@ public class InventorySlotUI : MonoBehaviour, IPointerClickHandler // Implementa
     
     private FA_InventoryPanelUI inventoryPanel;
 
+    [Header("Visualización de Selección")]
+    //public GameObject selectionVisual; // Arrastra aquí un objeto hijo que sea el borde resaltado
+    public Color selectionColor = Color.yellow;
+
     private void Awake()
     {
-        inventoryPanel = GetComponentInParent<FA_InventoryPanelUI>();
+        inventoryPanel = FindFirstObjectByType<FA_InventoryPanelUI>();
+        Debug.Log(inventoryPanel.name);
+        
     }
+
 
     public void SetSlot(ItemData item)
     {
@@ -29,25 +36,53 @@ public class InventorySlotUI : MonoBehaviour, IPointerClickHandler // Implementa
     {
         currentItem = null;
         icon.sprite = null;
-        icon.enabled = false;
+        //icon.enabled = false;
     }
 
     // He añadido esto para dar un toque AAA con el Nuevo Input System y detección de ratón
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (currentItem != null)
+        if (currentItem == null) return;
+
+        int myIndex = transform.GetSiblingIndex();
+        Debug.Log("Slot " + myIndex + " clickeado con " + currentItem.itemName);
+        inventoryPanel.selectedSlotIndex = myIndex;
+        inventoryPanel.UpdateSlotSelection();
+
+        // CLICK IZQUIERDO: Equipar o Usar
+        if (eventData.button == PointerEventData.InputButton.Left)
         {
-            if (eventData.button == PointerEventData.InputButton.Left)
+            /*
+            // 1. Buscamos el sistema en el jugador y le pasamos el ítem
+            SystemsController systems = FindFirstObjectByType<SystemsController>();
+            if (systems != null)
             {
-                // Aquí podrías implementar el uso del ítem (ej: curar, encender linterna)
-                Debug.Log($"Usando item: {currentItem.itemName}");
+                systems.EquipItem(currentItem);
             }
-            else if (eventData.button == PointerEventData.InputButton.Right)
+            
+            // Ahora preguntamos si el TIPO es Consumable
+            if (currentItem.type == ItemData.ItemType.Consumable)
             {
-                // El click derecho tira el ítem
-                DropItem();
+                InventoryManager.Instance.RemoveItem(currentItem);
+                ClearSlot();
             }
+            
+            // 3. Cerramos el inventario automáticamente tras elegir
+            if (inventoryPanel != null) 
+            {
+                inventoryPanel.ToggleInventory(); 
+            }
+            */
+            UseThisItem();
         }
+        // CLICK DERECHO: Soltar (Ya lo tienes implementado)
+        else if (eventData.button == PointerEventData.InputButton.Right)
+        {
+            DropItem();
+        }
+
+        
+
     }
 
     private void DropItem()
@@ -59,8 +94,8 @@ public class InventorySlotUI : MonoBehaviour, IPointerClickHandler // Implementa
             GameObject player = GameObject.FindGameObjectWithTag("Player");
             if (player != null)
             {
-                // Instanciar el prefab 1.5 metros frente al jugador, 1 metro arriba.
-                Vector3 spawnPos = player.transform.position + player.transform.forward * 1.5f + Vector3.up * 1f;
+                // Instanciar el prefab 1.5 metros frente al jugador, 
+                Vector3 spawnPos = player.transform.position + player.transform.forward * -0.5f ;
                 Instantiate(currentItem.dropPrefab, spawnPos, Quaternion.identity);
 
                 // Borrarlo del manager y de la UI
@@ -70,6 +105,30 @@ public class InventorySlotUI : MonoBehaviour, IPointerClickHandler // Implementa
             else
             {
                 Debug.LogError("No se encontró un objeto con la Tag 'Player' para tirar el ítem.");
+            }
+        }
+    }
+
+    public void SetSelected(bool isSelected)
+    {
+             
+       icon.color = isSelected ? selectionColor: Color.white; // Cambia el color del ícono para indicar selección
+
+    }
+
+    public void UseThisItem()
+    {
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        ItemEffectHandler effectHandler = player.GetComponent<ItemEffectHandler>();
+
+        if (effectHandler != null && currentItem != null)
+        {
+            effectHandler.UseItem(currentItem);
+
+            if (currentItem.isConsumable)
+            {
+                InventoryManager.Instance.RemoveItem(currentItem);
+                ClearSlot();
             }
         }
     }

@@ -17,16 +17,18 @@ public class DamageZone : MonoBehaviour
 
     void Start()
     {
+        playerStatus = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStatus>();
         zoneCollider = GetComponent<Collider>();
         if (zoneCollider == null)
             Debug.LogWarning("DamageZone necesita un Collider (preferiblemente Trigger)");
+
+        GetComponent<MeshRenderer>().material.color = gizmoColor; // Para que el objeto también sea visible en juego, no solo en el editor
     }
 
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            playerStatus = other.GetComponent<PlayerStatus>();
             if (continuous) InvokeRepeating("ApplyEffect", 0f, 1f);
             else ApplyEffect();
         }

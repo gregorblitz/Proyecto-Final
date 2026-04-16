@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74ba8cd6b72612f4eabc39719ce75029, type: 3}
+  m_Name: Data_Curacion
+  m_EditorClassIdentifier: Assembly-CSharp::ItemData
+  itemName: Curacion
+  type: 0
+  icon: {fileID: 21300000, guid: c857f7511fbe8204dbe57242a463c4ea, type: 3}
+  dropPrefab: {fileID: 5112952847852368009, guid: 9e8310a59c540704ca4304cc26796daa, type: 3}
+  description: 
+  isConsumable: 1
+  effectType: 1
+  effectAmount: 20
+  value: 0
+  interactionID: 

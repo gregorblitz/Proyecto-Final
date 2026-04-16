@@ -1,18 +1,17 @@
-//Fauto A. Gomez
+// Fausto A. Gómez
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Item Data", menuName = "Inventario/Item Data")]
 public class ItemData : ScriptableObject
 {
+    public enum ItemType { Consumable, Tool, Key, Flashlight }
+
     [Header("Identificación")]
-    [Tooltip("El nombre que se mostrará en el inventario.")]
     public string itemName;
-    
-    [Header("Visuales y Prefabs")]
-    [Tooltip("El icono que se mostrará en el slot de la UI.")]
+    public ItemType type;
+
+    [Header("Visuales")]
     public Sprite icon;
-    
-    [Tooltip("El modelo 3D con físicas que se instanciará al tirar el objeto.")]
     public GameObject dropPrefab;
 
     [Header("Descripción")]
@@ -22,4 +21,13 @@ public class ItemData : ScriptableObject
     [Header("Propiedades")]
     public bool isConsumable;
     // Aquí podrías añadir un valor si es consumible, ej: cantidad de curación
+
+    // En tu script ItemData.cs existente, añade:
+    public enum ItemEffect { None, Heal, RestoreOxygen, ReduceMadness }
+    [Header("Efectos")]
+    public ItemEffect effectType;
+    public float effectAmount;
+    [Header("Lógica")]
+    public float value; // Ej: Salud a recuperar o batería
+    public string interactionID; // ID para puertas (Ej: "Llave_Sotano")
 }

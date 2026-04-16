@@ -14,23 +14,33 @@ public class PlayerController : MonoBehaviour
     private Vector2 lookAnim;
     private Animator animator;
     private Rigidbody rigidbody;
+    private CapsuleCollider capsuleCollider; // Para saber la altura del jugador
+    //***Constantes***
     public float walkSpeed = 5;
     public float rotateSpeed = 5;
     public float jumpSpeed = 5;
 
     private void Awake()
     {
-        moveAction = InputSystem.actions.FindAction("Move");
-        lookAction = InputSystem.actions.FindAction("Look");
-        jumpAction = InputSystem.actions.FindAction("Jump");
+        // ***Para resolver el rpoblema del giro fantansma**
+        // Busca acciones de la variable publica inputActions
+        // Primero aseguramos que estamos en el mapa "Player"
+        var playerMap = inputActions.FindActionMap("Player");
+        //
+        //***Se lee lo del mapa local en lugar del global
+        moveAction = playerMap.FindAction("Move");
+        lookAction = playerMap.FindAction("Look");
+        jumpAction = playerMap.FindAction("Jump");
+        crawlAction = playerMap.FindAction("Crawl");
 
-        // Busca la acción Crawl creada en el Input Action Asset
-        crawlAction = InputSystem.actions.FindAction("Crawl");
-        
         // Guarda referencia del Rigidbody 
         rigidbody = GetComponent<Rigidbody>();
         //guarda referencia animator
         animator = GetComponentInChildren<Animator>();
+
+        // Guarda el collider para medir la distancia al suelo
+        // para evitar problema del salto
+        capsuleCollider = GetComponent<CapsuleCollider>();
 
     }
 
@@ -52,7 +62,8 @@ public class PlayerController : MonoBehaviour
         moveAnim = moveAction.ReadValue<Vector2>();
         //lookAnim = moveAction.ReadValue<Vector2>();
 
-        if (jumpAction.WasPressedThisFrame())
+        //**Solo salta si se oprime el boton y si esta tocando el suelo
+        if (jumpAction.WasPressedThisFrame() && IsGrounded())
         {
             Jump();
         }
@@ -61,13 +72,28 @@ public class PlayerController : MonoBehaviour
         // Se le pasa directamente al Animator.
         animator.SetBool("isCrawling", crawlAction.IsPressed());
     }
+    
+    // Verifica toca el suelo
+    private bool IsGrounded()
+    {
+        // Calcula distancia desde el centro del personaje (.extents) hasta sus pies
+        float distanceToGround = capsuleCollider.bounds.extents.y;
+        
+        // Dispara un rayo invisible hacia abajo (posicion, hacia donde apunta, distancia) 
+        // Le suma 0.1f como margen de error para detectar el suelo correctamente.
+        return Physics.Raycast(transform.position, Vector3.down, distanceToGround + 0.1f);
+    }
 
     public void Jump()
-{
-    rigidbody.AddForce(Vector3.up * jumpSpeed, ForceMode.Impulse);
-    
-    animator.SetTrigger("Jump");
-}
+    {
+
+        // Resetea la velocidad en Y antes de saltar para evitar acumulacion de saltos
+        rigidbody.linearVelocity = new Vector3(rigidbody.linearVelocity.x, 0, rigidbody.linearVelocity.z);
+
+        rigidbody.AddForce(Vector3.up * jumpSpeed, ForceMode.Impulse);
+
+        animator.SetTrigger("Jump");
+    }
 
     //LA APLICACIÓN DE FÍSICAS
     private void FixedUpdate()
@@ -117,9 +143,18 @@ public class PlayerController : MonoBehaviour
 
     private void Rotating()
     {
+        // Solo gira si el valor de movimiento es mayor a 0.05 para evitar el giro fantasma
+        if (Mathf.Abs(moveAnim.x) > 0.05f)
+        {
+            float rotationAmount = moveAnim.x * rotateSpeed * Time.fixedDeltaTime;
+            Quaternion deltaRotation = Quaternion.Euler(0, rotationAmount, 0);
+            rigidbody.MoveRotation(rigidbody.rotation * deltaRotation);
+        }
 
-        float rotationAmount = moveAnim.x * rotateSpeed * Time.fixedDeltaTime;
-        Quaternion deltaRotation = Quaternion.Euler(0, rotationAmount, 0);
-        rigidbody.MoveRotation(rigidbody.rotation * deltaRotation);
+        else 
+        {
+            // Freno de emergencia para rotacion
+            rigidbody.angularVelocity = Vector3.zero;
+        }
     }
 }

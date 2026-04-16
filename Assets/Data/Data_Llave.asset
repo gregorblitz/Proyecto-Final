@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Data_Llave
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   itemName: Llave
+  type: 2
   icon: {fileID: 1905595272, guid: 5415c492d12878849b81237b65512048, type: 3}
   dropPrefab: {fileID: 4353022600090206762, guid: 6c01c0847f2f8024fb9a3f918736a681, type: 3}
-  description: 
-  isConsumable: 0
+  value: 0
+  interactionID: Llave

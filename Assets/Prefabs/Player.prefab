@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7966222705947892571}
   - component: {fileID: 6867987598651256725}
   - component: {fileID: 3477126170289129604}
+  - component: {fileID: 8659909448002815732}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -133,6 +134,19 @@ MonoBehaviour:
   OnMadnessMaxReached:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &8659909448002815732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4198546031890967654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f02966f242c07e043a71c28746d9550f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ItemEffectHandler
+  inputActions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
 --- !u!1001 &7878131735616464070
 PrefabInstance:
   m_ObjectHideFlags: 0

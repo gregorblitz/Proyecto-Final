@@ -14,9 +14,27 @@ public class FA_InventoryPanelUI : MonoBehaviour
     [Header("Estado")]
     public bool isInventoryOpen = false;
 
+    [Header("Selección")]
+    public int selectedSlotIndex = 0;
+    private InputAction scrollAction;
+
+    private void Awake()
+    {
+        // Buscamos la acción de Scroll del ratón
+        scrollAction = InputSystem.actions.FindAction("ScrollWheel");
+    }
+
     private void Start()
     {
         InitializeInventoryUI();
+    }
+
+    private void Update()
+    {
+        if (isInventoryOpen)
+        {
+            HandleScrollInput();
+        }
     }
 
     // Inicializa la UI creando slots vacíos según el tamaño del Manager
@@ -93,5 +111,39 @@ public class FA_InventoryPanelUI : MonoBehaviour
             }
         }
         return null; // No hay slots vacíos
+    }
+
+    private void HandleScrollInput()
+    {
+        float scrollValue = scrollAction.ReadValue<Vector2>().y;
+
+        if (scrollValue != 0)
+        {
+            // Cambiamos el índice (hacia arriba o hacia abajo)
+            selectedSlotIndex = scrollValue > 0 ? selectedSlotIndex - 1 : selectedSlotIndex + 1;
+            //if (scrollValue > 0) selectedSlotIndex--;
+            //else selectedSlotIndex++;
+
+            // Aseguramos que el índice se mantenga dentro del rango de slots
+            int totalSlots = slotsParent.childCount;
+            if (selectedSlotIndex < 0) selectedSlotIndex = totalSlots - 1;
+            if (selectedSlotIndex >= totalSlots) selectedSlotIndex = 0;
+
+            UpdateSlotSelection();
+        }
+    }
+
+    public void UpdateSlotSelection()
+    {
+        for (int i = 0; i < slotsParent.childCount; i++)
+        {
+            InventorySlotUI slot = slotsParent.GetChild(i).GetComponent<InventorySlotUI>();
+            if (slot != null)
+            {
+                // Activamos o desactivamos el resaltado visual
+                
+                slot.SetSelected(i == selectedSlotIndex);
+            }
+        }
     }
 }

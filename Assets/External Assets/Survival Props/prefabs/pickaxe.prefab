@@ -51,7 +51,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 32889a849b645a441ba25fa997983f83, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: c2c75e87dcc0feb4b89e8821a59be53f, type: 2}
+      objectReference: {fileID: 2100000, guid: 5deff20632ead93469175b23d34b147a, type: 2}
     - target: {fileID: 919132149155446097, guid: 32889a849b645a441ba25fa997983f83, type: 3}
       propertyPath: m_Name
       value: pickaxe
