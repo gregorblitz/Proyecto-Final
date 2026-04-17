@@ -11,14 +11,14 @@ public class InventorySlotUI : MonoBehaviour, IPointerClickHandler
     [Header("Datos del Slot")]
     public ItemData currentItem;
     
-    private FA_InventoryPanelUI inventoryPanel;
+    private InventoryPanelUI inventoryPanel;
 
     [Header("Visualización de Selección")]
     public Color selectionColor = Color.yellow;
 
     private void Awake()
     {
-        inventoryPanel = FindFirstObjectByType<FA_InventoryPanelUI>();
+        inventoryPanel = FindFirstObjectByType<InventoryPanelUI>();
     }
 
     public void SetSlot(ItemData item)

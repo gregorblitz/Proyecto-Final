@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem; // OBLIGATORIO para Nuevo Input System
 
-public class FA_InventoryPanelUI : MonoBehaviour
+public class InventoryPanelUI : MonoBehaviour
 {
     [Header("Componentes del Panel")]
     public GameObject inventoryPanel; // El panel principal que se oculta/muestra

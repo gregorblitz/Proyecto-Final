@@ -9,7 +9,7 @@ public class ItemEffectHandler : MonoBehaviour
     private InputAction useInventoryAction;
     private InputAction flashlightAction;
 
-    private FA_InventoryPanelUI inventoryPanel;
+    private InventoryPanelUI inventoryPanel;
     private bool isFlashlightOn = false;
 
     private void Awake()
@@ -21,7 +21,7 @@ public class ItemEffectHandler : MonoBehaviour
     }
 
     private void Start() {
-        inventoryPanel = GameObject.FindFirstObjectByType<FA_InventoryPanelUI>();
+        inventoryPanel = GameObject.FindFirstObjectByType<InventoryPanelUI>();
     }
 
     private void Update() {

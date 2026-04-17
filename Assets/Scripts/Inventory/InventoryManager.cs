@@ -15,7 +15,7 @@ public class InventoryManager : MonoBehaviour
     public int inventorySize = 4;
 
     [Header("Dependencias")]
-    public FA_InventoryPanelUI inventoryUI;
+    public InventoryPanelUI inventoryUI;
 
     [Header("Eventos")]
     public UnityEvent OnItemAdded;
