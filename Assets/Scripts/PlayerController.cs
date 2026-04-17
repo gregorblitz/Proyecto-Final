@@ -15,14 +15,24 @@ public class PlayerController : MonoBehaviour
     private Animator animator;
     private Rigidbody rigidbody;
     private CapsuleCollider capsuleCollider; // Para saber la altura del jugador
-    //***Constantes***
+     //***Constantes***
+    
+    [Header("Configuración de movimiento")]
     public float walkSpeed = 5;
-    public float rotateSpeed = 5;
+    public float rotateSpeed = 150;
     public float jumpSpeed = 5;
+
+    // Configuracion de la cápsula al gatear
+    [Header("Configuracion de gateo")]
+    public float crawlHeight = 1f; // Altura al gatear
+    // Variables para la memoria del tamaño
+    private float originalHeight;
+    private Vector3 originalCenter;
+    private bool isCrawling = false;
 
     private void Awake()
     {
-        // ***Para resolver el rpoblema del giro fantansma**
+        // ***Para resolver el problema del giro fantansma**
         // Busca acciones de la variable publica inputActions
         // Primero aseguramos que estamos en el mapa "Player"
         var playerMap = inputActions.FindActionMap("Player");
@@ -42,6 +52,13 @@ public class PlayerController : MonoBehaviour
         // para evitar problema del salto
         capsuleCollider = GetComponent<CapsuleCollider>();
 
+        // Memoriza las medidas exactas del collider del jugador antes de empezar
+        if (capsuleCollider != null)
+        {
+            originalHeight = capsuleCollider.height;
+            originalCenter = capsuleCollider.center;
+        }
+
     }
 
     //ENCENDIDO Y APAGADO DE LOS CONTROLES
@@ -58,19 +75,33 @@ public class PlayerController : MonoBehaviour
     // LA LECTURA DE BOTONES
     private void Update()
     {
-        // Lee Vector2 del Input System (X para Izquierda/Derecha, Y para Arriba/Abajo)
+        // Lee el movimiento W, A, S, D
         moveAnim = moveAction.ReadValue<Vector2>();
-        //lookAnim = moveAction.ReadValue<Vector2>();
+        // isCrawling es true si se oprime el botón
+        isCrawling = crawlAction.IsPressed();
 
-        //**Solo salta si se oprime el boton y si esta tocando el suelo
-        if (jumpAction.WasPressedThisFrame() && IsGrounded())
+        // Modificacion fisica de la capsula si esta gateando
+        if (isCrawling)
+        {
+            capsuleCollider.height = crawlHeight;
+            // Bajamos el centro a la mitad de la nueva altura para que no flote
+            float offset = (originalHeight - crawlHeight) / 2f;
+            capsuleCollider.center = new Vector3(originalCenter.x, originalCenter.y - offset, originalCenter.z);
+        }
+        else
+        {
+            capsuleCollider.height = originalHeight; // vuelve al tamaño normal
+            capsuleCollider.center = originalCenter; // vuelve al centro normal
+        }
+
+        // Le pasa estado final al Animator
+        animator.SetBool("isCrawling", isCrawling);
+
+        //**Solo salta si se oprime el boton y si esta tocando el suelo y si no esta gateando
+        if (jumpAction.WasPressedThisFrame() && IsGrounded() && !isCrawling)
         {
             Jump();
         }
-
-        // IsPressed() es true si se presiona C, y false si se suelta.
-        // Se le pasa directamente al Animator.
-        animator.SetBool("isCrawling", crawlAction.IsPressed());
     }
     
     // Verifica toca el suelo
@@ -104,39 +135,19 @@ public class PlayerController : MonoBehaviour
     private void Walking()
     {
 
-        //Se comenta para que tambien avance cuando solo presiona la letra C
-        // moveAnim.y es 1 (W) o -1 (S) o 0 (nada). 
-        //animator.SetFloat("Speed", moveAnim.y);
-        //rigidbody.MovePosition(rigidbody.position + transform.forward * moveAnim.y * walkSpeed * Time.deltaTime);
-
-        //Guarda el input original (que presiona el jugador en W o S)
+         //Guarda el input original (que presiona el jugador en W o S)
         float inputY = moveAnim.y;
-        
-        //Revisa si el botón de gatear se presiono en este momento
-        bool isCrawling = crawlAction.IsPressed();
+
+        // Calcula la velocidad
+        float currentSpeed = walkSpeed;
 
         //Si gatea, forzar el valor a 1 (como si presionara la W)
         if (isCrawling)
         {
-            // Si se presiona la tecla S o joystick abajo para retroceder
-            if (moveAnim.y < -0.1f)
-            {
-                inputY = -1f; // Forzar el valor para retroceder por defecto
-            }
-            else
-            {
-                inputY = 1f; // si no toca S, avanza adelante
-            }
+           // Si está agachado (ya sea por el botón o por el techo), camina a la mitad de velocidad
+            currentSpeed = walkSpeed * 0.5f;
         }
-
-        //Reducir velocidad al gatear
-        float currentSpeed = walkSpeed;
-        if (isCrawling)
-        {
-            currentSpeed = walkSpeed * 0.5f; // Gatea a la mitad de velocidad normal
-        }
-
-        //Aplica la animación y el movimiento con las nuevas variables
+        //Aplica la animación y el movimiento con las nuevas variables 
         animator.SetFloat("Speed", inputY);
         rigidbody.MovePosition(rigidbody.position + transform.forward * inputY * currentSpeed * Time.deltaTime);
     }
