@@ -6,6 +6,15 @@ public class PlayerInteractor : MonoBehaviour
 {
     private IInteractable currentInteractable;
     private SystemsController systems;
+    private InventoryPanelUI inventoryPanel;
+
+    public InputActionAsset inputActions;
+    private InputAction interactAction;
+    private InputAction useInventoryAction;
+    private InputAction flashlightAction;
+    public bool doCollect;
+    public bool isFlashlightOn;
+    
 
     private void Awake()
     {
@@ -13,17 +22,52 @@ public class PlayerInteractor : MonoBehaviour
         systems = GetComponent<SystemsController>();
     }
 
+    private void Start() {
+        interactAction = InputSystem.actions.FindAction("Interact");
+        useInventoryAction = InputSystem.actions.FindAction("UseInventory");
+        flashlightAction = InputSystem.actions.FindAction("Flashlight");
+
+        inventoryPanel = GameObject.FindFirstObjectByType<InventoryPanelUI>();
+    }
+
+    private void Update() {
+        if (interactAction.WasPressedThisFrame())
+        {
+            doCollect = true;
+            ExecuteInteraction();        
+        }
+
+        if (interactAction.WasReleasedThisFrame()) doCollect = false;
+        if (useInventoryAction.WasPressedThisFrame()) inventoryPanel.inventoryPanel.transform.GetChild(inventoryPanel.selectedSlotIndex).GetComponent<InventorySlotUI>().UseThisItem();        
+        if (flashlightAction.WasPressedThisFrame()) ExecuteFlashLight();
+ 
+        
+    }
+
     // Este método se vincula en el Player Input (Mensaje: OnInteract)
-    public void OnInteract(InputAction.CallbackContext context)
+    public void ExecuteInteraction()
     {
         // Solo actuamos cuando se presiona la tecla (no cuando se suelta)
-        if (!context.started) return;
-
         if (currentInteractable != null)
         {
-            // Enviamos el ítem que tengas equipado en el SystemsController
-            currentInteractable.Interact(systems.selectedItem);
+            // Enviamos el ítem que tengas equipado en el SystemsController           
+            currentInteractable.Interact(inventoryPanel.inventoryPanel.transform.GetChild(inventoryPanel.selectedSlotIndex).GetComponent<InventorySlotUI>().currentItem);
         }
+    }
+
+    public void ExecuteFlashLight()
+    {
+        if (isFlashlightOn)
+            {
+                Debug.Log("light is turned off");
+                isFlashlightOn = false;
+            }
+
+            else
+            {
+                Debug.Log("light is turned on");
+                isFlashlightOn = true;
+            }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -46,7 +90,10 @@ public class PlayerInteractor : MonoBehaviour
                 Debug.Log("Cerca de objeto interactuable: " + other.name);
             }
         }
+        
     }
+
+
 
     private void OnTriggerExit(Collider other)
     {

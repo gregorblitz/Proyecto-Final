@@ -1,7 +1,7 @@
 //Fauto A. Gomez
 using UnityEngine;
 using System.Collections;
-using UnityEngine.InputSystem;
+
 
 public class ItemCollectible : MonoBehaviour
 {
@@ -9,30 +9,20 @@ public class ItemCollectible : MonoBehaviour
     public ItemData itemData;
     private bool canBeCollected;
     private bool doCollect;
-
-    private InputAction collectAction;
-    [Header("Pasar a PlayerController")]
-    public InputActionAsset inputActions;
-
-
-    private void Awake() {
-        collectAction = inputActions.FindActionMap("Player").FindAction("Interact");
-    }
+    private PlayerInteractor playerInteractor;
 
     private void OnEnable() {
         StartCoroutine(waitForCollectibleOnDroped());
     }
 
-    private void Update() {
-
-        
+    private void Start() {
+        playerInteractor = GameObject.FindWithTag("Player").GetComponent<PlayerInteractor>();
     }
 
     private void OnTriggerStay(Collider other)
     {
         
-
-        if (other.CompareTag("Player") && canBeCollected && collectAction.IsPressed())
+        if (other.CompareTag("Player") && canBeCollected && playerInteractor.doCollect)
         {
             Debug.Log($"Intentando recoger: {itemData.itemName}");
             // Intentamos añadirlo al Manager. Si hay éxito (true), destruimos el objeto de la escena.
@@ -41,6 +31,7 @@ public class ItemCollectible : MonoBehaviour
                 Debug.Log($"Recogido con éxito.");
                 DestroyCollectible();
             }
+            playerInteractor.doCollect = false;
         }
     }
 
@@ -49,7 +40,6 @@ public class ItemCollectible : MonoBehaviour
         Destroy(gameObject);
     }
     
-
 
     IEnumerator waitForCollectibleOnDroped()
     {

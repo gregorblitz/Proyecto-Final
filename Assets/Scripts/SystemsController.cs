@@ -24,6 +24,7 @@ public class SystemsController : MonoBehaviour
 
     public void EquipItem(ItemData item)
     {
+        Debug.Log("Entro a EquipItem en SystemController");
         selectedItem = item;
         if (item.type == ItemData.ItemType.Flashlight) hasFlashlight = true;
         Debug.Log($"Equipado: {item.itemName}");
