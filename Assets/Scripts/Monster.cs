@@ -59,17 +59,7 @@ public class Monster : MonoBehaviour
                 {
                     animator.SetTrigger("Attack"); // Dispara el golpe
 
-                    // Busca el script de danna en el jugador y le quita vida
-                    PlayerStatus pStatus = player.GetComponent<PlayerStatus>();
-                    if (pStatus != null)
-                    {
-                        // Le resta para hacer daño a la barra de salud
-                        pStatus.ModifyHealth(-attackDamage);
-                        Debug.Log("El monstruo ataca ", pStatus);
-                    }
-
-                    // Reinicia cronometro de ataque
-                    lastAttackTime = Time.time;
+                    lastAttackTime = Time.time; // Reinicia cronometro de ataque
                 }
             }
         }
@@ -97,5 +87,16 @@ public class Monster : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, detectDistance);
+    }
+    
+    // La llama la animacion en el momento exacto del golpe
+    public void ApplyDamageToPlayer()
+    {
+        PlayerStatus pStatus = player.GetComponent<PlayerStatus>();
+        if (pStatus != null)
+        {
+            pStatus.ModifyHealth(-attackDamage);
+            Debug.Log("El monstruo golpeo al jugador!!");
+        }
     }
 }
