@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerInteraction : MonoBehaviour
+public class PlayerInteractor : MonoBehaviour
 {
     public float range = 3.5f;
     public LayerMask interactLayer;
