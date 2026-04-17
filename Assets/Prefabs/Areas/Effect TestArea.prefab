@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 4229493566741309998}
   - component: {fileID: 468885636152437663}
   - component: {fileID: 6687912806609655789}
+  - component: {fileID: 8479815440767465075}
+  - component: {fileID: -1147005960943657016}
   m_Layer: 0
   m_Name: Effect TestArea
   m_TagString: Untagged
@@ -128,5 +130,38 @@ MonoBehaviour:
   effect: 0
   amountPerSecond: 10
   continuous: 1
-  gizmoColor: {r: 1, g: 0, b: 0, a: 1}
+  gizmoColor: {r: 1, g: 0, b: 0, a: 0.5411765}
   showGizmo: 1
+--- !u!114 &8479815440767465075
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6412151733537712306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44169455b032ec14288ab7e331beab07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AreaDetection
+  areaType: 0
+--- !u!114 &-1147005960943657016
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6412151733537712306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.AI.Navigation::Unity.AI.Navigation.NavMeshModifier
+  m_SerializedVersion: 0
+  m_OverrideArea: 0
+  m_Area: 0
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 1
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff

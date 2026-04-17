@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3745425462508279777}
   - component: {fileID: 4237123569595042713}
   - component: {fileID: 1394937088570666801}
+  - component: {fileID: 4771910093227242962}
   m_Layer: 0
   m_Name: Pico
   m_TagString: Untagged
@@ -126,3 +127,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemCollectible
   itemData: {fileID: 11400000, guid: f08d0a953cd77ec49927b3207d80fcc9, type: 2}
+  inputActions: {fileID: 0}
+--- !u!114 &4771910093227242962
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4554802606820546378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.AI.Navigation::Unity.AI.Navigation.NavMeshModifier
+  m_SerializedVersion: 0
+  m_OverrideArea: 0
+  m_Area: 0
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 1
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff

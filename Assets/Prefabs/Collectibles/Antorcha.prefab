@@ -141,6 +141,7 @@ GameObject:
   - component: {fileID: 3871231034485635172}
   - component: {fileID: 22267373210736154}
   - component: {fileID: 2885045146977786107}
+  - component: {fileID: -8001938899509696193}
   m_Layer: 0
   m_Name: Antorcha
   m_TagString: Untagged
@@ -255,6 +256,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemCollectible
   itemData: {fileID: 11400000, guid: 0d985777ed2a4f840891f7141cd239a9, type: 2}
+  inputActions: {fileID: 0}
 --- !u!54 &2885045146977786107
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -282,3 +284,23 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &-8001938899509696193
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8772619243546384318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.AI.Navigation::Unity.AI.Navigation.NavMeshModifier
+  m_SerializedVersion: 0
+  m_OverrideArea: 0
+  m_Area: 0
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 1
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff

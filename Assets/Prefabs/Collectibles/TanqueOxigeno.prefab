@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7759946678392166143}
   - component: {fileID: 3151846837304021099}
   - component: {fileID: 4530427368219871482}
+  - component: {fileID: -6281406354476296806}
   m_Layer: 0
   m_Name: TanqueOxigeno
   m_TagString: Untagged
@@ -126,3 +127,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemCollectible
   itemData: {fileID: 11400000, guid: 888b7cfd5deaaf84b8e522d16232de53, type: 2}
+  inputActions: {fileID: 0}
+--- !u!114 &-6281406354476296806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 758408014883233165}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.AI.Navigation::Unity.AI.Navigation.NavMeshModifier
+  m_SerializedVersion: 0
+  m_OverrideArea: 0
+  m_Area: 0
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 1
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff

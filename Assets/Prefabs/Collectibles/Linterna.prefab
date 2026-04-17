@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2444658078341929173}
   - component: {fileID: 8880090916120639912}
   - component: {fileID: 9003325724549748976}
+  - component: {fileID: -465960105230631035}
   m_Layer: 0
   m_Name: Linterna
   m_TagString: Untagged
@@ -126,3 +127,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemCollectible
   itemData: {fileID: 11400000, guid: 295af92c134417c448104aeeacd96262, type: 2}
+  inputActions: {fileID: 0}
+--- !u!114 &-465960105230631035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6300779988885612563}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.AI.Navigation::Unity.AI.Navigation.NavMeshModifier
+  m_SerializedVersion: 0
+  m_OverrideArea: 0
+  m_Area: 0
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 1
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
