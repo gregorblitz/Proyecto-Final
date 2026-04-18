@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
     private InputAction attackAction; // Accion para atacar
 
     private Vector2 moveAnim;
-    private Vector2 lookAnim;
+    private Vector2 lookAnim;  // Guarda movimiento raton
     private Animator animator;
     private Rigidbody rigidbody;
     private CapsuleCollider capsuleCollider; // Para saber la altura del jugador
@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour
     
     [Header("Variables movimiento")]
     public float walkSpeed = 5;
-    public float rotateSpeed = 150;
+    public float rotateSpeed = 15; // Sensibilidad del raton
     public float jumpSpeed = 5;
     public float runSpeed = 7; // Velocidad al correr
 
@@ -50,7 +50,7 @@ public class PlayerController : MonoBehaviour
         //
         //***Se lee lo del mapa local en lugar del global
         moveAction = playerMap.FindAction("Move");   // Busca la accion Move
-        lookAction = playerMap.FindAction("Look");
+        lookAction = playerMap.FindAction("Look");   // Busca la accion Look
         jumpAction = playerMap.FindAction("Jump");   // Busca la accion Jump
         crawlAction = playerMap.FindAction("Crawl"); // Busca la accion Crawl
         runAction = playerMap.FindAction("Sprint");  // Busca la accion Sprint
@@ -72,6 +72,11 @@ public class PlayerController : MonoBehaviour
             originalCenter = capsuleCollider.center;
         }
 
+        // Bloquea el raton 
+        // Oculta el cursor y lo bloquea en el centro para que no se salga de la ventana al girar
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+
     }
 
     //ENCENDIDO Y APAGADO DE LOS CONTROLES
@@ -90,6 +95,10 @@ public class PlayerController : MonoBehaviour
     {
         // Lee el movimiento W, A, S, D
         moveAnim = moveAction.ReadValue<Vector2>();
+
+        // Lee el movimiento del raton
+        lookAnim = lookAction.ReadValue<Vector2>();
+
         // isCrawling es true si se oprime el botón
         isCrawling = crawlAction.IsPressed();
         isRunning = runAction.IsPressed(); // Lee si tiene presionado Shift
@@ -115,7 +124,7 @@ public class PlayerController : MonoBehaviour
         bool isFrozen = Time.time < unfreezeTime;
 
         //**Solo salta si se oprime el boton y si esta tocando el suelo y si no esta gateando
-        if (jumpAction.WasPressedThisFrame() && IsGrounded() && !isCrawling)
+        if (jumpAction.WasPressedThisFrame() && IsGrounded() && !isCrawling && !isFrozen)
         {
             Jump();
         }
@@ -167,8 +176,9 @@ public class PlayerController : MonoBehaviour
             animator.SetFloat("Speed", 0); // Le dice a la animacion --> piernas quietas
             return; // corta aqui y lo demas no se ejecuta
         }
-        //Guarda el input original (que presiona el jugador en W o S)
-        float inputY = moveAnim.y;
+
+        float inputY = moveAnim.y; // W y S Adelante/Atras
+        float inputX = moveAnim.x; // A y D Izq/Der
 
         // Calcula la velocidad
         float currentSpeed = walkSpeed;
@@ -188,17 +198,39 @@ public class PlayerController : MonoBehaviour
             // Fuerza el inputY a 2 para activar la animacion de correr
             inputY = 2f; 
         }
-        //Aplica la animación y el movimiento con las nuevas variables 
-        animator.SetFloat("Speed", inputY);
-        rigidbody.MovePosition(rigidbody.position + transform.forward * inputY * currentSpeed * Time.deltaTime);
+        // Movimiento multidireccional
+        // Combina vector frontal (Z) con vector lateral (X)
+        Vector3 moveDirection = (transform.forward * inputY) + (transform.right * inputX);
+        
+        // Normaliza para no correr mas rapido al ir en diagonal (W + D mismo tiempo)
+        if (moveDirection.magnitude > 1f)
+        {
+            moveDirection.Normalize();
+        }
+
+        // ANIMACION ACTUALIZADA
+        float animSpeed = inputY; 
+        
+        // Si mov hacia los lados pero no adelante fuerza el num de animacion 
+        // a algo mayor a 0 para que mueva las piernas
+        if (Mathf.Abs(inputX) > 0 && inputY == 0) 
+        {
+            animSpeed = Mathf.Abs(inputX); 
+        }
+        if (isRunning && inputY > 0) animSpeed = 2f;
+
+        animator.SetFloat("Speed", animSpeed);
+
+        // Aplica mov fisico en todas direcciones
+        rigidbody.MovePosition(rigidbody.position + moveDirection * currentSpeed * Time.deltaTime);
     }
 
     private void Rotating()
     {
-        // Solo gira si el valor de movimiento es mayor a 0.05 para evitar el giro fantasma
-        if (Mathf.Abs(moveAnim.x) > 0.05f)
+        // los deltas del ratón pueden ser pequeños o negativos, por esto su valor absoluto
+        if (Mathf.Abs(lookAnim.x) > 0.01f)
         {
-            float rotationAmount = moveAnim.x * rotateSpeed * Time.fixedDeltaTime;
+            float rotationAmount = lookAnim.x * rotateSpeed * Time.fixedDeltaTime;
             Quaternion deltaRotation = Quaternion.Euler(0, rotationAmount, 0);
             rigidbody.MoveRotation(rigidbody.rotation * deltaRotation);
         }

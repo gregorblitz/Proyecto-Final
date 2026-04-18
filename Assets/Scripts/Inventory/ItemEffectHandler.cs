@@ -12,12 +12,20 @@ public class ItemEffectHandler : MonoBehaviour
     private FA_InventoryPanelUI inventoryPanel;
     private bool isFlashlightOn = false;
 
+    // SISTEMA DE ARMAS
+    [Header("Sistema de Armas")]
+    public GameObject pickaxeInHand; // va la pica apagada en la mano
+    private Animator animator;
+
     private void Awake()
     {
         // Buscamos el componente PlayerStatus en el jugador
         playerStatus = GetComponent<PlayerStatus>();
+        animator = GetComponentInChildren<Animator>(); // Busca el Animator para cambiar de postura
+
         useInventoryAction = InputSystem.actions.FindAction("UseInventory");
         flashlightAction = InputSystem.actions.FindAction("Flashlight");
+        
     }
 
     private void Start() {
@@ -71,11 +79,38 @@ public class ItemEffectHandler : MonoBehaviour
                     break;
             }
         }
-        else 
+        else
         {
             // Lógica para Herramientas (Pico, Linterna, etc.)
             Debug.Log($"Activando herramienta: {item.itemName}");
             // Aquí llamarías al sistema de equipo que están desarrollando tus compañeros
+            // Verifica si el item es Pica o Pico segun este en ItemData
+            if (item.itemName == "Pica" || item.itemName == "Pico") 
+            {
+                EquipPickaxe();
+            }
+        }
+    }
+
+    // FUNCION PARA EQUIPAR
+    // Recoge la pica del suelo -> Va al inventario -> clic izq -> llama a UseThisItem() -> 
+    // llama a ItemEffectHandler -> SetActive(true) activa la pica invisible de la mano
+    private void EquipPickaxe()
+    {
+        if (pickaxeInHand != null)
+        {
+            pickaxeInHand.SetActive(true); // Enciende la pica visualmente
+            
+            if (animator != null)
+            {
+                animator.SetBool("isArmed", true); // Opcional: Le avisa al Animator que tienes arma
+            }
+            
+            Debug.Log("Pica en la mano");
+        }
+        else
+        {
+            Debug.LogWarning("No hay GameObject pica en el script ItemEffectHandler");
         }
     }
 
