@@ -39,7 +39,6 @@ public class GameManager : MonoBehaviour
             float alpha = Mathf.Lerp(1f, 0f, t);
 
             Time.timeScale = alpha;
-            Debug.Log("Current time scale is " + alpha);
             yield return null;
         }
 
