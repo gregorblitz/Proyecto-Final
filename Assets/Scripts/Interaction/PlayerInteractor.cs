@@ -14,15 +14,22 @@ public class PlayerInteractor : MonoBehaviour
     private InputAction flashlightAction;
     public bool doCollect;
     public bool isFlashlightOn;
-    
+
+    // NUEVO: referencia directa al controlador de linterna
+    private FlashlightController flashlightController;
 
     private void Awake()
     {
-        // Obtenemos la referencia al controlador de ítems
         systems = GetComponent<SystemsController>();
+
+        // Buscamos la linterna en los hijos del jugador
+        flashlightController = GetComponentInChildren<FlashlightController>();
+        if (flashlightController == null)
+            Debug.LogWarning("PlayerInteractor: no encontró FlashlightController en los hijos");
     }
 
-    private void Start() {
+    private void Start()
+    {
         interactAction = InputSystem.actions.FindAction("Interact");
         useInventoryAction = InputSystem.actions.FindAction("UseInventory");
         flashlightAction = InputSystem.actions.FindAction("Flashlight");
@@ -30,70 +37,65 @@ public class PlayerInteractor : MonoBehaviour
         inventoryPanel = GameObject.FindFirstObjectByType<InventoryPanelUI>();
     }
 
-    private void Update() {
+    private void Update()
+    {
         if (interactAction.WasPressedThisFrame())
         {
             doCollect = true;
-            ExecuteInteraction();        
+            ExecuteInteraction();
         }
 
         if (interactAction.WasReleasedThisFrame()) doCollect = false;
-        if (useInventoryAction.WasPressedThisFrame()) inventoryPanel.inventoryPanel.transform.GetChild(inventoryPanel.selectedSlotIndex).GetComponent<InventorySlotUI>().UseThisItem();        
+        if (useInventoryAction.WasPressedThisFrame())
+            inventoryPanel.inventoryPanel.transform.GetChild(inventoryPanel.selectedSlotIndex)
+                .GetComponent<InventorySlotUI>().UseThisItem();
+
+        // FIX: ahora sí llama al FlashlightController real
         if (flashlightAction.WasPressedThisFrame()) ExecuteFlashLight();
- 
-        
     }
 
-    // Este método se vincula en el Player Input (Mensaje: OnInteract)
     public void ExecuteInteraction()
     {
-        // Solo actuamos cuando se presiona la tecla (no cuando se suelta)
         if (currentInteractable != null)
         {
-            // Enviamos el ítem que tengas equipado en el SystemsController           
-            currentInteractable.Interact(inventoryPanel.inventoryPanel.transform.GetChild(inventoryPanel.selectedSlotIndex).GetComponent<InventorySlotUI>().currentItem);
+            currentInteractable.Interact(
+                inventoryPanel.inventoryPanel.transform
+                    .GetChild(inventoryPanel.selectedSlotIndex)
+                    .GetComponent<InventorySlotUI>().currentItem
+            );
         }
     }
 
     public void ExecuteFlashLight()
     {
-        if (isFlashlightOn)
-            {
-                Debug.Log("light is turned off");
-                isFlashlightOn = false;
-            }
-
-            else
-            {
-                Debug.Log("light is turned on");
-                isFlashlightOn = true;
-            }
+        // FIX PRINCIPAL: delegar al FlashlightController en vez de solo cambiar un bool
+        if (flashlightController != null)
+        {
+            flashlightController.TryToggle();
+            isFlashlightOn = flashlightController.isOn; // sincronizamos el bool visual
+            Debug.Log("Linterna toggled. Estado: " + (isFlashlightOn ? "ON" : "OFF"));
+        }
+        else
+        {
+            Debug.LogWarning("No hay FlashlightController. ¿Equipaste la linterna primero?");
+        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        // Buscamos si el objeto o sus padres tienen la interfaz
         IInteractable interactable = other.GetComponentInParent<IInteractable>();
-        
+
         if (interactable != null)
         {
             currentInteractable = interactable;
 
-            // Verificamos si es específicamente una puerta para mostrar el mensaje de la llave
             DoorController door = other.GetComponentInParent<DoorController>();
             if (door != null)
-            {
                 Debug.Log($"[{door.objectName}] : {door.GetInteractionMessage()}");
-            }
             else
-            {
                 Debug.Log("Cerca de objeto interactuable: " + other.name);
-            }
         }
-        
     }
-
-
 
     private void OnTriggerExit(Collider other)
     {

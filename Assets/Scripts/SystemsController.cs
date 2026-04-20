@@ -5,20 +5,31 @@ using UnityEngine.InputSystem;
 public class SystemsController : MonoBehaviour
 {
     [Header("Configuración Linterna")]
-    public GameObject flashlightLight; 
+    public GameObject flashlightLight;
     public bool hasFlashlight = false;
     private bool isFlashlightOn = false;
 
-    [Header("Estado del Jugador")]
-    public ItemData selectedItem; // El ítem que el jugador "activó" en el inventario
+    // NUEVO: referencia al controlador de lógica
+    private FlashlightController flashlightController;
 
-    // Acción vinculada a la linterna (Sugerencia: Tecla F)
+    [Header("Estado del Jugador")]
+    public ItemData selectedItem;
+
+    private void Awake()
+    {
+        // Buscamos el FlashlightController en el jugador o sus hijos
+        flashlightController = GetComponentInChildren<FlashlightController>();
+        if (flashlightController == null)
+            Debug.LogWarning("No se encontró FlashlightController en el jugador");
+    }
+
     public void OnToggleFlashlight(InputAction.CallbackContext context)
     {
-        if (context.started && hasFlashlight)
+        if (context.started)
         {
-            isFlashlightOn = !isFlashlightOn;
-            flashlightLight.SetActive(isFlashlightOn);
+            // Ahora delega al controlador real
+            if (flashlightController != null)
+                flashlightController.TryToggle();
         }
     }
 
@@ -26,7 +37,15 @@ public class SystemsController : MonoBehaviour
     {
         Debug.Log("Entro a EquipItem en SystemController");
         selectedItem = item;
-        if (item.type == ItemData.ItemType.Flashlight) hasFlashlight = true;
+
+        if (item.type == ItemData.ItemType.Flashlight)
+        {
+            hasFlashlight = true;
+            // Le avisamos al controlador de linterna
+            if (flashlightController != null)
+                flashlightController.EquipFlashlight(item);
+        }
+
         Debug.Log($"Equipado: {item.itemName}");
     }
 }

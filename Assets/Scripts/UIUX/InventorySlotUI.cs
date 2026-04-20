@@ -32,6 +32,7 @@ public class InventorySlotUI : MonoBehaviour, IPointerClickHandler
     {
         currentItem = null;
         icon.sprite = null;
+        icon.enabled = false;
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -83,9 +84,7 @@ public class InventorySlotUI : MonoBehaviour, IPointerClickHandler
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player == null) return;
 
-        // --- CONEXIÓN SEGURA ---
-        
-        // 1. Buscamos el SystemsController (tu script) para marcar el ítem como "Activo"
+        // 1. Marcar como item en mano
         SystemsController systems = player.GetComponent<SystemsController>();
         if (systems != null)
         {
@@ -93,7 +92,42 @@ public class InventorySlotUI : MonoBehaviour, IPointerClickHandler
             Debug.Log($"[Inventario] {currentItem.itemName} ahora está en la mano.");
         }
 
-        // 2. Llamamos al efecto (salud, oxígeno, etc.) sin modificar el script de Danna
+        // =========================
+        // LINTERNA
+        // =========================
+        if (currentItem.type == ItemData.ItemType.Flashlight)
+        {
+            FlashlightController fc = player.GetComponentInChildren<FlashlightController>();
+            if (fc != null)
+            {
+                fc.EquipFlashlight(currentItem);
+
+                // Mostrar HUD
+                FlashlightUI flashUI = FindFirstObjectByType<FlashlightUI>();
+                if (flashUI != null) flashUI.ShowFlashlightHUD();
+            }
+            return; // NO se consume
+        }
+
+        // =========================
+        // BATERÍA
+        // =========================
+        if (currentItem.type == ItemData.ItemType.Battery)
+        {
+            FlashlightController fc = player.GetComponentInChildren<FlashlightController>();
+            if (fc != null)
+            {
+                fc.RechargeBattery(currentItem.batteryCapacity);
+
+                InventoryManager.Instance.RemoveItem(currentItem);
+                ClearSlot();
+            }
+            return; // ya se procesó
+        }
+
+        // =========================
+        // 2. Efectos normales (salud, oxígeno, etc.)
+        // =========================
         ItemEffectHandler effectHandler = player.GetComponent<ItemEffectHandler>();
         if (effectHandler != null && currentItem != null)
         {
@@ -104,7 +138,6 @@ public class InventorySlotUI : MonoBehaviour, IPointerClickHandler
                 InventoryManager.Instance.RemoveItem(currentItem);
                 ClearSlot();
                 
-                // Si se consume, ya no lo tenemos en la mano
                 if (systems != null) systems.selectedItem = null;
             }
         }
