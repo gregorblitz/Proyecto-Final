@@ -94,18 +94,24 @@ public class CreatureController : MonoBehaviour
     {
         if (currentState == CreatureState.Hidden) return;
 
+        // ACTUALIZACIÓN CRÍTICA: Calculamos la distancia siempre que el jugador exista
+        if (player != null)
+        {
+            distanceToPlayer = Vector3.Distance(transform.position, player.position);
+        }
+
         switch (currentState)
         {
             case CreatureState.Idle: HandleIdle(); break;
             case CreatureState.Patrolling: HandlePatrolling(); break;
             case CreatureState.Alert: HandleAlert(); break;
-            case CreatureState.Stalking: HandleStalking(); break; // Nuevo estado
+            case CreatureState.Stalking: HandleStalking(); break;
             case CreatureState.Hunting: HandleHunting(); break;
             case CreatureState.Attacking: HandleAttacking(); break;
             case CreatureState.Fleeing: HandleFleeing(); break;
         }
 
-        // Detección base sigue igual
+        // El resto de la detección base permanece igual
         if (currentState == CreatureState.Idle || currentState == CreatureState.Patrolling)
         {
             if (CanSeePlayer()) ChangeState(CreatureState.Alert);
@@ -282,7 +288,6 @@ public class CreatureController : MonoBehaviour
     private bool CanSeePlayer()
     {
         Vector3 directionToPlayer = (player.position - transform.position).normalized;
-        distanceToPlayer = Vector3.Distance(transform.position, player.position);
 
         if (distanceToPlayer < fieldOfViewDetectionRange)
         {
