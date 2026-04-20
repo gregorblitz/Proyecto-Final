@@ -73,6 +73,7 @@ public class ScreenEffectsController : MonoBehaviour
     Volume currentVolume;
 
 #region MONOBEHAVIOUR
+
     private void Awake() {
         GetFullScreenFeatures();
         creatureController = GameObject.FindFirstObjectByType<CreatureController>();

@@ -18,6 +18,15 @@ public class PlayerInteractor : MonoBehaviour
     // NUEVO: referencia directa al controlador de linterna
     private FlashlightController flashlightController;
 
+    // SISTEMA DE ARMA PARA ATAQUE
+    [Header("Arma para ataque")]
+    public GameObject pickaxeInHand; // Poner aqui la pica
+    private Animator animator;
+
+    /*modificacion del metodo start para incluir el arma
+    private void Start() => systems = GetComponent<SystemsController>();
+    */
+
     private void Awake()
     {
         systems = GetComponent<SystemsController>();
@@ -26,6 +35,7 @@ public class PlayerInteractor : MonoBehaviour
         flashlightController = GetComponentInChildren<FlashlightController>();
         if (flashlightController == null)
             Debug.LogWarning("PlayerInteractor: no encontró FlashlightController en los hijos");
+            
     }
 
     private void Start()
@@ -35,6 +45,9 @@ public class PlayerInteractor : MonoBehaviour
         flashlightAction = InputSystem.actions.FindAction("Flashlight");
 
         inventoryPanel = GameObject.FindFirstObjectByType<InventoryPanelUI>();
+
+        // Busca el animator en el modelo 3D del jugador
+        animator = GetComponentInChildren<Animator>();
     }
 
     private void Update()
@@ -104,6 +117,29 @@ public class PlayerInteractor : MonoBehaviour
         {
             currentInteractable = null;
             Debug.Log("Te alejaste del objeto");
+        }
+    }
+
+    // METODO PARA EQUIPAR PICA
+    // Funcion que se llama desde el sistema de inventario cuando selecciona la pica
+    public void EquipPickaxe()
+    {
+        if (pickaxeInHand != null)
+        {
+            // Encendemos la pica visualmente
+            pickaxeInHand.SetActive(true);
+            
+            if (animator != null)
+            {
+                // Le decimos al Animator que cambie la postura de las manos
+                animator.SetBool("isArmed", true); 
+            }
+            
+            Debug.Log("Pica equipada y lista para atacar");
+        }
+        else
+        {
+            Debug.LogWarning("No hay ningun objeto pica en el script ");
         }
     }
 }
