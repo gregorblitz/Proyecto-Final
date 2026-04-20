@@ -1,8 +1,18 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 // Script creado por Danna. Contanctar con ella antes de hacer cambios significativos para evitar conflictos.
 public class DamageZone : MonoBehaviour
 {
+
+    public static UnityEvent OnHealthDamageArea = new UnityEvent();
+    public static UnityEvent OnOxygenLossArea = new UnityEvent();
+    public static UnityEvent OnMadnessGainArea = new UnityEvent();
+    public static UnityEvent OnSanityGainArea = new UnityEvent();
+    public static UnityEvent OnOutOfArea = new UnityEvent();
+
+    public static int test = 5;
+
     public enum EffectType { HealthDamage, OxygenLoss, MadnessGain, SanityGain }
     public EffectType effect;
     public float amountPerSecond = 10f;
@@ -32,12 +42,21 @@ public class DamageZone : MonoBehaviour
             if (continuous) InvokeRepeating("ApplyEffect", 0f, 1f);
             else ApplyEffect();
         }
+
+        switch (effect)
+        {
+            case EffectType.HealthDamage: OnHealthDamageArea?.Invoke(); break;
+            case EffectType.MadnessGain: OnMadnessGainArea?.Invoke(); break;
+            case EffectType.OxygenLoss: OnOxygenLossArea?.Invoke(); break;
+            case EffectType.SanityGain: OnSanityGainArea?.Invoke(); break;
+        }
     }
 
     void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player") && continuous) 
-            CancelInvoke("ApplyEffect");
+        if (other.CompareTag("Player") && continuous) CancelInvoke("ApplyEffect");
+
+        DamageZone.OnOutOfArea?.Invoke();
     }
 
     void ApplyEffect()

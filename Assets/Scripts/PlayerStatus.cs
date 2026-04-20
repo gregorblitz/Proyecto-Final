@@ -10,7 +10,7 @@ public class PlayerStatus : MonoBehaviour
     public UnityEvent<float, float> OnOxygenChanged;
     public UnityEvent<float, float> OnMadnessChanged;
     public UnityEvent OnPlayerDeath;
-    public UnityEvent OnMadnessThresholdReached;       // al superar 70
+    public UnityEvent OnMadnessSpawnTreesholdReached;       // al superar 70
     public UnityEvent OnMadnessMaxReached;             // al llegar a 100
 
     private float currentHealth;
@@ -24,7 +24,7 @@ public class PlayerStatus : MonoBehaviour
         currentHealth = playerStatusData.maxHealth;
         currentOxygen = playerStatusData.maxOxygen;
         currentMadness = 0f;
-        InvokeRepeating("TickStatus", 1f, 1f);
+        InvokeRepeating("TickStatus", playerStatusData.tickSpeed, playerStatusData.tickSpeed);
     }
 
     void TickStatus()
@@ -38,7 +38,7 @@ public class PlayerStatus : MonoBehaviour
         ModifyMadness(playerStatusData.madnessIncreaseRate);
 
         // Regeneración de salud si oxígeno alto y locura baja
-        if (currentOxygen > 80f && currentMadness < 20f)
+        if (currentOxygen > playerStatusData.oxygenHighTreeshold && currentMadness < playerStatusData.madnessLowTreeshold)
             ModifyHealth(playerStatusData.healthRegenRate);
     }
 
@@ -65,12 +65,12 @@ public class PlayerStatus : MonoBehaviour
         OnMadnessChanged?.Invoke(currentMadness, playerStatusData.maxMadness);
 
         // Umbral 70
-        if (currentMadness >= playerStatusData.madnessThresholdForEnemies && !thresholdEventSent)
+        if (currentMadness >= playerStatusData.madnessSpawnsEnemiesThreshold && !thresholdEventSent)
         {
             thresholdEventSent = true;
-            OnMadnessThresholdReached?.Invoke();
+            OnMadnessSpawnTreesholdReached?.Invoke();
         }
-        else if (currentMadness < playerStatusData.madnessThresholdForEnemies)
+        else if (currentMadness < playerStatusData.madnessSpawnsEnemiesThreshold)
         {
             thresholdEventSent = false;
         }
@@ -112,12 +112,12 @@ public class PlayerStatus : MonoBehaviour
     [ContextMenu("Test/Llevar locura a 75 (umbral)")]
     void TestMadnessThreshold()
     {
-        currentMadness = playerStatusData.madnessThresholdForEnemies;
+        currentMadness = playerStatusData.madnessSpawnsEnemiesThreshold;
         OnMadnessChanged?.Invoke(currentMadness, playerStatusData.maxMadness);
-        if (currentMadness >= playerStatusData.madnessThresholdForEnemies && !thresholdEventSent)
+        if (currentMadness >= playerStatusData.madnessSpawnsEnemiesThreshold && !thresholdEventSent)
         {
             thresholdEventSent = true;
-            OnMadnessThresholdReached?.Invoke();
+            OnMadnessSpawnTreesholdReached?.Invoke();
         }
     }
 

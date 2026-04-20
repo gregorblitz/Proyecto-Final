@@ -9,7 +9,8 @@ public class AreaDetection : MonoBehaviour
 
     private void Start() {
       //  gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
-      playerStatus = GameObject.FindWithTag("Player").GetComponent<PlayerStatus>();
+        playerStatus = GameObject.FindWithTag("Player").GetComponent<PlayerStatus>();
+
     }
 
     private void OnTriggerEnter(Collider other) {
@@ -44,4 +45,5 @@ public class AreaDetection : MonoBehaviour
         }
         
     }
+
 }
