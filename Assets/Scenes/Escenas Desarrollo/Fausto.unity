@@ -3269,7 +3269,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f729e3b01e4d8043a4041a3ffc88663, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FlashlightController
-  lightObject: {fileID: 1557953984}
+  lightObject: {fileID: 2010899596}
   maxBattery: 100
   drainRate: 5
   currentBattery: 0

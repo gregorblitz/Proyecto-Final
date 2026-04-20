@@ -81,7 +81,7 @@ public class PlayerInteractor : MonoBehaviour
 
     public void ExecuteFlashLight()
     {
-        // FIX PRINCIPAL: delegar al FlashlightController en vez de solo cambiar un bool
+        // Delegar al FlashlightController en vez de solo cambiar un bool
         if (flashlightController != null)
         {
             flashlightController.TryToggle();
