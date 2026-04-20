@@ -1,11 +1,9 @@
 // Fausto A. Gómez
 using UnityEngine;
-
 [CreateAssetMenu(fileName = "New Item Data", menuName = "Inventario/Item Data")]
 public class ItemData : ScriptableObject
 {
-    public enum ItemType { Consumable, Tool, Key, Flashlight }
-
+    public enum ItemType { Consumable, Tool, Key, Flashlight, Battery }
     [Header("Identificación")]
     public string itemName;
     public ItemType type;
@@ -20,14 +18,17 @@ public class ItemData : ScriptableObject
 
     [Header("Propiedades")]
     public bool isConsumable;
-    // Aquí podrías añadir un valor si es consumible, ej: cantidad de curación
 
-    // En tu script ItemData.cs existente, añade:
     public enum ItemEffect { None, Heal, RestoreOxygen, ReduceMadness }
     [Header("Efectos")]
     public ItemEffect effectType;
     public float effectAmount;
+
     [Header("Lógica")]
-    public float value; // Ej: Salud a recuperar o batería
-    public string interactionID; // ID para puertas (Ej: "Llave_Sotano")
+    public float value;
+    public string interactionID;
+
+    // NUEVO: para la linterna y batería
+    [Header("Linterna / Batería")]
+    public float batteryCapacity = 100f; // cuánta carga tiene este ítem
 }
