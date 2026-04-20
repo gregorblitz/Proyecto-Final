@@ -2255,6 +2255,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6689476675589856511, guid: 1cbb900254d6d8f4f962c8c851de9cfd, type: 3}
+      propertyPath: matForStalking
+      value: 
+      objectReference: {fileID: -876546973899608171, guid: 803f430d9d2980d4ea7543565fb158b1, type: 3}
+    - target: {fileID: 6689476675589856511, guid: 1cbb900254d6d8f4f962c8c851de9cfd, type: 3}
       propertyPath: volumeForStalking
       value: 
       objectReference: {fileID: 1622241256}

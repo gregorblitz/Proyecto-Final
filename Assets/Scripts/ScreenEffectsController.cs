@@ -57,6 +57,8 @@ public class ScreenEffectsController : MonoBehaviour
 
     public float maxFog = 0.1f;
     public float minFog = 0.5f;
+    public float maxStatic = 0.1f;
+    public float minStatic = 0.5f;
     public float maxDistanceFromPlayer = 10;
     public float minDistanceFromPlayer = 2;
 
@@ -71,6 +73,7 @@ public class ScreenEffectsController : MonoBehaviour
 
     bool canSwitchVolume = true;
     Volume currentVolume;
+    Material currentMaterial;
 
 #region MONOBEHAVIOUR
 
@@ -89,11 +92,14 @@ public class ScreenEffectsController : MonoBehaviour
             n.enabled = false;
         }
         allVolumes[0].enabled = true;
-        currentVolume = null;            
+        currentVolume = null;
+        currentMaterial = null;            
     }
 
     private void LateUpdate() {
+        
         UpdateFog();
+        if (CreatureRendererRef.passMaterial != null) UpdateScreenStatic();
     }
 
     #region SUSCRIPCION EVENTOS
@@ -152,10 +158,18 @@ public class ScreenEffectsController : MonoBehaviour
             result = Mathf.Lerp(maxFog, minFog, t);
         }
 
+
         RenderSettings.fogDensity = result;
         RenderSettings.fog = true;
 
+
         //Debug.Log("Current fog density is " + RenderSettings.fogDensity + "\nCurrent Distance to player is " + currentDistance);
+    }
+
+    private void UpdateScreenStatic()
+    {
+        float t = Mathf.InverseLerp(minDistanceFromPlayer, maxDistanceFromPlayer, creatureController.distanceToPlayer);
+        CreatureRendererRef.passMaterial.SetFloat("_Static_Intensity", Mathf.Lerp(maxStatic, minStatic, t));
     }
 
 #region EFECTOS ESTADO DEL JUGADOR
@@ -187,11 +201,13 @@ public class ScreenEffectsController : MonoBehaviour
     public void EffectsForStalking()
     {
         UpdateVolume(volumeForStalking);
+        UpdateMaterial(matForStalking,CreatureRendererRef);
     }
 
     public void EffectsForOnIdleOrPatrolling()
     {
         UpdateVolume(null);
+        UpdateMaterial(null, CreatureRendererRef);
     }
 #endregion
 
@@ -223,10 +239,10 @@ public class ScreenEffectsController : MonoBehaviour
         if (volumeToApply == null)
         {
             if(currentVolume == null) return;
-            currentVolume.enabled = false;
+            StartCoroutine(SwitchVolumes(transitionSpeed, volumeToApply));    
             return;
         }
-        if (volumeToApply != currentVolume && canSwitchVolume)
+        else if (volumeToApply != currentVolume && canSwitchVolume)
         {
             canSwitchVolume = false;
             StartCoroutine(SwitchVolumes(transitionSpeed, volumeToApply));         
@@ -241,29 +257,47 @@ public class ScreenEffectsController : MonoBehaviour
         RendererRefToUse.SetActive(true);
         RendererRefToUse.passMaterial = matToApply;
         RendererRefToUse.SetActive(true);
+        currentMaterial = matToApply;
         print("SWITCH TO " + matToApply + " MATERIAL WAS SUCESSFULL");
     }    
 
     private IEnumerator SwitchVolumes(float speed, Volume newVolume)
     {
-        newVolume.enabled = true;
-        newVolume.weight = 0f;
-        while (newVolume.weight < 1)
-        {
-            newVolume.weight += Time.deltaTime * speed;
-            if(currentVolume != null) currentVolume.weight -= Time.deltaTime * speed;
-            yield return null;
+        if (newVolume != null){
+            newVolume.enabled = true;
+            newVolume.weight = 0f;
+            
+            while (newVolume.weight < 1)
+            {
+                newVolume.weight += Time.deltaTime * speed;
+                if(currentVolume != null) currentVolume.weight -= Time.deltaTime * speed;
+                yield return null;
+            }
+            newVolume.weight = 1;
+
+            if(currentVolume != null)
+            {
+                currentVolume.enabled = false;
+            }        
+            currentVolume = newVolume;
+
+            canSwitchVolume = true;
+            print("SWITCH TO " + newVolume + " WAS SUCESSFULL");
         }
 
-        newVolume.weight = 1;
-        if(currentVolume != null)
+        else
         {
-            currentVolume.enabled = false;
-        }        
-        currentVolume = newVolume;
+            while (currentVolume.weight > 0.01)
+            {
+                currentVolume.weight -= Time.deltaTime * speed;
+                yield return null;
+            }
 
-        canSwitchVolume = true;
-        print("SWITCH TO " + newVolume + " WAS SUCESSFULL");
+            currentVolume.weight = 0;
+            currentVolume = null;
+        }
+
+       
     }
 
     private IEnumerator SwitchRenderFeature(float speed, Volume newVolume)
