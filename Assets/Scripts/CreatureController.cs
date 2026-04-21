@@ -132,7 +132,12 @@ public class CreatureController : MonoBehaviour
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
 
         stateTimer += Time.deltaTime;
-        if (stateTimer >= alertDuration)
+        if (distanceToPlayer <= stalkingRange)
+        {
+            ChangeState(CreatureState.Stalking);
+        }
+
+        else if (stateTimer >= alertDuration)
         {
             ChangeState(CreatureState.Hunting);
         }
@@ -175,14 +180,16 @@ public class CreatureController : MonoBehaviour
         agent.SetDestination(player.position);
 
         // Si entra en rango de acecho, se detiene[cite: 12]
-        if (distanceToPlayer <= stalkingRange && distanceToPlayer > attackRange)
-        {
-            ChangeState(CreatureState.Stalking);
-        }
+        
 
         if (distanceToPlayer <= attackRange)
         {
             ChangeState(CreatureState.Attacking);
+        }
+
+        if (distanceToPlayer <= stalkingRange)
+        {
+            ChangeState(CreatureState.Stalking);
         }
     }
 

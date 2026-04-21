@@ -72,7 +72,7 @@ public class ScreenEffectsController : MonoBehaviour
     private FullScreenPassRendererFeature CreatureRendererRef;
     private FullScreenPassRendererFeature ScreenNoiseRendererRef;  
 
-    bool canSwitchVolume = true;
+    //bool canSwitchVolume = true;
     bool isInDanger = false;
     Volume currentVolume;
     //Material currentMaterial;
@@ -181,11 +181,13 @@ public class ScreenEffectsController : MonoBehaviour
         ScreenNoiseRendererRef.passMaterial.SetFloat("_opacity", Mathf.Lerp(1f, 0.9f, t ));
         //CreatureRendererRef.passMaterial.SetFloat("_sizeOfCells", Mathf.Lerp(20, 10, t ));
         ScreenNoiseRendererRef.passMaterial.SetFloat("_spreadOnScreen", Mathf.Lerp(2f, 4f, t ));
-
+        /*
         if(isInDanger)
         {
+            Vector3 directionToPlayer = (player.position - transform.position).normalized;
             ScreenNoiseRendererRef.passMaterial.SetFloat("_speed", Mathf.Lerp(20f, 5f, t ));
         }
+        */
     }
 
 #region EFECTOS ESTADO DEL JUGADOR
@@ -218,7 +220,7 @@ public class ScreenEffectsController : MonoBehaviour
     public void EffectsForStalking()
     {
         UpdateVolume(volumeForStalking);
-        UpdateMaterial(matForScreenNoise,CreatureRendererRef);
+        //UpdateMaterial(matForScreenNoise,CreatureRendererRef);
         isInDanger = true;
     }
 
@@ -261,9 +263,9 @@ public class ScreenEffectsController : MonoBehaviour
             StartCoroutine(SwitchVolumes(transitionSpeed, volumeToApply));    
             return;
         }
-        else if (volumeToApply != currentVolume && canSwitchVolume)
+        else if (volumeToApply != currentVolume)
         {
-            canSwitchVolume = false;
+            //canSwitchVolume = false;
             StartCoroutine(SwitchVolumes(transitionSpeed, volumeToApply));         
         }
 
@@ -304,7 +306,7 @@ public class ScreenEffectsController : MonoBehaviour
             }        
             currentVolume = newVolume;
 
-            canSwitchVolume = true;
+            //canSwitchVolume = true;
             print("SWITCH TO " + newVolume + " WAS SUCESSFULL");
         }
 
@@ -341,7 +343,7 @@ public class ScreenEffectsController : MonoBehaviour
         }        
         currentVolume = newVolume;
 
-        canSwitchVolume = true;
+        //canSwitchVolume = true;
         print("SWITCH TO " + newVolume + " WAS SUCESSFULL");
     }
 
