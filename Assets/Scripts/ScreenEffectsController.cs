@@ -17,6 +17,10 @@ public class ScreenEffectsController : MonoBehaviour
 
     public float transitionSpeed;
 
+    [Header("Stalking Static Config")]
+    public float stalkingSpeedLookAt = 30f; // Velocidad si la miras
+    public float stalkingSpeedLookAway = 15f; // Velocidad si le das la espalda
+
     [Header("Global Volume Profiles")]
     public Volume volumeBase;
     public Volume volumeForHunting;
@@ -72,7 +76,7 @@ public class ScreenEffectsController : MonoBehaviour
     private FullScreenPassRendererFeature CreatureRendererRef;
     private FullScreenPassRendererFeature ScreenNoiseRendererRef;  
 
-    //bool canSwitchVolume = true;
+    bool canSwitchVolume = true;
     bool isInDanger = false;
     Volume currentVolume;
     //Material currentMaterial;
@@ -109,7 +113,11 @@ public class ScreenEffectsController : MonoBehaviour
         UpdateFog();
         UpdateScreenStatic();
 
+
+
     }
+
+
 
     #region SUSCRIPCION EVENTOS
     private void OnEnable() {
@@ -181,13 +189,32 @@ public class ScreenEffectsController : MonoBehaviour
         ScreenNoiseRendererRef.passMaterial.SetFloat("_opacity", Mathf.Lerp(1f, 0.9f, t ));
         //CreatureRendererRef.passMaterial.SetFloat("_sizeOfCells", Mathf.Lerp(20, 10, t ));
         ScreenNoiseRendererRef.passMaterial.SetFloat("_spreadOnScreen", Mathf.Lerp(2f, 4f, t ));
-        /*
-        if(isInDanger)
-        {
-            Vector3 directionToPlayer = (player.position - transform.position).normalized;
-            ScreenNoiseRendererRef.passMaterial.SetFloat("_speed", Mathf.Lerp(20f, 5f, t ));
-        }
-        */
+        
+        //ScreenNoiseRendererRef.passMaterial.SetFloat("_speed", isInDanger ? 20 : 2);
+               
+    }
+
+    private void UpdateStalkingNoise()
+    {
+        // 1. Obtenemos la dirección hacia donde mira la cámara del jugador
+        Vector3 cameraForward = Camera.main.transform.forward;
+        
+        // 2. Calculamos la dirección del jugador hacia la criatura
+        Vector3 dirToCreature = (creatureController.transform.position - Camera.main.transform.position).normalized;
+
+        // 3. Producto punto: Nos dice qué tan alineados están los dos vectores
+        // 1 = Mirando de frente, -1 = Mirando atrás
+        float lookAlignment = Vector3.Dot(cameraForward, dirToCreature);
+
+        // 4. Mapeamos el valor (-1 a 1) a nuestro rango de velocidad (5 a 40)
+        // Usamos un clamp para que solo los valores positivos (el jugador tiene a la criatura al frente) aumenten la velocidad
+        float targetSpeed = Mathf.Lerp(stalkingSpeedLookAway, stalkingSpeedLookAt, Mathf.Max(0, lookAlignment));
+
+        // 5. Aplicamos suavemente para que no haya saltos bruscos
+        float currentSpeed = matForScreenNoise.GetFloat("_speed");
+        float smoothedSpeed = Mathf.Lerp(currentSpeed, targetSpeed, Time.deltaTime * transitionSpeed);
+        
+        matForScreenNoise.SetFloat("_speed", smoothedSpeed);
     }
 
 #region EFECTOS ESTADO DEL JUGADOR
@@ -202,26 +229,35 @@ public class ScreenEffectsController : MonoBehaviour
     public void EffectsForHunting()
     {
         UpdateVolume(volumeForHunting);
+
+        ScreenNoiseRendererRef.passMaterial.SetFloat("_speed", 15f);
     }
 
     public void EffectsForAttacking()
     {
         UpdateVolume(volumeForAttacking);
+
+        ScreenNoiseRendererRef.passMaterial.SetFloat("_speed", 25f);
     }
     public void EffectsForAlert()
     {
         UpdateVolume(volumeForAlert);
-        
+
+        ScreenNoiseRendererRef.passMaterial.SetFloat("_speed", 15f);        
     }
     public void EffectsForFleeing()
     {
         UpdateVolume(volumeForFleeing);
+
+        ScreenNoiseRendererRef.passMaterial.SetFloat("_speed", 25f);
     }
     public void EffectsForStalking()
-    {
+    {       
         UpdateVolume(volumeForStalking);
         //UpdateMaterial(matForScreenNoise,CreatureRendererRef);
         isInDanger = true;
+
+        //ScreenNoiseRendererRef.passMaterial.SetFloat("_speed", 20f);
     }
 
     public void EffectsForOnIdleOrPatrolling()
@@ -229,6 +265,8 @@ public class ScreenEffectsController : MonoBehaviour
         UpdateVolume(null);
         UpdateMaterial(null, CreatureRendererRef);
         isInDanger = false;
+
+        ScreenNoiseRendererRef.passMaterial.SetFloat("_speed", 2f);
     }
 #endregion
 
@@ -263,7 +301,7 @@ public class ScreenEffectsController : MonoBehaviour
             StartCoroutine(SwitchVolumes(transitionSpeed, volumeToApply));    
             return;
         }
-        else if (volumeToApply != currentVolume)
+        else if (volumeToApply != currentVolume && canSwitchVolume)
         {
             //canSwitchVolume = false;
             StartCoroutine(SwitchVolumes(transitionSpeed, volumeToApply));         
@@ -306,7 +344,7 @@ public class ScreenEffectsController : MonoBehaviour
             }        
             currentVolume = newVolume;
 
-            //canSwitchVolume = true;
+            canSwitchVolume = true;
             print("SWITCH TO " + newVolume + " WAS SUCESSFULL");
         }
 
@@ -343,7 +381,7 @@ public class ScreenEffectsController : MonoBehaviour
         }        
         currentVolume = newVolume;
 
-        //canSwitchVolume = true;
+        canSwitchVolume = true;
         print("SWITCH TO " + newVolume + " WAS SUCESSFULL");
     }
 
