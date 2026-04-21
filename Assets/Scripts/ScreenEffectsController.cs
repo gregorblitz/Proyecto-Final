@@ -51,7 +51,7 @@ public class ScreenEffectsController : MonoBehaviour
     public Material matForAsphyxiationArea;
     public Material matForMadnessArea;
     public Material matForSanityArea;
-    public Material matForStalking;
+    public Material matForScreenNoise;
 
     [Header("Fog Config")]
 
@@ -70,10 +70,12 @@ public class ScreenEffectsController : MonoBehaviour
     private FullScreenPassRendererFeature PlayerStatsRendererRef;
     private FullScreenPassRendererFeature AreaEffectsRendererRef;
     private FullScreenPassRendererFeature CreatureRendererRef;
+    private FullScreenPassRendererFeature ScreenNoiseRendererRef;  
 
     bool canSwitchVolume = true;
+    bool isInDanger = false;
     Volume currentVolume;
-    Material currentMaterial;
+    //Material currentMaterial;
 
 #region MONOBEHAVIOUR
 
@@ -93,13 +95,20 @@ public class ScreenEffectsController : MonoBehaviour
         }
         allVolumes[0].enabled = true;
         currentVolume = null;
-        currentMaterial = null;            
+
+        ScreenNoiseRendererRef.SetActive(true);
+        ScreenNoiseRendererRef.passMaterial = matForScreenNoise;
+        ScreenNoiseRendererRef.SetActive(true);
+
+        UpdateScreenStatic();
+        //currentMaterial = null;            
     }
 
     private void LateUpdate() {
         
         UpdateFog();
-        if (CreatureRendererRef.passMaterial != null) UpdateScreenStatic();
+        UpdateScreenStatic();
+
     }
 
     #region SUSCRIPCION EVENTOS
@@ -168,8 +177,15 @@ public class ScreenEffectsController : MonoBehaviour
 
     private void UpdateScreenStatic()
     {
-        float t = Mathf.InverseLerp(minDistanceFromPlayer, maxDistanceFromPlayer, creatureController.distanceToPlayer);
-        CreatureRendererRef.passMaterial.SetFloat("_Static_Intensity", Mathf.Lerp(maxStatic, minStatic, t));
+        float t = Mathf.InverseLerp(minDistanceFromPlayer, maxDistanceFromPlayer, creatureController.distanceToPlayer);        
+        ScreenNoiseRendererRef.passMaterial.SetFloat("_opacity", Mathf.Lerp(1f, 0.9f, t ));
+        //CreatureRendererRef.passMaterial.SetFloat("_sizeOfCells", Mathf.Lerp(20, 10, t ));
+        ScreenNoiseRendererRef.passMaterial.SetFloat("_spreadOnScreen", Mathf.Lerp(2f, 4f, t ));
+
+        if(isInDanger)
+        {
+            ScreenNoiseRendererRef.passMaterial.SetFloat("_speed", Mathf.Lerp(20f, 5f, t ));
+        }
     }
 
 #region EFECTOS ESTADO DEL JUGADOR
@@ -193,6 +209,7 @@ public class ScreenEffectsController : MonoBehaviour
     public void EffectsForAlert()
     {
         UpdateVolume(volumeForAlert);
+        
     }
     public void EffectsForFleeing()
     {
@@ -201,13 +218,15 @@ public class ScreenEffectsController : MonoBehaviour
     public void EffectsForStalking()
     {
         UpdateVolume(volumeForStalking);
-        UpdateMaterial(matForStalking,CreatureRendererRef);
+        UpdateMaterial(matForScreenNoise,CreatureRendererRef);
+        isInDanger = true;
     }
 
     public void EffectsForOnIdleOrPatrolling()
     {
         UpdateVolume(null);
         UpdateMaterial(null, CreatureRendererRef);
+        isInDanger = false;
     }
 #endregion
 
@@ -254,11 +273,15 @@ public class ScreenEffectsController : MonoBehaviour
 
     private void UpdateMaterial(Material matToApply, FullScreenPassRendererFeature RendererRefToUse)
     {
-        RendererRefToUse.SetActive(true);
-        RendererRefToUse.passMaterial = matToApply;
-        RendererRefToUse.SetActive(true);
-        currentMaterial = matToApply;
-        print("SWITCH TO " + matToApply + " MATERIAL WAS SUCESSFULL");
+        if(matToApply != null)
+        {
+            RendererRefToUse.SetActive(true);
+            RendererRefToUse.passMaterial = matToApply;
+            RendererRefToUse.SetActive(true);
+            //currentMaterial = matToApply;
+            print("SWITCH TO " + matToApply + " MATERIAL WAS SUCESSFULL");
+        }
+        else RendererRefToUse.passMaterial = null;
     }    
 
     private IEnumerator SwitchVolumes(float speed, Volume newVolume)
@@ -352,10 +375,14 @@ public class ScreenEffectsController : MonoBehaviour
             CreatureRendererRef = features.OfType<FullScreenPassRendererFeature>()
                 .FirstOrDefault(f => f.name == "CreatureRendererRef");
 
+            ScreenNoiseRendererRef = features.OfType<FullScreenPassRendererFeature>()
+                .FirstOrDefault(f => f.name == "ScreenNoiseRenererRef");
+
             // Debug para confirmar que todo se cargó bien
             VerifyFeature(PlayerStatsRendererRef, "PlayerStatsRendererRef");
             VerifyFeature(AreaEffectsRendererRef, "AreaEffectsRendererRef");
             VerifyFeature(CreatureRendererRef, "CreatureRendererRef");
+            VerifyFeature(ScreenNoiseRendererRef, "ScreenNoiseRenererRef");
         }
     }
 
