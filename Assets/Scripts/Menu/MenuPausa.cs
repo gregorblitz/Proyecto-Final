@@ -1,26 +1,37 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MenuPausa : MonoBehaviour
 {
-    [Header("Paneles")]
-    public GameObject panelPausa;        // Panel de pausa
-    public GameObject menuCompletoPanel; // Panel del menú completo
+    [Header("Panel de pausa")]
+    public GameObject panelPausa;
+
+    [Header("Botones")]
+    public Button botonReanudar;
+    public Button botonMenu;
+    public Button botonSalir;
 
     void Start()
     {
-        // Estado inicial
         Time.timeScale = 1f;
 
         if (panelPausa != null)
             panelPausa.SetActive(false);
 
-        if (menuCompletoPanel != null)
-            menuCompletoPanel.SetActive(false);
+        // Asignar funciones a los botones
+        if (botonReanudar != null)
+            botonReanudar.onClick.AddListener(Reanudar);
+
+        if (botonMenu != null)
+            botonMenu.onClick.AddListener(MenuPrincipal);
+
+        if (botonSalir != null)
+            botonSalir.onClick.AddListener(Salir);
     }
 
     void Update()
     {
-        // Tecla ESC para pausar / reanudar
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             TogglePausa();
@@ -55,12 +66,8 @@ public class MenuPausa : MonoBehaviour
 
     public void MenuPrincipal()
     {
-        // Oculta el panel de pausa y muestra el menú completo
-        if (panelPausa != null) panelPausa.SetActive(false);
-        if (menuCompletoPanel != null) menuCompletoPanel.SetActive(true);
-
-        // Reanuda el tiempo por si estaba en pausa
         Time.timeScale = 1f;
+        SceneManager.LoadScene("Menu Inicio");
     }
 
     public void Salir()

@@ -1946,6 +1946,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MenuPausa
       objectReference: {fileID: 0}
+    - target: {fileID: 4982156302748986271, guid: d2be8523bb7561c41989131664a36ba8, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7855194490225314903, guid: d2be8523bb7561c41989131664a36ba8, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -2225,7 +2229,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2309918852932623811, guid: a25cba2715030674fa4296ed12f64b56, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3430753323895566733, guid: a25cba2715030674fa4296ed12f64b56, type: 3}
       propertyPath: panelSalir
