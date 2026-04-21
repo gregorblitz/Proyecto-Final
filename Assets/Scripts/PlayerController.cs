@@ -246,11 +246,11 @@ public class PlayerController : MonoBehaviour
         if (weaponCollider != null) 
         {
             weaponCollider.enabled = true;
-            Debug.Log("🟢 ¡Collider de la Pica ENCENDIDO!");
+            Debug.Log("Collider de la Pica ON");
         }
         else
         {
-            Debug.LogWarning("⚠️ El evento funcionó, pero olvidaste arrastrar la pica al hueco 'Weapon Collider' en el PlayerController.");
+            Debug.LogWarning("El evento funciona pero falta arrastrar la pica al hueco 'Weapon Collider' en el PlayerController.");
         }
     }
 
@@ -259,7 +259,7 @@ public class PlayerController : MonoBehaviour
         if (weaponCollider != null) 
         {
             weaponCollider.enabled = false;
-            Debug.Log("🔴 Collider de la Pica APAGADO.");
+            Debug.Log("Collider de la Pica OFF.");
         }
     }
 }

@@ -8,7 +8,7 @@ public class WeaponDamage : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         // Nos dira en la consola todo lo que toca la pica
-        Debug.Log("💥 La pica acaba de tocar un objeto llamado: " + other.gameObject.name + " | Su Tag es: " + other.tag);
+        Debug.Log("La pica toco un objeto llamado: " + other.gameObject.name + " el Tag es: " + other.tag);
         // Si golpea un objeto con etiqueta "Enemy"
         if (other.CompareTag("Enemy"))
         {
@@ -24,7 +24,7 @@ public class WeaponDamage : MonoBehaviour
             }
             else
             {
-                Debug.LogWarning("⚠️ Toqué a un Enemy, pero no le encuentro el script EnemyHealth!");
+                Debug.LogWarning("Toco a un Enemy pero no se encuentra el script EnemyHealth");
             }
         }
     }
