@@ -1802,6 +1802,87 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_RenderingLayers: 1
   m_ShadowRenderingLayers: 1
+--- !u!1001 &1497565825
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 170045210955693006, guid: 68966cd1e2934c6409eacb4b74477cc0, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -19.12
+      objectReference: {fileID: 0}
+    - target: {fileID: 170045210955693006, guid: 68966cd1e2934c6409eacb4b74477cc0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.38
+      objectReference: {fileID: 0}
+    - target: {fileID: 170045210955693006, guid: 68966cd1e2934c6409eacb4b74477cc0, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 7.09
+      objectReference: {fileID: 0}
+    - target: {fileID: 170045210955693006, guid: 68966cd1e2934c6409eacb4b74477cc0, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 170045210955693006, guid: 68966cd1e2934c6409eacb4b74477cc0, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 170045210955693006, guid: 68966cd1e2934c6409eacb4b74477cc0, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 170045210955693006, guid: 68966cd1e2934c6409eacb4b74477cc0, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 170045210955693006, guid: 68966cd1e2934c6409eacb4b74477cc0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 170045210955693006, guid: 68966cd1e2934c6409eacb4b74477cc0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 170045210955693006, guid: 68966cd1e2934c6409eacb4b74477cc0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6412151733537712306, guid: 68966cd1e2934c6409eacb4b74477cc0, type: 3}
+      propertyPath: m_Name
+      value: Damage Area (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6687912806609655789, guid: 68966cd1e2934c6409eacb4b74477cc0, type: 3}
+      propertyPath: effect
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6687912806609655789, guid: 68966cd1e2934c6409eacb4b74477cc0, type: 3}
+      propertyPath: continuous
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6687912806609655789, guid: 68966cd1e2934c6409eacb4b74477cc0, type: 3}
+      propertyPath: gizmoColor.a
+      value: 0.043137256
+      objectReference: {fileID: 0}
+    - target: {fileID: 6687912806609655789, guid: 68966cd1e2934c6409eacb4b74477cc0, type: 3}
+      propertyPath: gizmoColor.b
+      value: 0.084905505
+      objectReference: {fileID: 0}
+    - target: {fileID: 6687912806609655789, guid: 68966cd1e2934c6409eacb4b74477cc0, type: 3}
+      propertyPath: gizmoColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6687912806609655789, guid: 68966cd1e2934c6409eacb4b74477cc0, type: 3}
+      propertyPath: gizmoColor.r
+      value: 0.20169312
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 68966cd1e2934c6409eacb4b74477cc0, type: 3}
 --- !u!1001 &1540394857
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2056,7 +2137,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6412151733537712306, guid: 68966cd1e2934c6409eacb4b74477cc0, type: 3}
       propertyPath: m_Name
-      value: Effect TestArea
+      value: Damage Area
       objectReference: {fileID: 0}
     - target: {fileID: 6687912806609655789, guid: 68966cd1e2934c6409eacb4b74477cc0, type: 3}
       propertyPath: effect
@@ -2068,7 +2149,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6687912806609655789, guid: 68966cd1e2934c6409eacb4b74477cc0, type: 3}
       propertyPath: gizmoColor.a
-      value: 0.19607843
+      value: 0.043137256
+      objectReference: {fileID: 0}
+    - target: {fileID: 6687912806609655789, guid: 68966cd1e2934c6409eacb4b74477cc0, type: 3}
+      propertyPath: gizmoColor.b
+      value: 0.084905505
+      objectReference: {fileID: 0}
+    - target: {fileID: 6687912806609655789, guid: 68966cd1e2934c6409eacb4b74477cc0, type: 3}
+      propertyPath: gizmoColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6687912806609655789, guid: 68966cd1e2934c6409eacb4b74477cc0, type: 3}
+      propertyPath: gizmoColor.r
+      value: 0.20169312
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2213,6 +2306,10 @@ PrefabInstance:
       propertyPath: hideLocation
       value: 
       objectReference: {fileID: 1342396189}
+    - target: {fileID: 5018630962432991348, guid: e99404ff3731f1442b8dc2448401c968, type: 3}
+      propertyPath: sanityLossValue
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 5018630962432991348, guid: e99404ff3731f1442b8dc2448401c968, type: 3}
       propertyPath: 'patrolWaypoints.Array.data[0]'
       value: 
@@ -2603,6 +2700,7 @@ SceneRoots:
   - {fileID: 1016413420}
   - {fileID: 1242785822}
   - {fileID: 2124087205}
+  - {fileID: 1497565825}
   - {fileID: 1231860699}
   - {fileID: 1248238922}
   - {fileID: 3310346164771936340}
