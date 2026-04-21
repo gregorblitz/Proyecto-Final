@@ -17,6 +17,10 @@ public class ScreenEffectsController : MonoBehaviour
 
     public float transitionSpeed;
 
+    [Header("Stalking Static Config")]
+    public float stalkingSpeedLookAt = 30f; // Velocidad si la miras
+    public float stalkingSpeedLookAway = 15f; // Velocidad si le das la espalda
+
     [Header("Global Volume Profiles")]
     public Volume volumeBase;
     public Volume volumeForHunting;
@@ -51,12 +55,14 @@ public class ScreenEffectsController : MonoBehaviour
     public Material matForAsphyxiationArea;
     public Material matForMadnessArea;
     public Material matForSanityArea;
-    public Material matForStalking;
+    public Material matForScreenNoise;
 
     [Header("Fog Config")]
 
     public float maxFog = 0.1f;
     public float minFog = 0.5f;
+    public float maxStatic = 0.1f;
+    public float minStatic = 0.5f;
     public float maxDistanceFromPlayer = 10;
     public float minDistanceFromPlayer = 2;
 
@@ -68,9 +74,12 @@ public class ScreenEffectsController : MonoBehaviour
     private FullScreenPassRendererFeature PlayerStatsRendererRef;
     private FullScreenPassRendererFeature AreaEffectsRendererRef;
     private FullScreenPassRendererFeature CreatureRendererRef;
+    private FullScreenPassRendererFeature ScreenNoiseRendererRef;  
 
     bool canSwitchVolume = true;
+    bool isInDanger = false;
     Volume currentVolume;
+    //Material currentMaterial;
 
 #region MONOBEHAVIOUR
 
@@ -89,12 +98,26 @@ public class ScreenEffectsController : MonoBehaviour
             n.enabled = false;
         }
         allVolumes[0].enabled = true;
-        currentVolume = null;            
+        currentVolume = null;
+
+        ScreenNoiseRendererRef.SetActive(true);
+        ScreenNoiseRendererRef.passMaterial = matForScreenNoise;
+        ScreenNoiseRendererRef.SetActive(true);
+
+        UpdateScreenStatic();
+        //currentMaterial = null;            
     }
 
     private void LateUpdate() {
+        
         UpdateFog();
+        UpdateScreenStatic();
+
+
+
     }
+
+
 
     #region SUSCRIPCION EVENTOS
     private void OnEnable() {
@@ -152,10 +175,46 @@ public class ScreenEffectsController : MonoBehaviour
             result = Mathf.Lerp(maxFog, minFog, t);
         }
 
+
         RenderSettings.fogDensity = result;
         RenderSettings.fog = true;
 
+
         //Debug.Log("Current fog density is " + RenderSettings.fogDensity + "\nCurrent Distance to player is " + currentDistance);
+    }
+
+    private void UpdateScreenStatic()
+    {
+        float t = Mathf.InverseLerp(minDistanceFromPlayer, maxDistanceFromPlayer, creatureController.distanceToPlayer);        
+        ScreenNoiseRendererRef.passMaterial.SetFloat("_opacity", Mathf.Lerp(1f, 0.9f, t ));
+        //CreatureRendererRef.passMaterial.SetFloat("_sizeOfCells", Mathf.Lerp(20, 10, t ));
+        ScreenNoiseRendererRef.passMaterial.SetFloat("_spreadOnScreen", Mathf.Lerp(2f, 4f, t ));
+        
+        //ScreenNoiseRendererRef.passMaterial.SetFloat("_speed", isInDanger ? 20 : 2);
+               
+    }
+
+    private void UpdateStalkingNoise()
+    {
+        // 1. Obtenemos la dirección hacia donde mira la cámara del jugador
+        Vector3 cameraForward = Camera.main.transform.forward;
+        
+        // 2. Calculamos la dirección del jugador hacia la criatura
+        Vector3 dirToCreature = (creatureController.transform.position - Camera.main.transform.position).normalized;
+
+        // 3. Producto punto: Nos dice qué tan alineados están los dos vectores
+        // 1 = Mirando de frente, -1 = Mirando atrás
+        float lookAlignment = Vector3.Dot(cameraForward, dirToCreature);
+
+        // 4. Mapeamos el valor (-1 a 1) a nuestro rango de velocidad (5 a 40)
+        // Usamos un clamp para que solo los valores positivos (el jugador tiene a la criatura al frente) aumenten la velocidad
+        float targetSpeed = Mathf.Lerp(stalkingSpeedLookAway, stalkingSpeedLookAt, Mathf.Max(0, lookAlignment));
+
+        // 5. Aplicamos suavemente para que no haya saltos bruscos
+        float currentSpeed = matForScreenNoise.GetFloat("_speed");
+        float smoothedSpeed = Mathf.Lerp(currentSpeed, targetSpeed, Time.deltaTime * transitionSpeed);
+        
+        matForScreenNoise.SetFloat("_speed", smoothedSpeed);
     }
 
 #region EFECTOS ESTADO DEL JUGADOR
@@ -170,28 +229,44 @@ public class ScreenEffectsController : MonoBehaviour
     public void EffectsForHunting()
     {
         UpdateVolume(volumeForHunting);
+
+        ScreenNoiseRendererRef.passMaterial.SetFloat("_speed", 15f);
     }
 
     public void EffectsForAttacking()
     {
         UpdateVolume(volumeForAttacking);
+
+        ScreenNoiseRendererRef.passMaterial.SetFloat("_speed", 25f);
     }
     public void EffectsForAlert()
     {
         UpdateVolume(volumeForAlert);
+
+        ScreenNoiseRendererRef.passMaterial.SetFloat("_speed", 15f);        
     }
     public void EffectsForFleeing()
     {
         UpdateVolume(volumeForFleeing);
+
+        ScreenNoiseRendererRef.passMaterial.SetFloat("_speed", 25f);
     }
     public void EffectsForStalking()
-    {
+    {       
         UpdateVolume(volumeForStalking);
+        //UpdateMaterial(matForScreenNoise,CreatureRendererRef);
+        isInDanger = true;
+
+        //ScreenNoiseRendererRef.passMaterial.SetFloat("_speed", 20f);
     }
 
     public void EffectsForOnIdleOrPatrolling()
     {
         UpdateVolume(null);
+        UpdateMaterial(null, CreatureRendererRef);
+        isInDanger = false;
+
+        ScreenNoiseRendererRef.passMaterial.SetFloat("_speed", 2f);
     }
 #endregion
 
@@ -223,12 +298,12 @@ public class ScreenEffectsController : MonoBehaviour
         if (volumeToApply == null)
         {
             if(currentVolume == null) return;
-            currentVolume.enabled = false;
+            StartCoroutine(SwitchVolumes(transitionSpeed, volumeToApply));    
             return;
         }
-        if (volumeToApply != currentVolume && canSwitchVolume)
+        else if (volumeToApply != currentVolume && canSwitchVolume)
         {
-            canSwitchVolume = false;
+            //canSwitchVolume = false;
             StartCoroutine(SwitchVolumes(transitionSpeed, volumeToApply));         
         }
 
@@ -238,32 +313,54 @@ public class ScreenEffectsController : MonoBehaviour
 
     private void UpdateMaterial(Material matToApply, FullScreenPassRendererFeature RendererRefToUse)
     {
-        RendererRefToUse.SetActive(true);
-        RendererRefToUse.passMaterial = matToApply;
-        RendererRefToUse.SetActive(true);
-        print("SWITCH TO " + matToApply + " MATERIAL WAS SUCESSFULL");
+        if(matToApply != null)
+        {
+            RendererRefToUse.SetActive(true);
+            RendererRefToUse.passMaterial = matToApply;
+            RendererRefToUse.SetActive(true);
+            //currentMaterial = matToApply;
+            print("SWITCH TO " + matToApply + " MATERIAL WAS SUCESSFULL");
+        }
+        else RendererRefToUse.passMaterial = null;
     }    
 
     private IEnumerator SwitchVolumes(float speed, Volume newVolume)
     {
-        newVolume.enabled = true;
-        newVolume.weight = 0f;
-        while (newVolume.weight < 1)
-        {
-            newVolume.weight += Time.deltaTime * speed;
-            if(currentVolume != null) currentVolume.weight -= Time.deltaTime * speed;
-            yield return null;
+        if (newVolume != null){
+            newVolume.enabled = true;
+            newVolume.weight = 0f;
+            
+            while (newVolume.weight < 1)
+            {
+                newVolume.weight += Time.deltaTime * speed;
+                if(currentVolume != null) currentVolume.weight -= Time.deltaTime * speed;
+                yield return null;
+            }
+            newVolume.weight = 1;
+
+            if(currentVolume != null)
+            {
+                currentVolume.enabled = false;
+            }        
+            currentVolume = newVolume;
+
+            canSwitchVolume = true;
+            print("SWITCH TO " + newVolume + " WAS SUCESSFULL");
         }
 
-        newVolume.weight = 1;
-        if(currentVolume != null)
+        else
         {
-            currentVolume.enabled = false;
-        }        
-        currentVolume = newVolume;
+            while (currentVolume.weight > 0.01)
+            {
+                currentVolume.weight -= Time.deltaTime * speed;
+                yield return null;
+            }
 
-        canSwitchVolume = true;
-        print("SWITCH TO " + newVolume + " WAS SUCESSFULL");
+            currentVolume.weight = 0;
+            currentVolume = null;
+        }
+
+       
     }
 
     private IEnumerator SwitchRenderFeature(float speed, Volume newVolume)
@@ -318,10 +415,14 @@ public class ScreenEffectsController : MonoBehaviour
             CreatureRendererRef = features.OfType<FullScreenPassRendererFeature>()
                 .FirstOrDefault(f => f.name == "CreatureRendererRef");
 
+            ScreenNoiseRendererRef = features.OfType<FullScreenPassRendererFeature>()
+                .FirstOrDefault(f => f.name == "ScreenNoiseRenererRef");
+
             // Debug para confirmar que todo se cargó bien
             VerifyFeature(PlayerStatsRendererRef, "PlayerStatsRendererRef");
             VerifyFeature(AreaEffectsRendererRef, "AreaEffectsRendererRef");
             VerifyFeature(CreatureRendererRef, "CreatureRendererRef");
+            VerifyFeature(ScreenNoiseRendererRef, "ScreenNoiseRenererRef");
         }
     }
 

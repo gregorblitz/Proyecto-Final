@@ -15,11 +15,16 @@ MonoBehaviour:
   maxHealth: 100
   maxOxygen: 100
   maxMadness: 100
+  tickSpeed: 1
   healthRegenRate: 2
   oxygenDecayRate: 0.2
   madnessIncreaseRate: 0.5
-  madnessThresholdForEnemies: 60
   madnessDamageOxygenRate: 10
+  healthLowTreeshold: 20
+  madnessLowTreeshold: 20
+  oxygenLowTreeshold: 20
+  oxygenHighTreeshold: 80
+  madnessSpawnsEnemiesThreshold: 70
   damageZoneHealthLoss: 10
   oxygenZoneLoss: 15
   madnessZoneGain: 28.1
