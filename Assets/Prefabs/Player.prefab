@@ -184,7 +184,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MadnessMonsterSpawner
   monsterPrefab: {fileID: 1948459100426964006, guid: 7d95a28607dd15e4a99b35dd8988c62f, type: 3}
   minSpawnDistance: 4
-  maxSpawnDistance: 10
+  maxSpawnDistance: 7
 --- !u!1001 &6294895067328688333
 PrefabInstance:
   m_ObjectHideFlags: 0
