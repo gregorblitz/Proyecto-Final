@@ -1,5 +1,7 @@
 using UnityEngine;
 
+//**SCRIPT COMUNICACION ENTRE LOS SCRIPTS DEL PADRE Y EL ANIMATOR (HIJO)
+
 public class MonsterAnimation : MonoBehaviour
 {
     private Monster mainScript;
