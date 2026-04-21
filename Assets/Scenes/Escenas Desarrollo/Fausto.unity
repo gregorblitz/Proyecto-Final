@@ -767,6 +767,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DrillController
   isDrillEquipped: 0
+--- !u!4 &292586308 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 718018479113094709, guid: e3cec766a83c52b4082d4bb4aacdec98, type: 3}
+  m_PrefabInstance: {fileID: 1976871401}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &292939535
 GameObject:
   m_ObjectHideFlags: 0
@@ -1718,6 +1723,58 @@ Transform:
   m_Children: []
   m_Father: {fileID: 397763886}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &903836793
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 903836794}
+  - component: {fileID: 903836795}
+  m_Layer: 0
+  m_Name: Audio
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &903836794
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 903836793}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 292586308}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &903836795
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 903836793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27e485f9581100645b76df44f15f0a82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AudioManager
+  mainMixer: {fileID: 0}
+  musicGroup: {fileID: 0}
+  sfxGroup: {fileID: 0}
+  uiGroup: {fileID: 0}
+  ambientSource: {fileID: 0}
+  chaseSource: {fileID: 0}
+  sfxSource: {fileID: 0}
+  crossfadeDuration: 1.5
 --- !u!1001 &913862411
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3119,6 +3176,7 @@ MonoBehaviour:
   inputActions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   doCollect: 0
   isFlashlightOn: 0
+  pickaxeInHand: {fileID: 0}
 --- !u!114 &1566002188
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3805,7 +3863,10 @@ PrefabInstance:
       objectReference: {fileID: 1115409500}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 718018479113094709, guid: e3cec766a83c52b4082d4bb4aacdec98, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 903836794}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 6777695517141811500, guid: e3cec766a83c52b4082d4bb4aacdec98, type: 3}
       insertIndex: -1
