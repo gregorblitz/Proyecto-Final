@@ -13,6 +13,7 @@ public class CreatureController : MonoBehaviour
     
     [Header("Configuración de Acecho")]
     public float stalkingRange = 7f; // Distancia a la que se detiene a observar
+     public float sanityLossValue = 7f;
     
 
     [Header("Configuración de Estado")]
@@ -53,7 +54,9 @@ public class CreatureController : MonoBehaviour
     private Transform player;
     private PlayerStatus playerStatus;
     private float stateTimer;
-    public  float distanceToPlayer;
+
+    private bool isTakingSanity;
+    public  float distanceToPlayer {get; private set;} 
 #endregion
 
 #region EVENTOS
@@ -121,6 +124,7 @@ public class CreatureController : MonoBehaviour
     }
 #endregion
 
+
 #region LOGICA DE ESTADOS
     // --- LÓGICA DE ESTADOS ---
     private void HandleAlert()
@@ -135,6 +139,8 @@ public class CreatureController : MonoBehaviour
         if (distanceToPlayer <= stalkingRange)
         {
             ChangeState(CreatureState.Stalking);
+            isTakingSanity= true;
+            StartCoroutine(TakeSanity());
         }
 
         else if (stateTimer >= alertDuration)
@@ -190,6 +196,8 @@ public class CreatureController : MonoBehaviour
         if (distanceToPlayer <= stalkingRange)
         {
             ChangeState(CreatureState.Stalking);
+            isTakingSanity= true;
+            StartCoroutine(TakeSanity());
         }
     }
 
@@ -230,7 +238,7 @@ public class CreatureController : MonoBehaviour
     {
         // La criatura NO se mueve bajo ninguna circunstancia en este estado
         agent.isStopped = true;
-
+        
         // Rotación suave para seguir al jugador con la "mirada"
         Vector3 direction = (player.position - transform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
@@ -239,7 +247,9 @@ public class CreatureController : MonoBehaviour
         // CRÍTICO: Si el jugador se acerca demasiado, es el fin.
         if (distanceToPlayer <= attackRange)
         {
+            CancelInvoke("ApplyEffect");
             ChangeState(CreatureState.Attacking);
+            isTakingSanity= false;
             return;
         }
 
@@ -252,6 +262,7 @@ public class CreatureController : MonoBehaviour
             // Reutilizamos alertDuration como tiempo de gracia para huir
             if (stateTimer >= alertDuration)
             {
+                isTakingSanity= false;
                 Debug.Log("Jugador escapó del acecho. Regresando a Idle.");
                 ChangeState(CreatureState.Idle);
             }
@@ -266,6 +277,13 @@ public class CreatureController : MonoBehaviour
 #endregion
 
 #region UTILIDADES
+
+    IEnumerator TakeSanity() {
+        while (isTakingSanity) {
+            playerStatus.ModifyMadness(sanityLossValue);
+            yield return new WaitForSeconds(1f);
+        }
+}
 
     public void ChangeState(CreatureState newState)
     {
