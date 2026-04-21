@@ -15,13 +15,14 @@ public class Monster : MonoBehaviour
     [Header("Configuración de Ataque")]
     public float attackDamage = 15f; // Cantidad de vida que quita por golpe
     public float attackCooldown = 2f; // Segundos que tarda en volver a golpear
+    public float attackReach = 2f; // El largo fisico real del brazo 
     private float lastAttackTime = 0f; // Controla cuándo fue el último golpe
 
     private NavMeshAgent agent;
     private Animator animator; // Creacion de la variable para el cerebro de animaciones
     // Lógica de estados
     private bool hasDetectedPlayer = false;
-    private bool isRunning = false;
+    public bool isRunning = false;
 
     void Start()
     {
@@ -89,14 +90,26 @@ public class Monster : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, detectDistance);
     }
     
-    // La llama la animacion en el momento exacto del golpe
+    // Llama la animacion en el momento exacto del golpe
     public void ApplyDamageToPlayer()
     {
-        PlayerStatus pStatus = player.GetComponent<PlayerStatus>();
-        if (pStatus != null)
+        // Mide la distancia exacta en el milisegundo del golpe
+        float currentDistance = Vector3.Distance(transform.position, player.position);
+
+        // Usa el largo del brazo --> 2
+        if (currentDistance <= attackReach)
         {
-            pStatus.ModifyHealth(-attackDamage);
-            Debug.Log("El monstruo golpeo al jugador!!");
+            PlayerStatus pStatus = player.GetComponent<PlayerStatus>();
+            if (pStatus != null)
+            {
+                pStatus.ModifyHealth(-attackDamage);
+                Debug.Log("El monstruo golpeo al jugador");
+            }
+        }
+        else
+        {
+            // Si el jugador se aleja, el golpe falla
+            Debug.Log("Golpe esquivado. Distancia al golpear: " + currentDistance + " (Brazo: " + attackReach + ")");
         }
     }
 }

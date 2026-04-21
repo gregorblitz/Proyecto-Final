@@ -692,18 +692,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4038813337758668355, guid: 7d95a28607dd15e4a99b35dd8988c62f, type: 3}
   m_PrefabInstance: {fileID: 1405974575}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &782564833
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 782564830}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af64425dfd978544a992d2e7fea9d5c2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyAnimationRelay
 --- !u!114 &782564834
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1608,6 +1596,10 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 2088494737}
+    - target: {fileID: 8638369403511552750, guid: 7d95a28607dd15e4a99b35dd8988c62f, type: 3}
+      propertyPath: detectDistance
+      value: 5.66
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -1620,13 +1612,7 @@ PrefabInstance:
       addedObject: {fileID: 815138961}
     - targetCorrespondingSourceObject: {fileID: 6983364393784143868, guid: 7d95a28607dd15e4a99b35dd8988c62f, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1621785754}
-    - targetCorrespondingSourceObject: {fileID: 6983364393784143868, guid: 7d95a28607dd15e4a99b35dd8988c62f, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 1621785755}
-    - targetCorrespondingSourceObject: {fileID: 4038813337758668355, guid: 7d95a28607dd15e4a99b35dd8988c62f, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 782564833}
     - targetCorrespondingSourceObject: {fileID: 4038813337758668355, guid: 7d95a28607dd15e4a99b35dd8988c62f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 782564834}
@@ -1987,18 +1973,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6983364393784143868, guid: 7d95a28607dd15e4a99b35dd8988c62f, type: 3}
   m_PrefabInstance: {fileID: 1405974575}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1621785754
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1621785751}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af64425dfd978544a992d2e7fea9d5c2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyAnimationRelay
 --- !u!114 &1621785755
 MonoBehaviour:
   m_ObjectHideFlags: 0
