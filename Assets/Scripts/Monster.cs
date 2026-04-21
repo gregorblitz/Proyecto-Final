@@ -5,7 +5,7 @@ using System.Collections; // NUEVO: Necesario para usar Corrutinas (tiempos de e
 public class Monster : MonoBehaviour
 {
     [Header("Configuración")]
-    public Transform player;         // Arrastrar jugador aquí en el Inspector
+    private Transform player;         // Se asigna mediante codigo
     public float detectDistance = 10f; // Distancia deteccion
     public float chaseSpeed = 5f;    // Velocidad con la que corre
 
@@ -26,6 +26,21 @@ public class Monster : MonoBehaviour
 
     void Start()
     {
+        // Busca al jugador por su Tag
+        if (player == null)
+        {
+            GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+            if (playerObj != null)
+            {
+                player = playerObj.transform;
+                // Indicador para saber a quien esta persiguiendo el clon
+                Debug.Log("El clon está persiguiendo a un objeto llamado: " + playerObj.name);
+            }
+            else
+            {
+                Debug.LogError("El monstruo no encuentra al jugador");
+            }
+        }
         agent = GetComponent<NavMeshAgent>();
         //Busca el componente animator en los objetos hijos del monstruo
         animator = GetComponentInChildren<Animator>();

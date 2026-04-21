@@ -29,37 +29,53 @@ public class MadnessMonsterSpawner : MonoBehaviour
         }
     }
 
-    // Esta función se activará solita cuando la locura llegue a 70
+    // Se activa cuando la locura llegue a 70
     void SpawnMonsterNearPlayer()
     {
         if (monsterPrefab == null)
         {
-            Debug.LogWarning("¡Falta asignar el prefab del monstruo en el Spawner!");
+            Debug.LogWarning("No se ha asignado monstruo al spawner");
             return;
         }
 
-        // 1. Calculamos una dirección aleatoria alrededor del jugador
-        Vector2 randomCircle = Random.insideUnitCircle.normalized;
+        // Aparece frente al jugador
+        // Elige distancia aparicion entre minSpawn y maxSpawn
         float randomDistance = Random.Range(minSpawnDistance, maxSpawnDistance);
         
-        // 2. Convertimos ese círculo 2D a una posición 3D en el mundo
-        Vector3 randomPosition = transform.position + new Vector3(randomCircle.x, 0, randomCircle.y) * randomDistance;
+        // Calcula un punto en linea recta hacia donde mira el jugador
+        Vector3 targetPosition = transform.position + (transform.forward * randomDistance);
+
+        // Agrega un ligero desvio aleatorio (izq o der) (transform.right)
+        float randomSideOffset = Random.Range(-3f, 3f); // Desvio max 3 metros a los lados
+        targetPosition += transform.right * randomSideOffset;
 
         NavMeshHit hit;
-        // 3. Buscamos el punto caminable más cercano en el NavMesh (para evitar paredes)
-        // Busca en un radio de 5 metros alrededor del punto aleatorio
-        if (NavMesh.SamplePosition(randomPosition, out hit, 5f, NavMesh.AllAreas))
+        // Busca punto caminable mas cercano en el NavMesh
+        if (NavMesh.SamplePosition(targetPosition, out hit, 5f, NavMesh.AllAreas))
         {
-            // ¡Punto válido encontrado! Instanciamos al monstruo.
-            Instantiate(monsterPrefab, hit.position, Quaternion.identity);
-            Debug.Log("¡Locura crítica! Un monstruo ha aparecido cerca de ti.");
+            // Punto valido encontrado -- Instancia al monstruo y guarda en variable
+            GameObject clon = Instantiate(monsterPrefab, hit.position, Quaternion.identity);
+            
+            // Fuerza al clon a ver el jugador
+            Monster scriptClon = clon.GetComponent<Monster>();
+            if (scriptClon != null)
+            {
+                scriptClon.detectDistance = 1000f; // Vision infinita para que vea el jugador forzadamente
+            }
+
+            Debug.Log("Un monstruo ha aparecido frente a ti");
         }
         else
         {
-            // Plan de emergencia: Si por alguna razón no encuentra suelo, lo pone un poco lejos enfrente
+            // Plan de emergencia
             Vector3 fallbackPos = transform.position + transform.forward * minSpawnDistance;
-            Instantiate(monsterPrefab, fallbackPos, Quaternion.identity);
-            Debug.Log("¡Locura crítica! Monstruo apareció enfrente (Fallback).");
+            GameObject clonFallback = Instantiate(monsterPrefab, fallbackPos, Quaternion.identity);
+            
+            // Fuerza al clon a ver el jugador (Fallback) ---
+            Monster scriptClon = clonFallback.GetComponent<Monster>();
+            if (scriptClon != null) scriptClon.detectDistance = 1000f;
+
+            Debug.Log("Un monstruo ha aparecido frente a ti (Fallback)");
         }
     }
 }
