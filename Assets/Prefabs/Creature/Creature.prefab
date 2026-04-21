@@ -149,6 +149,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CreatureController
   stalkingRange: 5
+  sanityLossValue: 5
   currentState: 0
   alertDuration: 2
   attackRange: 1.5
@@ -171,7 +172,6 @@ MonoBehaviour:
   minWhisperInterval: 5
   maxWhisperInterval: 15
   jumpscareUI: {fileID: 0}
-  distanceToPlayer: 0
   OnAlert:
     m_PersistentCalls:
       m_Calls: []
