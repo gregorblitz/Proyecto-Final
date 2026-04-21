@@ -283,7 +283,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5096f08f47939046bcab66a1d37a6c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Monster
-  player: {fileID: 1901188617852496355, guid: 0732c85ef0ba0fd459110662542ca700, type: 3}
+  player: {fileID: 0}
   detectDistance: 5.66
   chaseSpeed: 5
   roarDuration: 2
@@ -355,6 +355,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
   maxHealth: 100
   healthBar: {fileID: 7778995604441233309}
+  madnessReduction: -20
 --- !u!1 &3942152991883078648
 GameObject:
   m_ObjectHideFlags: 0
