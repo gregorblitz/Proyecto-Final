@@ -292,6 +292,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dcf2c719e4b6d1042a9c695ab15278b2, type: 3}
+--- !u!1 &239820111 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1001924053078289942, guid: e0cddce09e90a1d458c025eaf1c8bac3, type: 3}
+  m_PrefabInstance: {fileID: 975051965}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &240068725
 GameObject:
   m_ObjectHideFlags: 0
@@ -811,7 +816,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1001924053078289942, guid: e0cddce09e90a1d458c025eaf1c8bac3, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1173401832792229883, guid: e0cddce09e90a1d458c025eaf1c8bac3, type: 3}
       propertyPath: playerStatus
@@ -1334,7 +1339,7 @@ Light:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1494619404}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 12
   m_Type: 1
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
@@ -1758,7 +1763,7 @@ PrefabInstance:
     - target: {fileID: 5018630962432991348, guid: e99404ff3731f1442b8dc2448401c968, type: 3}
       propertyPath: jumpscareUI
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 239820111}
     - target: {fileID: 5018630962432991348, guid: e99404ff3731f1442b8dc2448401c968, type: 3}
       propertyPath: hideLocation
       value: 
