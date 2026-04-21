@@ -17,8 +17,8 @@ public class PlayerController : MonoBehaviour
     private Animator animator;
     private Rigidbody rigidbody;
     private CapsuleCollider capsuleCollider; // Para saber la altura del jugador
-     //***Constantes***
-    
+                                             //***Constantes***
+
     [Header("Variables movimiento")]
     public float walkSpeed = 5;
     public float rotateSpeed = 15; // Sensibilidad del raton
@@ -34,6 +34,9 @@ public class PlayerController : MonoBehaviour
     public float freezeDuration = 0.8f; // Tiempo de congelacion pies luego de atacar
     private float nextAttackTime = 0f;  // Reloj interno
     private float unfreezeTime = 0f;    // Reloj interno de descongelamiento
+    //***COMBATE -- Se agrega para encender cuando mgolpee y apagar cuando termine el ataque
+    [Header("Combate")]
+    public Collider weaponCollider; // Box Collider de la pica
 
     // Variables para la memoria del tamaño
     private float originalHeight;
@@ -139,13 +142,13 @@ public class PlayerController : MonoBehaviour
             unfreezeTime = Time.time + freezeDuration;
         }
     }
-    
+
     // Verifica toca el suelo
     private bool IsGrounded()
     {
         // Calcula distancia desde el centro del personaje (.extents) hasta sus pies
         float distanceToGround = capsuleCollider.bounds.extents.y;
-        
+
         // Dispara un rayo invisible hacia abajo (posicion, hacia donde apunta, distancia) 
         // Le suma 0.1f como margen de error para detectar el suelo correctamente.
         return Physics.Raycast(transform.position, Vector3.down, distanceToGround + 0.1f);
@@ -186,7 +189,7 @@ public class PlayerController : MonoBehaviour
         //Si gatea, forzar el valor a 1 (como si presionara la W)
         if (isCrawling)
         {
-           // Si está agachado (ya sea por el botón o por el techo), camina a la mitad de velocidad
+            // Si está agachado (ya sea por el botón o por el techo), camina a la mitad de velocidad
             currentSpeed = walkSpeed * 0.5f;
         }
         // si esta corriendo y se presiona W o S
@@ -194,14 +197,14 @@ public class PlayerController : MonoBehaviour
         {
             // Solo permite correr si no esta agachado y va hacia adelante (inputY > 0)
             currentSpeed = runSpeed;
-            
+
             // Fuerza el inputY a 2 para activar la animacion de correr
-            inputY = 2f; 
+            inputY = 2f;
         }
         // Movimiento multidireccional
         // Combina vector frontal (Z) con vector lateral (X)
         Vector3 moveDirection = (transform.forward * inputY) + (transform.right * inputX);
-        
+
         // Normaliza para no correr mas rapido al ir en diagonal (W + D mismo tiempo)
         if (moveDirection.magnitude > 1f)
         {
@@ -209,19 +212,14 @@ public class PlayerController : MonoBehaviour
         }
 
         // ANIMACION ACTUALIZADA
-        float animSpeed = inputY; 
-        
-        // Si mov hacia los lados pero no adelante fuerza el num de animacion 
-        // a algo mayor a 0 para que mueva las piernas
-        if (Mathf.Abs(inputX) > 0 && inputY == 0) 
-        {
-            animSpeed = Mathf.Abs(inputX); 
-        }
-        if (isRunning && inputY > 0) animSpeed = 2f;
+        float speedParam = inputY;
+        if (isRunning && inputY > 0) speedParam = 2f;
 
-        animator.SetFloat("Speed", animSpeed);
+        // Le envia al animator la velocidad Frontal (W/S) y lateral (A/D)
+        animator.SetFloat("Speed", speedParam);
+        animator.SetFloat("DirX", inputX);
 
-        // Aplica mov fisico en todas direcciones
+        // Aplica el movimiento fisico en todas las direcciones
         rigidbody.MovePosition(rigidbody.position + moveDirection * currentSpeed * Time.deltaTime);
     }
 
@@ -235,10 +233,33 @@ public class PlayerController : MonoBehaviour
             rigidbody.MoveRotation(rigidbody.rotation * deltaRotation);
         }
 
-        else 
+        else
         {
             // Freno de emergencia para rotacion
             rigidbody.angularVelocity = Vector3.zero;
+        }
+    }
+    
+    // --- EVENTOS DE ANIMACIÓN PARA EL DAÑO ---
+    public void ActivarDaño()
+    {
+        if (weaponCollider != null) 
+        {
+            weaponCollider.enabled = true;
+            Debug.Log("Collider de la Pica ON");
+        }
+        else
+        {
+            Debug.LogWarning("El evento funciona pero falta arrastrar la pica al hueco 'Weapon Collider' en el PlayerController.");
+        }
+    }
+
+    public void DesactivarDaño()
+    {
+        if (weaponCollider != null) 
+        {
+            weaponCollider.enabled = false;
+            Debug.Log("Collider de la Pica OFF.");
         }
     }
 }
