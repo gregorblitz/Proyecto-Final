@@ -15,7 +15,7 @@ MonoBehaviour:
   itemName: Linterna
   type: 3
   icon: {fileID: 9683511, guid: c039b08f46c71da4ca38aa824c2e80b7, type: 3}
-  dropPrefab: {fileID: 6300779988885612563, guid: 6a66a94cd66474041afd8a6ec93e0d32, type: 3}
+  dropPrefab: {fileID: 8208792566947488129, guid: 3cfbd5a1403df314c819380558da1f76, type: 3}
   description: 
   isConsumable: 0
   effectType: 0
