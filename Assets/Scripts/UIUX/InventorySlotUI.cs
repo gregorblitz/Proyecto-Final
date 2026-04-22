@@ -105,7 +105,8 @@ public class InventorySlotUI : MonoBehaviour, IPointerClickHandler
                 FlashlightUI flashUI = FindFirstObjectByType<FlashlightUI>();
                 if (flashUI != null) flashUI.ShowFlashlightHUD();
             }
-            return; // NO se consume
+
+            //return; // NO se consume
         }
 
         // =========================

@@ -49,15 +49,29 @@ public class ItemEffectHandler : MonoBehaviour
                     break;
             }
         }
-        else 
+        else
         {
             // Lógica para Herramientas (Pico, Linterna, etc.)
             Debug.Log($"Activando herramienta: {item.itemName}");
-           // Aquí llamarías al sistema de equipo que están desarrollando tus compañeros
+            // Aquí llamarías al sistema de equipo que están desarrollando tus compañeros
+
+            // PICO
             // Verifica si el item es Pica o Pico segun este en ItemData
-            if (item.itemName == "Pica" || item.itemName == "Pico") 
+            if (item.itemName == "Pica" || item.itemName == "Pico")
             {
                 EquipPickaxe();
+            }
+
+            // LINTERNA
+            // Revisa si tipo objeto es linterna
+            else if (item.type == ItemData.ItemType.Flashlight)
+            {
+                // Busca PlayerInteractor para que la encienda en la mano
+                PlayerInteractor interactor = GetComponent<PlayerInteractor>();
+                if (interactor != null)
+                {
+                    interactor.EquipFlashlight();
+                }
             }
         }
     }
