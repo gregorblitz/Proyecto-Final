@@ -585,6 +585,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 840767181460236767, guid: 0732c85ef0ba0fd459110662542ca700, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1901188617852496355, guid: 0732c85ef0ba0fd459110662542ca700, type: 3}
       propertyPath: m_LocalPosition.x
       value: -19.47
@@ -633,6 +637,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 5620068651504736854, guid: 0732c85ef0ba0fd459110662542ca700, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6205216054559984595, guid: 0732c85ef0ba0fd459110662542ca700, type: 3}
+      propertyPath: lightObject
+      value: 
+      objectReference: {fileID: 472060923}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -822,6 +834,11 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_RenderingLayers: 1
   m_ShadowRenderingLayers: 1
+--- !u!1 &472060923 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 840767181460236767, guid: 0732c85ef0ba0fd459110662542ca700, type: 3}
+  m_PrefabInstance: {fileID: 263621563}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &557550027 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 647356010155401839, guid: 18f63fefdb5e740498d4bf5123e8ff40, type: 3}

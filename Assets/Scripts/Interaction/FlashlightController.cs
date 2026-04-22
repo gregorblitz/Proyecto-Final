@@ -87,11 +87,18 @@ public class FlashlightController : MonoBehaviour
     public void EquipFlashlight(ItemData item)
     {
         if (item.type != ItemData.ItemType.Flashlight) return;
-        hasFlashlight = true;
-        currentBattery = item.batteryCapacity;  // La carga que traía el ítem
-        maxBattery = item.batteryCapacity > 0 ? item.batteryCapacity : maxBattery;
+
+        // Solucion bug bateria infinita al seleccionar de nuevo en inventario
+        // Absorbe batería del obj si es primera vez que se equipa
+        if (!hasFlashlight)
+        {
+            hasFlashlight = true;
+            currentBattery = item.batteryCapacity;  // La carga que trae
+            maxBattery = item.batteryCapacity > 0 ? item.batteryCapacity : maxBattery;
+        }
+        // Siempre actualiza la UI al darle clic para que la pantalla refresque el valor real
         OnBatteryChanged?.Invoke(currentBattery, maxBattery);
-        Debug.Log($"Linterna equipada con {currentBattery} de batería");
+        Debug.Log($"Linterna equipada. Batería restante: {currentBattery}");
     }
 
     // Llamado cuando se usa una batería (crafteo o uso directo)
