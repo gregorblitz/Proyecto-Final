@@ -19,7 +19,10 @@ public class MenuPausa : MonoBehaviour
         if (panelPausa != null)
             panelPausa.SetActive(false);
 
-        // Asignar funciones a los botones
+        // Cursor en modo juego al iniciar
+        BloquearCursor();
+
+        // Botones
         if (botonReanudar != null)
             botonReanudar.onClick.AddListener(Reanudar);
 
@@ -52,6 +55,9 @@ public class MenuPausa : MonoBehaviour
 
         panelPausa.SetActive(true);
         Time.timeScale = 0f;
+
+        // 🔓 Liberar mouse
+        LiberarCursor();
     }
 
     public void Reanudar()
@@ -60,6 +66,9 @@ public class MenuPausa : MonoBehaviour
             panelPausa.SetActive(false);
 
         Time.timeScale = 1f;
+
+        // 🔒 Volver a bloquear mouse
+        BloquearCursor();
     }
 
     // ── BOTONES ─────────────────────────
@@ -67,7 +76,8 @@ public class MenuPausa : MonoBehaviour
     public void MenuPrincipal()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene("Menu Inicio");
+        LiberarCursor();
+        SceneManager.LoadScene("MenuCompleto");
     }
 
     public void Salir()
@@ -77,5 +87,19 @@ public class MenuPausa : MonoBehaviour
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #endif
+    }
+
+    // ── CONTROL DEL CURSOR ─────────────────────────
+
+    void BloquearCursor()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
+
+    void LiberarCursor()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 }
