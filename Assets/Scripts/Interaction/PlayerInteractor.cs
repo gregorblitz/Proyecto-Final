@@ -18,9 +18,10 @@ public class PlayerInteractor : MonoBehaviour
     // NUEVO: referencia directa al controlador de linterna
     private FlashlightController flashlightController;
 
-    // SISTEMA DE ARMA PARA ATAQUE
-    [Header("Arma para ataque")]
-    public GameObject pickaxeInHand; // Poner aqui la pica
+    // OBJETOS EN MANO 
+    [Header("Objetos en manos")]
+    public GameObject pickaxeInHand;    // Poner aqui la pica
+    public GameObject flashlightInHand; // Poner aqui la lampara
     private Animator animator;
 
     /*modificacion del metodo start para incluir el arma
@@ -32,10 +33,11 @@ public class PlayerInteractor : MonoBehaviour
         systems = GetComponent<SystemsController>();
 
         // Buscamos la linterna en los hijos del jugador
+        // Agrego el true para que encuentre la lampara incluso si el obj empieza OFF/desequipado
         flashlightController = GetComponentInChildren<FlashlightController>();
         if (flashlightController == null)
             Debug.LogWarning("PlayerInteractor: no encontró FlashlightController en los hijos");
-            
+
     }
 
     private void Start()
@@ -120,6 +122,19 @@ public class PlayerInteractor : MonoBehaviour
         }
     }
 
+    // Apaga todo lo que haya en las manos (desequipar)
+    public void DesequiparTodo()
+    {
+        if (pickaxeInHand != null) pickaxeInHand.SetActive(false);
+        if (flashlightInHand != null) flashlightInHand.SetActive(false);
+
+        // Baja las manos si se desequipa la pica
+        if (animator != null)
+        {
+            animator.SetBool("isArmed", false);
+        }
+    }
+
     // METODO PARA EQUIPAR PICA
     // Funcion que se llama desde el sistema de inventario cuando selecciona la pica
     public void EquipPickaxe()
@@ -128,18 +143,46 @@ public class PlayerInteractor : MonoBehaviour
         {
             // Encendemos la pica visualmente
             pickaxeInHand.SetActive(true);
-            
+
             if (animator != null)
             {
                 // Le decimos al Animator que cambie la postura de las manos
-                animator.SetBool("isArmed", true); 
+                animator.SetBool("isArmed", true);
             }
-            
+
             Debug.Log("Pica equipada y lista para atacar");
         }
         else
         {
             Debug.LogWarning("No hay ningun objeto pica en el script ");
         }
+    }
+
+    // Equipar la lampara
+    public void EquipFlashlight()
+    {
+
+        if (flashlightInHand != null)
+        {
+            flashlightInHand.SetActive(true); // Enciende el modelo 3D lampara
+            Debug.Log("Lampara sostenida en la mano");
+        }
+        else
+        {
+            Debug.LogWarning("No hay ningun objeto lampara en el script");
+        }
+    }
+
+    // Para desequiparlos manualmente 
+    
+    public void UnequipPickaxe()
+    {
+        if (pickaxeInHand != null) pickaxeInHand.SetActive(false);
+        if (animator != null) animator.SetBool("isArmed", false);
+    }
+
+    public void UnequipFlashlight()
+    {
+        if (flashlightInHand != null) flashlightInHand.SetActive(false);
     }
 }
