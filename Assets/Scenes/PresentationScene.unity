@@ -35,7 +35,7 @@ RenderSettings:
   m_DefaultReflectionMode: 0
   m_DefaultReflectionResolution: 128
   m_ReflectionBounces: 1
-  m_ReflectionIntensity: 0.167
+  m_ReflectionIntensity: 0.16
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
   m_UseRadianceAmbientProbe: 0
@@ -170,6 +170,10 @@ PrefabInstance:
     - target: {fileID: 1948459100426964006, guid: 7d95a28607dd15e4a99b35dd8988c62f, type: 3}
       propertyPath: m_Name
       value: Creep2 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1948459100426964006, guid: 7d95a28607dd15e4a99b35dd8988c62f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3179503678743981417, guid: 7d95a28607dd15e4a99b35dd8988c62f, type: 3}
       propertyPath: m_AnchorMax.y
@@ -589,6 +593,10 @@ PrefabInstance:
     - target: {fileID: 4198546031890967654, guid: 0732c85ef0ba0fd459110662542ca700, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 7524984329495373703, guid: 0732c85ef0ba0fd459110662542ca700, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1562,14 +1570,62 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 380859477176791372, guid: e0cddce09e90a1d458c025eaf1c8bac3, type: 3}
+      propertyPath: m_Color.b
+      value: 0.54615414
+      objectReference: {fileID: 0}
+    - target: {fileID: 380859477176791372, guid: e0cddce09e90a1d458c025eaf1c8bac3, type: 3}
+      propertyPath: m_Color.g
+      value: 0.57951474
+      objectReference: {fileID: 0}
+    - target: {fileID: 380859477176791372, guid: e0cddce09e90a1d458c025eaf1c8bac3, type: 3}
+      propertyPath: m_Color.r
+      value: 0.274137
+      objectReference: {fileID: 0}
     - target: {fileID: 1173401832792229883, guid: e0cddce09e90a1d458c025eaf1c8bac3, type: 3}
       propertyPath: playerStatus
       value: 
       objectReference: {fileID: 263621567}
+    - target: {fileID: 2038868191638636497, guid: e0cddce09e90a1d458c025eaf1c8bac3, type: 3}
+      propertyPath: m_Color.b
+      value: 0.81132066
+      objectReference: {fileID: 0}
+    - target: {fileID: 2038868191638636497, guid: e0cddce09e90a1d458c025eaf1c8bac3, type: 3}
+      propertyPath: m_Color.g
+      value: 0.81132066
+      objectReference: {fileID: 0}
+    - target: {fileID: 2038868191638636497, guid: e0cddce09e90a1d458c025eaf1c8bac3, type: 3}
+      propertyPath: m_Color.r
+      value: 0.81132066
+      objectReference: {fileID: 0}
+    - target: {fileID: 2153445342832020012, guid: e0cddce09e90a1d458c025eaf1c8bac3, type: 3}
+      propertyPath: m_Color.b
+      value: 0.81132066
+      objectReference: {fileID: 0}
+    - target: {fileID: 2153445342832020012, guid: e0cddce09e90a1d458c025eaf1c8bac3, type: 3}
+      propertyPath: m_Color.g
+      value: 0.81132066
+      objectReference: {fileID: 0}
+    - target: {fileID: 2153445342832020012, guid: e0cddce09e90a1d458c025eaf1c8bac3, type: 3}
+      propertyPath: m_Color.r
+      value: 0.81132066
+      objectReference: {fileID: 0}
     - target: {fileID: 3539945072435005502, guid: e0cddce09e90a1d458c025eaf1c8bac3, type: 3}
       propertyPath: flashlightController
       value: 
       objectReference: {fileID: 263621580}
+    - target: {fileID: 3694844761300974769, guid: e0cddce09e90a1d458c025eaf1c8bac3, type: 3}
+      propertyPath: m_Color.b
+      value: 0.11908144
+      objectReference: {fileID: 0}
+    - target: {fileID: 3694844761300974769, guid: e0cddce09e90a1d458c025eaf1c8bac3, type: 3}
+      propertyPath: m_Color.g
+      value: 0.1743422
+      objectReference: {fileID: 0}
+    - target: {fileID: 3694844761300974769, guid: e0cddce09e90a1d458c025eaf1c8bac3, type: 3}
+      propertyPath: m_Color.r
+      value: 0.6010781
+      objectReference: {fileID: 0}
     - target: {fileID: 4248973880930707643, guid: e0cddce09e90a1d458c025eaf1c8bac3, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -1650,6 +1706,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4493954106540529558, guid: e0cddce09e90a1d458c025eaf1c8bac3, type: 3}
+      propertyPath: m_Color.b
+      value: 0.4716981
+      objectReference: {fileID: 0}
+    - target: {fileID: 4493954106540529558, guid: e0cddce09e90a1d458c025eaf1c8bac3, type: 3}
+      propertyPath: m_Color.g
+      value: 0.1443065
+      objectReference: {fileID: 0}
+    - target: {fileID: 4493954106540529558, guid: e0cddce09e90a1d458c025eaf1c8bac3, type: 3}
+      propertyPath: m_Color.r
+      value: 0.25357056
+      objectReference: {fileID: 0}
     - target: {fileID: 4960624025507947674, guid: e0cddce09e90a1d458c025eaf1c8bac3, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -1661,6 +1729,38 @@ PrefabInstance:
     - target: {fileID: 5145222759149546185, guid: e0cddce09e90a1d458c025eaf1c8bac3, type: 3}
       propertyPath: m_Name
       value: HUD
+      objectReference: {fileID: 0}
+    - target: {fileID: 6484452608350020621, guid: e0cddce09e90a1d458c025eaf1c8bac3, type: 3}
+      propertyPath: m_Color.b
+      value: 0.81132066
+      objectReference: {fileID: 0}
+    - target: {fileID: 6484452608350020621, guid: e0cddce09e90a1d458c025eaf1c8bac3, type: 3}
+      propertyPath: m_Color.g
+      value: 0.81132066
+      objectReference: {fileID: 0}
+    - target: {fileID: 6484452608350020621, guid: e0cddce09e90a1d458c025eaf1c8bac3, type: 3}
+      propertyPath: m_Color.r
+      value: 0.81132066
+      objectReference: {fileID: 0}
+    - target: {fileID: 6519434638143107986, guid: e0cddce09e90a1d458c025eaf1c8bac3, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 2.7999997
+      objectReference: {fileID: 0}
+    - target: {fileID: 7733783663547027333, guid: e0cddce09e90a1d458c025eaf1c8bac3, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 701752681}
+    - target: {fileID: 7733783663547027333, guid: e0cddce09e90a1d458c025eaf1c8bac3, type: 3}
+      propertyPath: m_RenderMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7733783663547027333, guid: e0cddce09e90a1d458c025eaf1c8bac3, type: 3}
+      propertyPath: m_PlaneDistance
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7733783663547027333, guid: e0cddce09e90a1d458c025eaf1c8bac3, type: 3}
+      propertyPath: m_UpdateRectTransformForStandalone
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
