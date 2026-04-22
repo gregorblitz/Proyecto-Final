@@ -61,15 +61,35 @@ public class InventorySlotUI : MonoBehaviour, IPointerClickHandler
             GameObject player = GameObject.FindGameObjectWithTag("Player");
             if (player != null)
             {
+                // Aparece el objeto fisico en el suelo
                 Vector3 spawnPos = player.transform.position + player.transform.forward * -0.5f;
                 Instantiate(currentItem.dropPrefab, spawnPos, Quaternion.identity);
 
+                // Desequipa visualmente el objeto de las manos
+                PlayerInteractor interactor = player.GetComponent<PlayerInteractor>();
+                if (interactor != null)
+                {
+                    if (currentItem.type == ItemData.ItemType.Flashlight)
+                    {
+                        interactor.UnequipFlashlight(); // Apaga la lampara 3D
+                    }
+                    else if (currentItem.itemName == "Pica" || currentItem.itemName == "Pico" || currentItem.itemName == "Pickaxe")
+                    {
+                        interactor.UnequipPickaxe(); // Apaga la pica 3D y baja los brazos
+                    }
+                }
+                // Elimina del inventario logico
                 InventoryManager.Instance.RemoveItem(currentItem);
-                ClearSlot();
-                
+
+                // Limpia la memoria de las manos en el sistema
                 SystemsController systems = player.GetComponent<SystemsController>();
                 if (systems != null && systems.selectedItem == currentItem) 
                     systems.selectedItem = null;
+
+                // Vaciar imagen del cuadro en la mochila
+                ClearSlot();
+                
+                
             }
         }
     }
