@@ -12,6 +12,9 @@ public class MenuPausa : MonoBehaviour
     public Button botonMenu;
     public Button botonSalir;
 
+    [Header("Referencia Game Over")]
+    public GameOverUI gameOverUI;
+
     void Start()
     {
         Time.timeScale = 1f;
@@ -19,10 +22,8 @@ public class MenuPausa : MonoBehaviour
         if (panelPausa != null)
             panelPausa.SetActive(false);
 
-        // Cursor en modo juego al iniciar
         BloquearCursor();
 
-        // Botones
         if (botonReanudar != null)
             botonReanudar.onClick.AddListener(Reanudar);
 
@@ -35,13 +36,15 @@ public class MenuPausa : MonoBehaviour
 
     void Update()
     {
+        // 🚫 Si hay Game Over, ignorar ESC
+        if (gameOverUI != null && gameOverUI.estaGameOver)
+            return;
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             TogglePausa();
         }
     }
-
-    // ── CONTROL DE PAUSA ─────────────────────────
 
     public void TogglePausa()
     {
@@ -56,8 +59,8 @@ public class MenuPausa : MonoBehaviour
         panelPausa.SetActive(true);
         Time.timeScale = 0f;
 
-        // 🔓 Liberar mouse
-        LiberarCursor();
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
     public void Reanudar()
@@ -67,16 +70,21 @@ public class MenuPausa : MonoBehaviour
 
         Time.timeScale = 1f;
 
-        // 🔒 Volver a bloquear mouse
         BloquearCursor();
     }
 
-    // ── BOTONES ─────────────────────────
+    // 🔴 ESTE ES CLAVE
+    public void CerrarPausaDesdeGameOver()
+    {
+        if (panelPausa != null)
+            panelPausa.SetActive(false);
+
+        // ❌ NO tocar cursor aquí
+    }
 
     public void MenuPrincipal()
     {
         Time.timeScale = 1f;
-        LiberarCursor();
         SceneManager.LoadScene("MenuCompleto");
     }
 
@@ -89,17 +97,9 @@ public class MenuPausa : MonoBehaviour
 #endif
     }
 
-    // ── CONTROL DEL CURSOR ─────────────────────────
-
     void BloquearCursor()
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-    }
-
-    void LiberarCursor()
-    {
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
     }
 }
