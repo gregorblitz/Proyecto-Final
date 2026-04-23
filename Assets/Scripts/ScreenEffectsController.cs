@@ -22,8 +22,8 @@ public class ScreenEffectsController : MonoBehaviour
     public float transitionSpeed;
 
     [Header("Stalking Static Config")]
-    public float stalkingSpeedLookAt = 30f; // Velocidad del ruido si el jugador mira a la criatura
-    public float stalkingSpeedLookAway = 15f; // Velocidad del ruido si el jugador le da la espalda
+    public float stalkingSpeedLookAt = 5f; // Velocidad del ruido si el jugador mira a la criatura
+    public float stalkingSpeedLookAway = 2f; // Velocidad del ruido si el jugador le da la espalda
 
     [Header("Global Volume Profiles")]
     // Cada volumen contiene un perfil de post-procesamiento diferente para cada estado del juego
@@ -55,7 +55,7 @@ public class ScreenEffectsController : MonoBehaviour
     public Material matForSanityArea;
     public Material matForScreenNoise; // Ruido de pantalla que cambia con la intensidad de amenaza
 
-    [Header("Fog Config")]
+    [Header("Fog & static Config")]
     // Configuración de niebla dinámica que aumenta cuando la criatura se acerca
     public float maxFog = 0.1f; // Máxima densidad de niebla (cuando la criatura está cerca)
     public float minFog = 0.5f; // Mínima densidad de niebla (cuando la criatura está lejos)
@@ -63,6 +63,9 @@ public class ScreenEffectsController : MonoBehaviour
     public float minStatic = 0.5f; // Mínima intensidad de ruido visual
     public float maxDistanceFromPlayer = 10; // Distancia en la que se activan efectos máximos
     public float minDistanceFromPlayer = 2; // Distancia en la que comienzan los efectos visuales
+
+
+    
 
     
     // Referencias a los Renderer Features del pipeline URP (obtenidas por reflexión en Awake)
@@ -86,6 +89,7 @@ public class ScreenEffectsController : MonoBehaviour
         creatureController = GameObject.FindFirstObjectByType<CreatureController>();
         playerStatus = GameObject.FindFirstObjectByType<PlayerStatus>();      
         playerStatusData = playerStatus.playerStatusData;    
+        
     }
 
     void Start()
@@ -110,6 +114,7 @@ public class ScreenEffectsController : MonoBehaviour
         ScreenNoiseRendererRef.SetActive(true);
 
         UpdateScreenStatic();
+        matForScreenNoise.SetFloat("_StalkingSpeed", 0.2f);
     }
 
     private void LateUpdate() {
@@ -122,6 +127,10 @@ public class ScreenEffectsController : MonoBehaviour
         {
             UpdateStalkingNoise();
         }
+        else matForScreenNoise.SetFloat("_StalkingSpeed", 0.2f);
+
+        
+        
     }
     
 
@@ -225,15 +234,35 @@ public class ScreenEffectsController : MonoBehaviour
         // Resultado: 1 = mirando directo, 0 = perpendicular, -1 = mirando hacia atrás
         float lookAlignment = Vector3.Dot(cameraForward, dirToCreature);
 
+        Debug.Log("Aligment to creature is " + lookAlignment);
+
+        if(lookAlignment > 0.7){
+            matForScreenNoise.SetFloat("_StalkingSpeed", 4f);
+            ScreenNoiseRendererRef.passMaterial.SetFloat("_speed", 25f); 
+        }
+        else if(lookAlignment < -0.6)
+        {
+            matForScreenNoise.SetFloat("_StalkingSpeed", 0.5f);
+            ScreenNoiseRendererRef.passMaterial.SetFloat("_speed", 10f); 
+        }
+        
+         
+
+        else
+        {
+            matForScreenNoise.SetFloat("_StalkingSpeed", 2f);
+            ScreenNoiseRendererRef.passMaterial.SetFloat("_speed", 15f); 
+        }
+/*
         // Mapea el alineamiento a velocidad de ruido
         // Max(0, lookAlignment) hace que solo "mirando hacia adelante" aumente velocidad
         float targetSpeed = Mathf.Lerp(stalkingSpeedLookAway, stalkingSpeedLookAt, Mathf.Max(0, lookAlignment));
 
         // Suaviza la transición para evitar saltos visuales bruscos
-        float currentSpeed = matForScreenNoise.GetFloat("_speed");
+        float currentSpeed = matForScreenNoise.GetFloat("_StalkingSpeed");
         float smoothedSpeed = Mathf.Lerp(currentSpeed, targetSpeed, Time.deltaTime * transitionSpeed);
         
-        matForScreenNoise.SetFloat("_speed", smoothedSpeed);
+        matForScreenNoise.SetFloat("_StalkingSpeed", smoothedSpeed);*/
     }
 
 #region EFECTOS ESTADO DEL JUGADOR
