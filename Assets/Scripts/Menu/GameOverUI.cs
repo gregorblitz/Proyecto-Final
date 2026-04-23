@@ -61,6 +61,6 @@ public class GameOverUI : MonoBehaviour
         Time.timeScale = 1f;
         estaGameOver = false;
 
-        SceneManager.LoadScene("MenuCompleto");
+        SceneManager.LoadScene(0);
     }
 }

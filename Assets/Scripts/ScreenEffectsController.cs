@@ -152,6 +152,7 @@ public class ScreenEffectsController : MonoBehaviour
 
         // Evento de salud del jugador
         playerStatus.OnHealthChanged.AddListener(EffectsForHealt);
+        playerStatus.OnPlayerDeath.AddListener(EffectsForDeath);
 
         // Eventos de áreas especiales (daño, oxígeno, cordura)
         DamageZone.OnHealthDamageArea.AddListener(EffectsForPoisonArea);
@@ -276,6 +277,12 @@ public class ScreenEffectsController : MonoBehaviour
         else if (PlayerStatsRendererRef.passMaterial == matForLowHealth) 
             UpdateMaterial(null, PlayerStatsRendererRef);
     }
+
+    public void EffectsForDeath()
+    {
+        UpdateVolume(volumeForDeath);
+        if (!playerStatus.isAlive) this.enabled = false;
+    }
 #endregion
 
 #region EFECTOS CREATURA
@@ -389,6 +396,7 @@ public class ScreenEffectsController : MonoBehaviour
     // Corrutina que interpola suavemente entre volúmenes
     private IEnumerator SwitchVolumes(float speed, Volume newVolume)
     {
+        
         if (newVolume != null)
         {
             // Activa el nuevo volumen desde 0 peso
@@ -429,6 +437,8 @@ public class ScreenEffectsController : MonoBehaviour
             currentCreatureVolume.weight = 0;
             currentCreatureVolume = null;
         }
+        if (!playerStatus.isAlive) volumeBase.enabled = false;
+        
     }
 
     // Corrutina alternativa para cambiar Renderer Features (actualmente sin usar)

@@ -9,22 +9,25 @@ public class GameManager : MonoBehaviour
     [Header("Game Over Config")]
     [SerializeField] private float totalSlowMoLenght = 2.0f;
     [SerializeField] private float delayBeforeRestar = 3.0f;
+    public GameObject jumpscareUI;
 
     [Header("Victory Config")]
     [SerializeField] protected Collider victoryTrigger;
 
-    [Header("Victory Config")]
+    [Header("Checkpoint Config")]
     [SerializeField] protected static GameObject currentCheckpoint;
+
+    public GameOverUI gameOverUI;
 
     private void Start()
     {
         playerRef = GameObject.FindGameObjectWithTag("Player");
         playerRef.GetComponent<PlayerStatus>().OnPlayerDeath.AddListener(OnGameOver);
+        Debug.Log(gameOverUI + " is cool");
     }
 
     void OnGameOver()
     {
-        Debug.Log("The game is over");
         StartCoroutine(slowTimeToStop());
     }
 
@@ -43,12 +46,12 @@ public class GameManager : MonoBehaviour
             yield return null;
         }
 
-        Debug.Log("turning off player......");
         playerRef.GetComponent<PlayerStatus>().gameObject.SetActive(false);
 
         // 🔽 CAMBIO CLAVE AQUÍ 🔽
         Time.timeScale = 0f;
-        FindObjectOfType<GameOverUI>().MostrarGameOver();
+        if(jumpscareUI.activeInHierarchy) jumpscareUI.SetActive(false);
+        gameOverUI.MostrarGameOver();
         // 🔼 FIN DEL CAMBIO 🔼
 
     }
