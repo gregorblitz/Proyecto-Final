@@ -12,6 +12,9 @@ public class MenuPausa : MonoBehaviour
     public Button botonMenu;
     public Button botonSalir;
 
+    [Header("Referencia Game Over")]
+    public GameOverUI gameOverUI;
+
     void Start()
     {
         Time.timeScale = 1f;
@@ -19,7 +22,8 @@ public class MenuPausa : MonoBehaviour
         if (panelPausa != null)
             panelPausa.SetActive(false);
 
-        // Asignar funciones a los botones
+        BloquearCursor();
+
         if (botonReanudar != null)
             botonReanudar.onClick.AddListener(Reanudar);
 
@@ -32,13 +36,15 @@ public class MenuPausa : MonoBehaviour
 
     void Update()
     {
+        // 🚫 Si hay Game Over, ignorar ESC
+        if (gameOverUI != null && gameOverUI.estaGameOver)
+            return;
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             TogglePausa();
         }
     }
-
-    // ── CONTROL DE PAUSA ─────────────────────────
 
     public void TogglePausa()
     {
@@ -52,6 +58,9 @@ public class MenuPausa : MonoBehaviour
 
         panelPausa.SetActive(true);
         Time.timeScale = 0f;
+
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
     public void Reanudar()
@@ -60,14 +69,23 @@ public class MenuPausa : MonoBehaviour
             panelPausa.SetActive(false);
 
         Time.timeScale = 1f;
+
+        BloquearCursor();
     }
 
-    // ── BOTONES ─────────────────────────
+    // 🔴 ESTE ES CLAVE
+    public void CerrarPausaDesdeGameOver()
+    {
+        if (panelPausa != null)
+            panelPausa.SetActive(false);
+
+        // ❌ NO tocar cursor aquí
+    }
 
     public void MenuPrincipal()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene("Menu Inicio");
+        SceneManager.LoadScene("MenuCompleto");
     }
 
     public void Salir()
@@ -77,5 +95,11 @@ public class MenuPausa : MonoBehaviour
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #endif
+    }
+
+    void BloquearCursor()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 }

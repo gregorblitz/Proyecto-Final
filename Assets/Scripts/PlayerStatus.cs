@@ -16,7 +16,7 @@ public class PlayerStatus : MonoBehaviour
     private float currentHealth;
     private float currentOxygen;
     private float currentMadness;
-    private bool isAlive = true;
+    public bool isAlive = true;
     private bool thresholdEventSent = false;
 
     void Start()
