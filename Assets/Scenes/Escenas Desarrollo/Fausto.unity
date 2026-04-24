@@ -1566,6 +1566,30 @@ PrefabInstance:
       propertyPath: playerStatus
       value: 
       objectReference: {fileID: 263621567}
+    - target: {fileID: 2150210149107482625, guid: e0cddce09e90a1d458c025eaf1c8bac3, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2150210149107482625, guid: e0cddce09e90a1d458c025eaf1c8bac3, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2150210149107482625, guid: e0cddce09e90a1d458c025eaf1c8bac3, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2150210149107482625, guid: e0cddce09e90a1d458c025eaf1c8bac3, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2150210149107482625, guid: e0cddce09e90a1d458c025eaf1c8bac3, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2150210149107482625, guid: e0cddce09e90a1d458c025eaf1c8bac3, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3539945072435005502, guid: e0cddce09e90a1d458c025eaf1c8bac3, type: 3}
       propertyPath: flashlightController
       value: 
