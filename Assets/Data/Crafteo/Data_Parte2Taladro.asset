@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74ba8cd6b72612f4eabc39719ce75029, type: 3}
+  m_Name: Data_Parte2Taladro
+  m_EditorClassIdentifier: Assembly-CSharp::ItemData
+  itemName: Parte 2 Taladro
+  type: 5
+  icon: {fileID: 0}
+  dropPrefab: {fileID: 0}
+  description: Segunda pieza del taladro. Necesita combinar can la parte 1 para funcionar.
+  isConsumable: 1
+  effectType: 0
+  effectAmount: 0
+  value: 0
+  interactionID: Parte2Taladro
+  batteryCapacity: 0
