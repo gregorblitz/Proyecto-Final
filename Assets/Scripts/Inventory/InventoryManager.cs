@@ -9,7 +9,7 @@ public class InventoryManager : MonoBehaviour
 
     [Header("Datos de Inventario")]
     public List<ItemData> currentItems = new List<ItemData>();
-    
+
     [Header("Configuración")]
     [Tooltip("Cantidad máxima de slots disponibles en el inventario.")]
     public int inventorySize = 4;
@@ -47,7 +47,7 @@ public class InventoryManager : MonoBehaviour
             {
                 // Asignamos el ítem al slot visual
                 availableSlot.GetComponent<InventorySlotUI>().SetSlot(itemToAdd);
-                
+
                 // Disparamos el evento de que se añadió
                 OnItemAdded?.Invoke();
                 return true;
@@ -73,6 +73,27 @@ public class InventoryManager : MonoBehaviour
             currentItems.Remove(itemToRemove);
             OnItemRemoved?.Invoke();
             Debug.Log($"Ítem {itemToRemove.itemName} eliminado del inventario.");
+        }
+    }
+    // ===============================
+    // ****SISTEMA DE PERSISTENCIA****
+    // ================================
+    public void RestoreInventory(List<ItemData> savedItems)
+    {
+        // Vacia la lista logica
+        currentItems.Clear();
+
+        // Vacia visualmente cuadritos de la UI
+        InventorySlotUI[] slots = inventoryUI.slotsParent.GetComponentsInChildren<InventorySlotUI>(true);
+        foreach (InventorySlotUI slot in slots)
+        {
+            slot.ClearSlot(); //borra el dibujo del item en inventario
+        }
+
+        // Vuelve a meter los objetos guardados uno por uno
+        foreach (ItemData item in savedItems)
+        {
+            AddItem(item);
         }
     }
 }
