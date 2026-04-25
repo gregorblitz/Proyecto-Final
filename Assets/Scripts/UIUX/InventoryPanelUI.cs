@@ -57,6 +57,57 @@ public class InventoryPanelUI : MonoBehaviour
         if (isInventoryOpen)
         {
             HandleScrollInput();
+
+            // Escuchar el clic de la rueda globalmente
+            if (Mouse.current != null && Mouse.current.middleButton.wasPressedThisFrame)
+            {
+                EjecutarAccionSlotSeleccionado();
+            }
+
+            // Clic Derecho para Tirar el objeto seleccionado 
+            if (Mouse.current != null && Mouse.current.rightButton.wasPressedThisFrame)
+            {
+                TirarObjetoSeleccionado();
+            }
+        
+        }
+    }
+
+    // PARA TIRAR o desequipar
+    private void TirarObjetoSeleccionado()
+    {
+        // Buscas el slot donde esta el cuadro amarillo actualmente
+        if (slotsParent.childCount > 0)
+        {
+            InventorySlotUI slotActual = slotsParent.GetChild(selectedSlotIndex).GetComponent<InventorySlotUI>();
+
+            // Si el slot existe y tiene un objeto adentro lo tira
+            if (slotActual != null && slotActual.currentItem != null)
+            {
+                slotActual.DropItem();
+                
+                // Re-evalua los brillos de crafteo por si se tira un ingrediente
+                if (CraftingManager.Instance != null)
+                {
+                    InventorySlotUI[] allSlots = slotsParent.GetComponentsInChildren<InventorySlotUI>(true);
+                    CraftingManager.Instance.EvaluateCraftableItemsGlow(allSlots);
+                }
+            }
+        }
+    }
+
+    private void EjecutarAccionSlotSeleccionado()
+    {
+        // Busca el slot donde esta parado actualmente (resaltado amarillo)
+        if (slotsParent.childCount > 0)
+        {
+            InventorySlotUI slotActual = slotsParent.GetChild(selectedSlotIndex).GetComponent<InventorySlotUI>();
+
+            if (slotActual != null && CraftingManager.Instance != null)
+            {
+                // Manda este slot al cerebro de crafteo sin importar donde mire la camara
+                CraftingManager.Instance.HandleMiddleClick(slotActual);
+            }
         }
     }
 
@@ -109,12 +160,15 @@ public class InventoryPanelUI : MonoBehaviour
         if (isInventoryOpen)
         {
             // Mostramos el cursor para que el jugador pueda hacer clic en los slots
-            Cursor.lockState = CursorLockMode.None;
+            Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = true;
-
-            // IMPORTANTE: Desactivamos el mapa del jugador para que el mouse
-            // no controle la cámara mientras el inventario está abierto
-            BloquearInputJugador(true);
+            //*****INICIO - MODIFICACIONES PARA CRAFTEO******
+            // Evaluar brillos de crafteo al abrir
+            InventorySlotUI[] allSlots = slotsParent.GetComponentsInChildren<InventorySlotUI>(true);
+            if (CraftingManager.Instance != null)
+            {
+                CraftingManager.Instance.EvaluateCraftableItemsGlow(allSlots);
+            }
         }
         else
         {
@@ -122,8 +176,6 @@ public class InventoryPanelUI : MonoBehaviour
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
 
-            // Reactivamos el control del jugador
-            BloquearInputJugador(false);
         }
     }
 
