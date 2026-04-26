@@ -1,78 +1,106 @@
-//Fauto A. Gomez
-using System.Collections.Generic;
+// Fausto A. Gómez
+// MODIFICADO: se añadió el método HasSpace() que necesita CraftingSystem
+// para saber si hay espacio antes de añadir el resultado del crafteo.
+
 using UnityEngine;
-using UnityEngine.Events;
+using System.Collections.Generic;
+using UnityEngine.InputSystem;
 
 public class InventoryManager : MonoBehaviour
 {
+    // Patrón Singleton: acceso global desde cualquier script
     public static InventoryManager Instance { get; private set; }
 
-    [Header("Datos de Inventario")]
+    [Header("Configuración del Inventario")]
+    public int inventorySize = 8; // Número máximo de ítems
+
+    // Lista de ítems actuales (es pública para que CraftingSystem pueda consultarla)
     public List<ItemData> currentItems = new List<ItemData>();
-    
-    [Header("Configuración")]
-    [Tooltip("Cantidad máxima de slots disponibles en el inventario.")]
-    public int inventorySize = 4;
 
-    [Header("Dependencias")]
+    [Header("Referencias UI")]
     public InventoryPanelUI inventoryUI;
-
-    [Header("Eventos")]
-    public UnityEvent OnItemAdded;
-    public UnityEvent OnItemRemoved;
-    public UnityEvent OnInventoryFull;
 
     private void Awake()
     {
-        if (Instance != null && Instance != this)
+        // Configuramos el Singleton
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
         {
             Destroy(gameObject);
         }
-        else
-        {
-            Instance = this;
-            // Opcional: NoDestroyOnLoad(gameObject);
-        }
     }
 
+    // Intenta agregar un ítem al inventario. Devuelve true si lo logró.
     public bool AddItem(ItemData itemToAdd)
     {
-        if (currentItems.Count < inventorySize)
+        if (currentItems.Count >= inventorySize)
         {
-            currentItems.Add(itemToAdd);
-
-            // Intentamos buscar un slot visualmente
-            GameObject availableSlot = inventoryUI.GetAvailableSlot();
-            if (availableSlot != null)
-            {
-                // Asignamos el ítem al slot visual
-                availableSlot.GetComponent<InventorySlotUI>().SetSlot(itemToAdd);
-                
-                // Disparamos el evento de que se añadió
-                OnItemAdded?.Invoke();
-                return true;
-            }
-            else
-            {
-                Debug.LogError("Inventario lógico tiene espacio, pero la UI no tiene slots disponibles.");
-                return false;
-            }
-        }
-        else
-        {
-            Debug.Log("El inventario está lleno.");
-            OnInventoryFull?.Invoke();
+            Debug.Log("[InventoryManager] Inventario lleno. No se pudo añadir: " + itemToAdd.itemName);
             return false;
         }
+
+        currentItems.Add(itemToAdd);
+
+        // Buscar un slot vacío en la UI y asignarle el ítem
+        GameObject availableSlot = inventoryUI?.GetAvailableSlot();
+        if (availableSlot != null)
+        {
+            availableSlot.GetComponent<InventorySlotUI>().SetSlot(itemToAdd);
+        }
+
+        Debug.Log("[InventoryManager] Ítem añadido: " + itemToAdd.itemName);
+        return true;
     }
 
+    // Elimina un ítem del inventario lógico (la UI se actualiza por separado)
     public void RemoveItem(ItemData itemToRemove)
     {
         if (currentItems.Contains(itemToRemove))
         {
             currentItems.Remove(itemToRemove);
-            OnItemRemoved?.Invoke();
-            Debug.Log($"Ítem {itemToRemove.itemName} eliminado del inventario.");
+            Debug.Log("[InventoryManager] Ítem eliminado: " + itemToRemove.itemName);
+        }
+        else
+        {
+            Debug.LogWarning("[InventoryManager] No se encontró el ítem para eliminar: " + itemToRemove?.itemName);
+        }
+    }
+
+    // NUEVO: Devuelve true si hay al menos un espacio libre en el inventario.
+    // CraftingSystem lo usa antes de agregar el resultado del crafteo.
+    public bool HasSpace()
+    {
+        return currentItems.Count < inventorySize;
+    }
+
+    // Verifica si el inventario contiene un ítem específico
+    public bool HasItem(ItemData item)
+    {
+        return currentItems.Contains(item);
+    }
+    // ===============================
+    // ****SISTEMA DE PERSISTENCIA****
+    // ================================
+    public void RestoreInventory(List<ItemData> savedItems)
+    {
+        // Vacia la lista logica
+        currentItems.Clear();
+
+        // Vacia visualmente cuadritos de la UI
+        InventorySlotUI[] slots = inventoryUI.slotsParent.GetComponentsInChildren<InventorySlotUI>(true);
+        foreach (InventorySlotUI slot in slots)
+        {
+            slot.ClearSlot(); //borra el dibujo del item en inventario
+        }
+
+        // Vuelve a meter los objetos guardados uno por uno
+        foreach (ItemData item in savedItems)
+        {
+            AddItem(item);
         }
     }
 }

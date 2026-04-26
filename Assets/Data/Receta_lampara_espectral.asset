@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f233541c7780be4e866662a2807488c, type: 3}
+  m_Name: Receta_lampara_espectral
+  m_EditorClassIdentifier: Assembly-CSharp::CraftingRecipe
+  recipeName: Lampara Espectral
+  ingredients:
+  - {fileID: 11400000, guid: c271a21633d6d0a4ea43f55804947d4e, type: 2}
+  - {fileID: 11400000, guid: ef77dfac954d27542ba0feb4249af23a, type: 2}
+  resultItem: {fileID: 11400000, guid: acd4e273ab5b0e042a0c604bc5d3c608, type: 2}
+  glowColor: {r: 0, g: 1, b: 1, a: 1}

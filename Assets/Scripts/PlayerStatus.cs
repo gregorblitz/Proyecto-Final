@@ -90,6 +90,31 @@ public class PlayerStatus : MonoBehaviour
         Debug.Log("Player died");
     }
 
+    // SISTEMA DE PERSISTENCIA
+    // El GameManager lee las stats actuales
+    // ouit debido a que las variables estan privadas
+    public void GetCurrentStats(out float health, out float oxygen, out float madness)
+    {
+        health = currentHealth;
+        oxygen = currentOxygen;
+        madness = currentMadness;
+    }
+
+    // Restaura las stats del GameManager al revivir
+    public void RestoreStatsFromCheckpoint(float h, float o, float m)
+    {
+        currentHealth = h;
+        currentOxygen = o;
+        currentMadness = m;
+        isAlive = true;
+        thresholdEventSent = false;
+
+        // Avisa a la UI (barras de vida, etc) que los valores cambiaron
+        OnHealthChanged?.Invoke(currentHealth, playerStatusData.maxHealth);
+        OnOxygenChanged?.Invoke(currentOxygen, playerStatusData.maxOxygen);
+        OnMadnessChanged?.Invoke(currentMadness, playerStatusData.maxMadness);
+    }
+
         #region Métodos de prueba para el Editor
     [ContextMenu("Test/Recibir 10 de daño")]
     void TestTakeDamage() => ModifyHealth(-10f);

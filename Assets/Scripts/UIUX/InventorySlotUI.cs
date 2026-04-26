@@ -8,6 +8,7 @@ public class InventorySlotUI : MonoBehaviour, IPointerClickHandler
 {
     [Header("Componentes UI")]
     public Image icon;
+    public Image glowBorder; // Arrastrar nueva imagen aqui en el prefab
     
     [Header("Datos del Slot")]
     public ItemData currentItem;
@@ -16,6 +17,9 @@ public class InventorySlotUI : MonoBehaviour, IPointerClickHandler
 
     [Header("Visualización de Selección")]
     public Color selectionColor = Color.yellow;
+
+    //****BANDERA para indicar si esta listo para crafteo
+    [HideInInspector] public bool isCraftableReady = false; // Avisa al ratón si brilla
 
     private void Awake()
     {
@@ -34,6 +38,18 @@ public class InventorySlotUI : MonoBehaviour, IPointerClickHandler
         currentItem = null;
         icon.sprite = null;
         icon.enabled = false;
+        SetGlow(Color.white, false); // Apagar el brillo si se vacia el slot
+    }
+
+    // ***PARA EL BRILLO BORDE LUMINOSO PARA INVENTARIO CRAFTEO****
+    public void SetGlow(Color color, bool isActive)
+    {
+        if (glowBorder != null)
+        {
+            glowBorder.color = color;
+            glowBorder.enabled = isActive;
+            glowBorder.gameObject.SetActive(isActive);
+        }
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -52,9 +68,18 @@ public class InventorySlotUI : MonoBehaviour, IPointerClickHandler
         {
             DropItem();
         }
+        // ****CRAFTEO --> Middle Click (mouse)
+        else if (eventData.button == PointerEventData.InputButton.Middle)
+        {
+            if (CraftingManager.Instance != null)
+            {
+                CraftingManager.Instance.HandleMiddleClick(this);
+            }
+        }
+        //******
     }
 
-    private void DropItem()
+    public void DropItem()
     {
         if (currentItem != null && currentItem.dropPrefab != null)
         {

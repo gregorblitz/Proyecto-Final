@@ -35,7 +35,12 @@ public class AreaDetection : MonoBehaviour
 
                 case AreaType.Checkpoint:
                     Debug.Log("Area was of checkpoint type");
-                    GameManager.SetNewCheckpoint(other.gameObject);
+                    // Arreglo: Guardaba como checkpoint el cadaver del jugador y solo coordenadas (no stats)
+                    // Ahora pasa gameObject (campamento) en lugar de 'other.gameObject' (jugador).
+                    // envia playerStatus para que GameManager (metodo SetNewCheckpoint ) guarde stats.
+                    //GameManager.SetNewCheckpoint(other.gameObject);
+                    GameManager.SetNewCheckpoint(gameObject, playerStatus);
+
                     break;
 
                 default:

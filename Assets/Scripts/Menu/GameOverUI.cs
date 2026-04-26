@@ -53,7 +53,18 @@ public class GameOverUI : MonoBehaviour
         Time.timeScale = 1f;
         estaGameOver = false;
 
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        //Ajuste para persistencia de datos
+        //*****************************
+        // Apaga el panel de Game Over
+        if (panelGameOver != null)
+            panelGameOver.SetActive(false);
+
+        // ELIMINADO EL REINICIO DE ESCENA
+        // Ya no usa SceneManager.LoadScene 
+        // Ahora el GameManager teletransporta 
+
+        // SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        //*******************************
     }
 
     public void MenuPrincipal()

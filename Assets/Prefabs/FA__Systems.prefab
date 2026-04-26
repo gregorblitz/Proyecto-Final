@@ -49,18 +49,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27a94357a991157449218c8a428655ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InventoryManager
-  currentItems: []
   inventorySize: 8
+  currentItems: []
   inventoryUI: {fileID: 8362341890467885950}
-  OnItemAdded:
-    m_PersistentCalls:
-      m_Calls: []
-  OnItemRemoved:
-    m_PersistentCalls:
-      m_Calls: []
-  OnInventoryFull:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &8362341890467885950
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -78,6 +69,9 @@ MonoBehaviour:
   slotPrefab: {fileID: 6974343230791804870, guid: 9514be5d7aa793c42b563717cd945854, type: 3}
   isInventoryOpen: 0
   selectedSlotIndex: 0
+  playerInput: {fileID: 0}
+  playerActionMapName: Player
+  uiActionMapName: UI
 --- !u!114 &2151142747485988477
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -199,6 +193,18 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 495ab8ea-579a-43e8-988b-9968d6879a27
     m_ActionName: 'Player/Crawl[/Keyboard/c]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 543357de-03ee-4b80-a594-c6013ef586d7
+    m_ActionName: 'Player/Flashlight[/Keyboard/f]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 7140b035-d430-4277-9817-44f87940b8da
+    m_ActionName: 'Player/ScrollWheel[/Mouse/scroll]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a4d747c5-d26b-4206-8631-a1dd62d509c6
+    m_ActionName: 'Player/UseInventory[/Keyboard/q]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -218,7 +224,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CraftingSystem
   flashlightItem: {fileID: 11400000, guid: 295af92c134417c448104aeeacd96262, type: 2}
   batteryItem: {fileID: 11400000, guid: 08b5d300dd3666f4991c70e8fac76c0c, type: 2}
-  craftKey: 114
+  parte1Taladro: {fileID: 11400000, guid: 84ffed24a7d759e4380e12ce94068c25, type: 2}
+  parte2Taladro: {fileID: 11400000, guid: 20b66585a3ec6b9459c415994ee3a613, type: 2}
+  taladroCompleto: {fileID: 11400000, guid: a864c561caf6a1340985f642fd4683e8, type: 2}
+  lamparaOriginal: {fileID: 11400000, guid: 0e32b029fbf0db847b7dcdfe51bcdf3e, type: 2}
+  luzEspectral: {fileID: 11400000, guid: 476a5776cea26f34ea09d27ff3383dee, type: 2}
+  lamparaReveladora: {fileID: 11400000, guid: 3ffb088bb1f96824298c38af8f75a091, type: 2}
+  todasLasRecetas: []
 --- !u!114 &8244430318038700361
 MonoBehaviour:
   m_ObjectHideFlags: 0
