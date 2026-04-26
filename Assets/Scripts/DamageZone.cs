@@ -17,6 +17,11 @@ public class DamageZone : MonoBehaviour
     public EffectType effect;
     public float amountPerSecond = 10f;
     public bool continuous = true;
+
+    [Header("Gizmos Visualization")]
+    public Material particleMatForArea;
+    public Color particleColor;
+
     
     [Header("Gizmos Visualization")]
     public Color gizmoColor = new Color(1f, 0f, 0f, 0.3f);
@@ -24,6 +29,9 @@ public class DamageZone : MonoBehaviour
 
     private PlayerStatus playerStatus;
     private Collider zoneCollider;
+    private ParticleSystemRenderer TEST;
+
+
 
     void Start()
     {
@@ -32,7 +40,10 @@ public class DamageZone : MonoBehaviour
         if (zoneCollider == null)
             Debug.LogWarning("DamageZone necesita un Collider (preferiblemente Trigger)");
 
-        GetComponent<MeshRenderer>().material.color = gizmoColor; // Para que el objeto también sea visible en juego, no solo en el editor
+        //GetComponent<MeshRenderer>().material.color = gizmoColor; // Para que el objeto también sea visible en juego, no solo en el editor
+
+        if (particleMatForArea == null) GetComponent<ParticleSystemRenderer>().enabled = false;
+        else GetComponent<ParticleSystemRenderer>().material.color = particleColor;
     }
 
     void OnTriggerEnter(Collider other)
