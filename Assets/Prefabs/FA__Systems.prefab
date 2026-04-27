@@ -257,6 +257,7 @@ GameObject:
   - component: {fileID: 2591382573601330061}
   - component: {fileID: 4842134951386070205}
   - component: {fileID: 8303920617812143967}
+  - component: {fileID: 550147685217237097}
   m_Layer: 0
   m_Name: Audio
   m_TagString: Untagged
@@ -294,11 +295,24 @@ MonoBehaviour:
   mainMixer: {fileID: 24100000, guid: cf2623621319d3847886d6943001653f, type: 2}
   musicGroup: {fileID: -813004109048012375, guid: cf2623621319d3847886d6943001653f, type: 2}
   sfxGroup: {fileID: -5366116467697678042, guid: cf2623621319d3847886d6943001653f, type: 2}
-  uiGroup: {fileID: 0}
+  uiGroup: {fileID: 7952994682360787675, guid: cf2623621319d3847886d6943001653f, type: 2}
   ambientSource: {fileID: 2591382573601330061}
   chaseSource: {fileID: 4842134951386070205}
   sfxSource: {fileID: 8303920617812143967}
   crossfadeDuration: 1.5
+  caveAmbienceClip: {fileID: 8300000, guid: ff3918bdd65bb504ba3bdcb4b17b121e, type: 3}
+  footstepGravelClip: {fileID: 8300000, guid: 935d0426eaf71244e8402cc6fb9c9924, type: 3}
+  footstepConcreteClip: {fileID: 8300000, guid: 23ec9055842aa884bb1cb3db154a76d5, type: 3}
+  footstepStoneClip: {fileID: 8300000, guid: 8bc39001007a21645b57d4ee2b7b5d99, type: 3}
+  jumpLandingClip: {fileID: 8300000, guid: 3b7401f3a5f39944791a17cd39f11194, type: 3}
+  crawlClip: {fileID: 8300000, guid: 1ec0e94c06a4e614885f1a8d194a4900, type: 3}
+  drillClip: {fileID: 8300000, guid: 6803b204428daa24ebd7ea95699714e8, type: 3}
+  pickaxeClip: {fileID: 8300000, guid: 5da46a6a66eec714d8d2194d7686f255, type: 3}
+  pickupClip: {fileID: 8300000, guid: 1f6a51e6a46347f438b442182f5f117c, type: 3}
+  checkpointClip: {fileID: 8300000, guid: 1daab414930df394d9f17691b0f0c76d, type: 3}
+  enemyHitClip: {fileID: 8300000, guid: 8f1483d709577a442a5b30b98476447e, type: 3}
+  enemyStepsClip: {fileID: 8300000, guid: 17b13d5726417e3408bfb3c09f550375, type: 3}
+  creepSoundClip: {fileID: 8300000, guid: 0d0e114c7e0a362419cac4a26cc5108e, type: 3}
 --- !u!82 &2591382573601330061
 AudioSource:
   m_ObjectHideFlags: 0
@@ -312,7 +326,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 22ae3791b3ed6944996f955a8606f754, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.7
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -408,7 +422,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: -813004109048012375, guid: cf2623621319d3847886d6943001653f, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 06e53559031bd7d4c8481ee37b9458d0, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 0
   m_Pitch: 1
   Loop: 1
@@ -590,3 +604,15 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &550147685217237097
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6820225964379307772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21a383858876ba24b816997e45119974, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SFXEvents
