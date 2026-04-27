@@ -31,6 +31,11 @@ public class MenuCompleto : MonoBehaviour
         if (panelCreditos != null) panelCreditos.SetActive(false);
         if (panelSalir != null) panelSalir.SetActive(false);
         if (panelGameOver != null) panelGameOver.SetActive(false);
+        
+    
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    
     }
 
     // ── BOTONES PRINCIPALES ─────────────────────────

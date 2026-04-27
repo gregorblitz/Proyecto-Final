@@ -10,11 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7f233541c7780be4e866662a2807488c, type: 3}
-  m_Name: Receta_lampara_espectral
+  m_Name: Receta_Taladro
   m_EditorClassIdentifier: Assembly-CSharp::CraftingRecipe
-  recipeName: Lampara Espectral
+  recipeName: Taladro
   ingredients:
-  - {fileID: 11400000, guid: 295af92c134417c448104aeeacd96262, type: 2}
-  - {fileID: 11400000, guid: bb0308927eaf67249b15f73ff9478eb5, type: 2}
-  resultItem: {fileID: 11400000, guid: acd4e273ab5b0e042a0c604bc5d3c608, type: 2}
-  glowColor: {r: 0, g: 1, b: 1, a: 1}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  resultItem: {fileID: 11400000, guid: a864c561caf6a1340985f642fd4683e8, type: 2}
+  glowColor: {r: 1, g: 0, b: 0.093182564, a: 1}

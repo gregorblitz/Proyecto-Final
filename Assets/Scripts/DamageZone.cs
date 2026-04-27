@@ -32,10 +32,15 @@ public class DamageZone : MonoBehaviour
     private ParticleSystemRenderer TEST;
 
 
-
+    private void OnEnable() {
+        playerStatus.OnPlayerDeath.AddListener(RemoveEffect);
+    }
+    private void Awake() {
+        playerStatus = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStatus>();
+    }
     void Start()
     {
-        playerStatus = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStatus>();
+        
         zoneCollider = GetComponent<Collider>();
         if (zoneCollider == null)
             Debug.LogWarning("DamageZone necesita un Collider (preferiblemente Trigger)");
@@ -65,9 +70,17 @@ public class DamageZone : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player") && continuous) CancelInvoke("ApplyEffect");
-
+        if (other.CompareTag("Player")) RemoveEffect();
         DamageZone.OnOutOfArea?.Invoke();
+
+    }
+
+    public void RemoveEffect()
+    {
+        CancelInvoke("ApplyEffect");
+        Debug.Log("Efecto removido");
+        
+        
     }
 
     void ApplyEffect()
