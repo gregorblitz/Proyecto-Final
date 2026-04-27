@@ -186,7 +186,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1948459100426964006, guid: 7d95a28607dd15e4a99b35dd8988c62f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2123978883}
   m_SourcePrefab: {fileID: 100100000, guid: 7d95a28607dd15e4a99b35dd8988c62f, type: 3}
 --- !u!1001 &57255134
 PrefabInstance:
@@ -538,6 +541,29 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &245455712 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1948459100426964006, guid: 7d95a28607dd15e4a99b35dd8988c62f, type: 3}
+  m_PrefabInstance: {fileID: 1242785822}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &245455720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 245455712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5163c4d73fe6e6b44b1137222b60eda4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CreepAudioController
+  creepClip: {fileID: 0}
+  minInterval: 4
+  maxInterval: 10
+  volume: 0.85
+  maxDistance: 15
+  minDistance: 1
 --- !u!1001 &263621563
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -593,14 +619,17 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4198546031890967654, guid: 0732c85ef0ba0fd459110662542ca700, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2083921420}
   m_SourcePrefab: {fileID: 100100000, guid: 0732c85ef0ba0fd459110662542ca700, type: 3}
 --- !u!114 &263621567 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3477126170289129604, guid: 0732c85ef0ba0fd459110662542ca700, type: 3}
   m_PrefabInstance: {fileID: 263621563}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 2083921410}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 734cac527b94f8c40a0c7ad7b843b2d1, type: 3}
@@ -616,7 +645,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6205216054559984595, guid: 0732c85ef0ba0fd459110662542ca700, type: 3}
   m_PrefabInstance: {fileID: 263621563}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 2083921410}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8f729e3b01e4d8043a4041a3ffc88663, type: 3}
@@ -1566,6 +1595,10 @@ PrefabInstance:
       propertyPath: playerStatus
       value: 
       objectReference: {fileID: 263621567}
+    - target: {fileID: 1720391466942739036, guid: e0cddce09e90a1d458c025eaf1c8bac3, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2150210149107482625, guid: e0cddce09e90a1d458c025eaf1c8bac3, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -2097,7 +2130,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1948459100426964006, guid: 7d95a28607dd15e4a99b35dd8988c62f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 245455720}
   m_SourcePrefab: {fileID: 100100000, guid: 7d95a28607dd15e4a99b35dd8988c62f, type: 3}
 --- !u!1001 &1248238922
 PrefabInstance:
@@ -3257,6 +3293,53 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1665079178486320004, guid: 9e8310a59c540704ca4304cc26796daa, type: 3}
   m_PrefabInstance: {fileID: 3635988126594489857}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2083921410 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4198546031890967654, guid: 0732c85ef0ba0fd459110662542ca700, type: 3}
+  m_PrefabInstance: {fileID: 263621563}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2083921420
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2083921410}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5a46cea4e91bcc4a92e0160ee391285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerAudioController
+  currentSurface: 2
+  stepIntervalWalk: 0.45
+  stepIntervalRun: 0.28
+  crawlInterval: 0.6
+  stepVolume: 0.7
+  landVolume: 0.9
+  crawlVolume: 0.5
+--- !u!1 &2123978875 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1948459100426964006, guid: 7d95a28607dd15e4a99b35dd8988c62f, type: 3}
+  m_PrefabInstance: {fileID: 23756062}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2123978883
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2123978875}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5163c4d73fe6e6b44b1137222b60eda4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CreepAudioController
+  creepClip: {fileID: 0}
+  minInterval: 4
+  maxInterval: 10
+  volume: 0.85
+  maxDistance: 15
+  minDistance: 1
 --- !u!1001 &2124087205
 PrefabInstance:
   m_ObjectHideFlags: 0

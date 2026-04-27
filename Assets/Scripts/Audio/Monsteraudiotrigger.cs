@@ -1,62 +1,92 @@
 // Fausto A. Gómez
-// Script pequeño que se pone en el mismo GameObject que Monster.cs.
+// Script que se pone en el mismo GameObject que Monster.cs.
 // Detecta cuándo el monstruo empieza a perseguir y le avisa al AudioManager.
+// También maneja los pasos del enemigo y el sonido de golpe.
 // NO modifica Monster.cs (de otro compañero).
 using UnityEngine;
+using System.Collections;
 
-// Necesitamos leer el estado del monstruo. Como Monster.cs es de otro compañero,
-// lo referenciamos pero no lo modificamos.
 [RequireComponent(typeof(Monster))]
 public class MonsterAudioTrigger : MonoBehaviour
 {
     [Header("Clips de Sonido del Monstruo")]
-    public AudioClip roarClip;       // Rugido al detectar al jugador
-    public AudioClip footstepClip;   // Paso del monstruo (si se quiere 3D)
-    public AudioClip attackClip;     // Sonido de ataque
+    public AudioClip roarClip;           // Rugido al detectar al jugador
+    public AudioClip attackClip;         // Sonido de golpe al jugador (Enemy Hit/hit-flesh)
+    public AudioClip footstepClip;       // Pasos del monstruo (Enemy Steps/monster_growl)
 
-    [Header("Configuración")]
+    [Header("Configuración de Pasos del Monstruo")]
+    [Tooltip("Tiempo entre cada paso del monstruo mientras persigue")]
+    public float stepInterval = 0.55f;
+    public float stepVolume   = 0.8f;
+
+    [Header("Configuración General")]
     [Tooltip("Cada cuántos segundos revisa si el monstruo está persiguiendo")]
     public float checkInterval = 0.3f;
 
     private Monster monsterScript;
     private AudioSource audioSource;
-    private bool wasChasing = false;
-    private bool roarPlayed = false;
-    private float timer = 0f;
+
+    private bool wasChasing  = false;
+    private bool roarPlayed  = false;
+    private float checkTimer = 0f;
+    private float stepTimer  = 0f;
 
     private void Start()
     {
         monsterScript = GetComponent<Monster>();
         audioSource   = GetComponent<AudioSource>();
 
-        // Si no tiene AudioSource, lo añadimos (con salida al grupo SFX del mixer)
         if (audioSource == null)
             audioSource = gameObject.AddComponent<AudioSource>();
 
-        audioSource.spatialBlend = 1f; // Sonido 3D (se escucha desde la posición del monstruo)
+        // Sonido 3D: se escucha desde la posición del monstruo en el mundo
+        audioSource.spatialBlend = 1f;
         audioSource.rolloffMode  = AudioRolloffMode.Linear;
-        audioSource.maxDistance  = 20f;
+        audioSource.maxDistance  = 22f;
+        audioSource.minDistance  = 1f;
     }
 
     private void Update()
     {
         if (monsterScript == null || AudioManager.instance == null) return;
 
-        timer += Time.deltaTime;
-        if (timer < checkInterval) return;
-        timer = 0f;
+        // --- Revisión de estado de persecución ---
+        checkTimer += Time.deltaTime;
+        if (checkTimer >= checkInterval)
+        {
+            checkTimer = 0f;
+            CheckChaseState();
+        }
 
-        // Leemos el campo público isRunning de Monster.cs para saber si está persiguiendo
+        // --- Pasos del monstruo mientras persigue ---
+        if (monsterScript.isRunning)
+        {
+            stepTimer += Time.deltaTime;
+            if (stepTimer >= stepInterval)
+            {
+                stepTimer = 0f;
+                if (footstepClip != null)
+                    audioSource.PlayOneShot(footstepClip, stepVolume);
+            }
+        }
+        else
+        {
+            stepTimer = 0f; // reinicia para que el primer paso suene bien
+        }
+    }
+
+    private void CheckChaseState()
+    {
+        // Leemos isRunning de Monster.cs sin tocarlo
         bool isCurrentlyChasing = monsterScript.isRunning;
 
         if (isCurrentlyChasing && !wasChasing)
         {
-            // El monstruo acaba de empezar a perseguir
             wasChasing = true;
             AudioManager.instance.SetChaseMode(true);
             Debug.Log("[MonsterAudioTrigger] Persecución iniciada → música de chase");
 
-            // El rugido se reproduce una sola vez al detectar
+            // Rugido una sola vez al detectar
             if (!roarPlayed && roarClip != null)
             {
                 audioSource.PlayOneShot(roarClip);
@@ -65,7 +95,6 @@ public class MonsterAudioTrigger : MonoBehaviour
         }
         else if (!isCurrentlyChasing && wasChasing)
         {
-            // El monstruo dejó de perseguir (si implementas lógica de "perdió al jugador")
             wasChasing = false;
             roarPlayed = false;
             AudioManager.instance.SetChaseMode(false);
@@ -73,10 +102,12 @@ public class MonsterAudioTrigger : MonoBehaviour
         }
     }
 
-    // Llámalo desde la animación del monstruo (igual que ApplyDamageToPlayer)
+    // Llámalo desde el Animator del monstruo, igual que ApplyDamageToPlayer en MonsterAnimation.cs
+    // En el evento de animación de ataque, agregar este método además del de daño
     public void PlayAttackSound()
     {
-        if (attackClip != null)
-            audioSource.PlayOneShot(attackClip);
+        AudioClip clip = attackClip != null ? attackClip : AudioManager.instance.enemyHitClip;
+        if (clip != null)
+            audioSource.PlayOneShot(clip);
     }
 }
