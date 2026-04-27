@@ -14,8 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CraftingRecipe
   recipeName: Taladro
   ingredients:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 9bec73720404d7a418fb843b5eb6ac06, type: 2}
+  - {fileID: 11400000, guid: 75f66803c7be7c548a6daa0994e80728, type: 2}
   resultItem: {fileID: 11400000, guid: a864c561caf6a1340985f642fd4683e8, type: 2}
   glowColor: {r: 1, g: 0, b: 0.093182564, a: 1}

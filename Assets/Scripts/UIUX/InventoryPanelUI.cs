@@ -131,6 +131,12 @@ public class InventoryPanelUI : MonoBehaviour
             }
         }
 
+        foreach (InventorySlotUI child in slotsParent.GetComponentsInChildren<InventorySlotUI>())
+        {
+            Debug.Log("Reinició slot " + child);
+            child.icon.enabled = false;
+        }
+
         // Ocultar el inventario al inicio
         isInventoryOpen = false;
         if (inventoryPanel != null) inventoryPanel.SetActive(false);

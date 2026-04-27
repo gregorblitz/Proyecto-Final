@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74ba8cd6b72612f4eabc39719ce75029, type: 3}
   m_Name: Data_Taladro_Head
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
-  itemName: 
-  type: 0
-  icon: {fileID: 0}
-  dropPrefab: {fileID: 0}
+  itemName: Taladro Head
+  type: 5
+  icon: {fileID: 21300000, guid: a86671a9aa6c0b140a41206311bc677d, type: 3}
+  dropPrefab: {fileID: 2701777311962573092, guid: a2a02005de56b9143b6f1d1da7e13ff3, type: 3}
   description: 
   isConsumable: 0
   effectType: 0

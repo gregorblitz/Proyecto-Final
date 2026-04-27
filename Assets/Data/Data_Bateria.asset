@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   itemName: Bateria
   type: 4
-  icon: {fileID: 21300000, guid: 6880c4d76c91bcc4faf4858dccf59bce, type: 3}
+  icon: {fileID: 21300000, guid: 61a4a71ab71cc2e45a45c304ede20d81, type: 3}
   dropPrefab: {fileID: 4951920754578242008, guid: dcf2c719e4b6d1042a9c695ab15278b2, type: 3}
   description: 
   isConsumable: 1

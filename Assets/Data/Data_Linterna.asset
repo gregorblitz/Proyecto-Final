@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   itemName: Linterna
   type: 3
-  icon: {fileID: 9683511, guid: c039b08f46c71da4ca38aa824c2e80b7, type: 3}
+  icon: {fileID: 21300000, guid: ffa28cd5eecb8d342abd3a66f94ce36b, type: 3}
   dropPrefab: {fileID: 8208792566947488129, guid: 3cfbd5a1403df314c819380558da1f76, type: 3}
   description: 
   isConsumable: 0
