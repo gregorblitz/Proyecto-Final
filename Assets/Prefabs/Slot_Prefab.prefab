@@ -319,5 +319,5 @@ MonoBehaviour:
   icon: {fileID: 8167479800856814734}
   glowBorder: {fileID: 767793368145110918}
   currentItem: {fileID: 0}
-  selectionColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  selectionColor: {r: 1, g: 0.015686274, b: 0.02820075, a: 1}
   isCraftableReady: 0

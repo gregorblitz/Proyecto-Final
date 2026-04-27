@@ -43,7 +43,7 @@ public class AreaDetection : MonoBehaviour
 
                      // NUEVA LÍNEA: dispara el sonido cuando el jugador alcanza un checkpoint
                     // Usa el operador ?. para evitar errores si SFXEvents.instance es null
-                    SFXEvents.instance?.OnCheckpointReached();
+                    //SFXEvents.instance?.OnCheckpointReached();
 
                     break;
 
