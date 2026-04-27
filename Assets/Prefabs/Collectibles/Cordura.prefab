@@ -31,8 +31,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -10.10885, y: 0.05, z: -3.18335}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -43,7 +43,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7182220364031747004}
-  m_Mesh: {fileID: -3513087464221787526, guid: cd0bc4ba13cf41f43bd3ec83ebaef547, type: 3}
+  m_Mesh: {fileID: -462981019419857548, guid: f37783e331fbb88498e3f2a1f9278b3e, type: 3}
 --- !u!23 &1685517444161718784
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -69,7 +69,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2f7832b2253ee404d9bd049b4924777e, type: 2}
+  - {fileID: 2100000, guid: 136a000fe5183344a90b0b061d0c06bf, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -127,7 +127,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemCollectible
   itemData: {fileID: 11400000, guid: 03b2e40e2a7d9e24ea06abea4d14d54b, type: 2}
-  inputActions: {fileID: 0}
 --- !u!114 &-2057241677530411450
 MonoBehaviour:
   m_ObjectHideFlags: 0

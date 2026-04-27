@@ -217,12 +217,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   inputActions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  walkSpeed: 5
+  walkSpeed: 3
   rotateSpeed: 15
   jumpSpeed: 5
-  runSpeed: 7
+  runSpeed: 5
   crawlHeight: 1
-  attackCooldown: 1.2
+  attackCooldown: 0.8
   freezeDuration: 0.8
   weaponCollider: {fileID: 7896706639810132820}
 --- !u!54 &7966222705947892571
@@ -234,7 +234,7 @@ Rigidbody:
   m_GameObject: {fileID: 4198546031890967654}
   serializedVersion: 5
   m_Mass: 1
-  m_LinearDamping: 0
+  m_LinearDamping: 0.1
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -444,6 +444,7 @@ MonoBehaviour:
   OnMadnessMaxReached:
     m_PersistentCalls:
       m_Calls: []
+  isAlive: 1
 --- !u!114 &8659909448002815732
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -501,7 +502,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f729e3b01e4d8043a4041a3ffc88663, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FlashlightController
-  lightObject: {fileID: 1084147129604917137}
+  lightObject: {fileID: 840767181460236767}
   maxBattery: 100
   drainRate: 1
   currentBattery: 0
@@ -685,6 +686,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2997229957846388720}
     m_Modifications:
+    - target: {fileID: 1858264491911954128, guid: 5f981b8d95e618743bf7a11e7cdf847c, type: 3}
+      propertyPath: m_Type
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1858264491911954128, guid: 5f981b8d95e618743bf7a11e7cdf847c, type: 3}
+      propertyPath: m_Range
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1858264491911954128, guid: 5f981b8d95e618743bf7a11e7cdf847c, type: 3}
+      propertyPath: m_Intensity
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1935370742285501864, guid: 5f981b8d95e618743bf7a11e7cdf847c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1935370742285501864, guid: 5f981b8d95e618743bf7a11e7cdf847c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.09
+      objectReference: {fileID: 0}
+    - target: {fileID: 1935370742285501864, guid: 5f981b8d95e618743bf7a11e7cdf847c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.07
+      objectReference: {fileID: 0}
     - target: {fileID: 8208792566947265953, guid: 5f981b8d95e618743bf7a11e7cdf847c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.3
@@ -734,6 +759,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5f981b8d95e618743bf7a11e7cdf847c, type: 3}
+--- !u!1 &840767181460236767 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6889555597421956441, guid: 5f981b8d95e618743bf7a11e7cdf847c, type: 3}
+  m_PrefabInstance: {fileID: 6068493966471177350}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2728304259234268423 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8208792566947488129, guid: 5f981b8d95e618743bf7a11e7cdf847c, type: 3}

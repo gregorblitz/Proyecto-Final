@@ -83,8 +83,8 @@ MonoBehaviour:
   amountPerSecond: 10
   continuous: 1
   particleMatForArea: {fileID: 2100000, guid: 6b79e81bebbc1404cb78bbca6c730f1a, type: 2}
-  particleColor: {r: 0.013726755, g: 0.74663067, b: 0, a: 1}
-  gizmoColor: {r: 0.27525684, g: 0.85490197, b: 0, a: 0.73333335}
+  particleColor: {r: 0.74509805, g: 0.25734815, b: 0, a: 1}
+  gizmoColor: {r: 0.85490197, g: 0.4601454, b: 0, a: 0.73333335}
   showGizmo: 1
 --- !u!114 &8479815440767465075
 MonoBehaviour:
