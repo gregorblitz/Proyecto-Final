@@ -46,4 +46,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   totalSlowMoLenght: 2
   delayBeforeRestar: 3
+  jumpscareUI: {fileID: 0}
+  gameOverUI: {fileID: 0}
   victoryTrigger: {fileID: 0}
