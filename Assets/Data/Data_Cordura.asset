@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   itemName: Cordura
   type: 0
-  icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+  icon: {fileID: 21300000, guid: 81f6102751d8d4241a11b0d30a56aa7b, type: 3}
   dropPrefab: {fileID: 7182220364031747004, guid: 5606f7b51585c224c9a2887bccdccd63, type: 3}
   description: 
   isConsumable: 1
@@ -22,3 +22,4 @@ MonoBehaviour:
   effectAmount: 20
   value: 0
   interactionID: 
+  batteryCapacity: 100

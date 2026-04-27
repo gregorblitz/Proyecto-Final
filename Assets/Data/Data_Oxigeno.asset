@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   itemName: Oxigeno
   type: 0
-  icon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  icon: {fileID: 21300000, guid: e0b8d437edc460e4f840cbc1f521fae4, type: 3}
   dropPrefab: {fileID: 758408014883233165, guid: 8d36b889abe825544a0a3e107d2dfbbf, type: 3}
   description: 
   isConsumable: 1
@@ -22,3 +22,4 @@ MonoBehaviour:
   effectAmount: 30
   value: 0
   interactionID: 
+  batteryCapacity: 100
