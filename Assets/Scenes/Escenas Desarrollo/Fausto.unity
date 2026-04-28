@@ -3543,11 +3543,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dcf2c719e4b6d1042a9c695ab15278b2, type: 3}
---- !u!1 &1134769939 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 592406395170217638, guid: e99404ff3731f1442b8dc2448401c968, type: 3}
-  m_PrefabInstance: {fileID: 2035904994}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1155702108
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6008,6 +6003,14 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5018630962432991348, guid: e99404ff3731f1442b8dc2448401c968, type: 3}
+      propertyPath: alertSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 0d0e114c7e0a362419cac4a26cc5108e, type: 3}
+    - target: {fileID: 5018630962432991348, guid: e99404ff3731f1442b8dc2448401c968, type: 3}
+      propertyPath: attackSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 8f1483d709577a442a5b30b98476447e, type: 3}
+    - target: {fileID: 5018630962432991348, guid: e99404ff3731f1442b8dc2448401c968, type: 3}
       propertyPath: jumpscareUI
       value: 
       objectReference: {fileID: 861956633}
@@ -6015,6 +6018,14 @@ PrefabInstance:
       propertyPath: hideLocation
       value: 
       objectReference: {fileID: 1281565884}
+    - target: {fileID: 5018630962432991348, guid: e99404ff3731f1442b8dc2448401c968, type: 3}
+      propertyPath: stalkingSound
+      value: 
+      objectReference: {fileID: 8300000, guid: ff3918bdd65bb504ba3bdcb4b17b121e, type: 3}
+    - target: {fileID: 5018630962432991348, guid: e99404ff3731f1442b8dc2448401c968, type: 3}
+      propertyPath: huntingStepClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 17b13d5726417e3408bfb3c09f550375, type: 3}
     - target: {fileID: 5018630962432991348, guid: e99404ff3731f1442b8dc2448401c968, type: 3}
       propertyPath: patrolWaypoints.Array.size
       value: 6
@@ -6093,156 +6104,13 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7106895052002605853, guid: e99404ff3731f1442b8dc2448401c968, type: 3}
       insertIndex: -1
       addedObject: {fileID: 585755574}
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 592406395170217638, guid: e99404ff3731f1442b8dc2448401c968, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2035905003}
-    - targetCorrespondingSourceObject: {fileID: 592406395170217638, guid: e99404ff3731f1442b8dc2448401c968, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2035905002}
-    - targetCorrespondingSourceObject: {fileID: 592406395170217638, guid: e99404ff3731f1442b8dc2448401c968, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2035905001}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e99404ff3731f1442b8dc2448401c968, type: 3}
 --- !u!4 &2035904995 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7106895052002605853, guid: e99404ff3731f1442b8dc2448401c968, type: 3}
   m_PrefabInstance: {fileID: 2035904994}
   m_PrefabAsset: {fileID: 0}
---- !u!82 &2035905001
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1134769939}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: -5366116467697678042, guid: cf2623621319d3847886d6943001653f, type: 2}
-  m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 0}
-  m_PlayOnAwake: 1
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 22
-  Pan2D: 0
-  rolloffMode: 1
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
---- !u!114 &2035905002
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1134769939}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dfb5797d06c3c6f4c80525eef30634a2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MonsterAudioTrigger
-  roarClip: {fileID: 8300000, guid: 0d0e114c7e0a362419cac4a26cc5108e, type: 3}
-  attackClip: {fileID: 8300000, guid: 8f1483d709577a442a5b30b98476447e, type: 3}
-  footstepClip: {fileID: 8300000, guid: 17b13d5726417e3408bfb3c09f550375, type: 3}
-  stepInterval: 0.55
-  stepVolume: 0.5
-  checkInterval: 0.3
---- !u!114 &2035905003
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1134769939}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e5096f08f47939046bcab66a1d37a6c7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Monster
-  detectDistance: 10
-  chaseSpeed: 5
-  roarDuration: 2
-  attackDamage: 15
-  attackCooldown: 2
-  attackReach: 2
-  isRunning: 0
 --- !u!1001 &2066168907
 PrefabInstance:
   m_ObjectHideFlags: 0
