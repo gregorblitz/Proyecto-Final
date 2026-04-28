@@ -65,6 +65,8 @@ public class CreatureAudio : MonoBehaviour
     private bool isHunting  = false;
     private bool isStalking = false;
 
+    private CreatureController creatureController;
+
     // ─────────────────────────────────────────────────────────────────────
     private void Awake()
     {
@@ -86,6 +88,8 @@ public class CreatureAudio : MonoBehaviour
         loopSource.playOnAwake  = false;
         loopSource.loop         = true;
         loopSource.volume       = 0f;
+
+        creatureController = gameObject.GetComponent<CreatureController>();
     }
 
     // ─────────────────────────────────────────────────────────────────────
@@ -95,6 +99,20 @@ public class CreatureAudio : MonoBehaviour
     // ─────────────────────────────────────────────────────────────────────
 
     // → Conectar a: OnAlert
+
+    private void OnEnable() {
+        // Eventos de estado de la criatura
+        creatureController.OnAlert.AddListener(OnAlert);
+        creatureController.OnAttacking.AddListener(OnAttacking);
+        creatureController.OnFleeing.AddListener(OnFleeing);
+        creatureController.OnHunting.AddListener(OnHunting);
+        creatureController.OnStalking.AddListener(OnStalking);
+        creatureController.OnIdleOrPatrolling.AddListener(OnIdleOrPatrolling);
+
+    }
+
+
+
     public void OnAlert()
     {
         StopHunting();
@@ -261,5 +279,12 @@ public class CreatureAudio : MonoBehaviour
 
         if (AudioManager.instance != null)
             AudioManager.instance.SetChaseMode(false);
+
+        creatureController.OnAlert.RemoveListener(OnAlert);
+        creatureController.OnAttacking.RemoveListener(OnAttacking);
+        creatureController.OnFleeing.RemoveListener(OnFleeing);
+        creatureController.OnHunting.RemoveListener(OnHunting);
+        creatureController.OnStalking.RemoveListener(OnStalking);
+        creatureController.OnIdleOrPatrolling.RemoveListener(OnIdleOrPatrolling);
     }
 }
