@@ -46,7 +46,11 @@ public class PlayerInteractor : MonoBehaviour
         useInventoryAction = InputSystem.actions.FindAction("UseInventory");
         flashlightAction = InputSystem.actions.FindAction("Flashlight");
 
-        inventoryPanel = GameObject.FindFirstObjectByType<InventoryPanelUI>();
+        // *****Llave no funciona porque inventory panel UI esta apagado
+        // Usas FindAnyObjectByType incluyendo objetos inactivos para que 
+        // lo encuentre si el inventario esta cerrado al empezar a jugar
+        inventoryPanel = FindAnyObjectByType<InventoryPanelUI>(FindObjectsInactive.Include);
+        //inventoryPanel = GameObject.FindFirstObjectByType<InventoryPanelUI>();
 
         // Busca el animator en el modelo 3D del jugador
         animator = GetComponentInChildren<Animator>();
@@ -62,22 +66,54 @@ public class PlayerInteractor : MonoBehaviour
 
         if (interactAction.WasReleasedThisFrame()) doCollect = false;
         if (useInventoryAction.WasPressedThisFrame())
-            inventoryPanel.inventoryPanel.transform.GetChild(inventoryPanel.selectedSlotIndex)
-                .GetComponent<InventorySlotUI>().UseThisItem();
+            // ***BUG llave no abre puerta 
+            //Busca en el slotsParent de forma segura
+            if (inventoryPanel != null && inventoryPanel.slotsParent != null)
+            {
+                if (inventoryPanel.slotsParent.childCount > inventoryPanel.selectedSlotIndex)
+                {
+                    InventorySlotUI slot = inventoryPanel.slotsParent.GetChild(inventoryPanel.selectedSlotIndex).GetComponent<InventorySlotUI>();
+                    if (slot != null) slot.UseThisItem();
+                }
+            }
+            //inventoryPanel.inventoryPanel.transform.GetChild(inventoryPanel.selectedSlotIndex)
+            //    .GetComponent<InventorySlotUI>().UseThisItem();
 
-        // FIX: ahora sí llama al FlashlightController real
-        if (flashlightAction.WasPressedThisFrame()) ExecuteFlashLight();
+            // FIX: ahora sí llama al FlashlightController real
+            if (flashlightAction.WasPressedThisFrame()) ExecuteFlashLight();
     }
 
     public void ExecuteInteraction()
     {
         if (currentInteractable != null)
         {
+            //***BUG llave no abre puerta
+            ItemData itemToUse = null;
+
+            // Extraemos el ítem de forma segura, usando el slotsParent en lugar del inventoryPanel visual
+            if (inventoryPanel != null && inventoryPanel.slotsParent != null)
+            {
+                if (inventoryPanel.slotsParent.childCount > inventoryPanel.selectedSlotIndex)
+                {
+                    InventorySlotUI slot = inventoryPanel.slotsParent.GetChild(inventoryPanel.selectedSlotIndex).GetComponent<InventorySlotUI>();
+                    if (slot != null)
+                    {
+                        itemToUse = slot.currentItem;
+                    }
+                }
+            }
+
+            // Enviamos el ítem seleccionado a la puerta (si tus manos están vacías, le enviará un 'null', 
+            // y la puerta simplemente te dirá que necesitas la llave).
+            currentInteractable.Interact(itemToUse);
+            /*
             currentInteractable.Interact(
                 inventoryPanel.inventoryPanel.transform
                     .GetChild(inventoryPanel.selectedSlotIndex)
                     .GetComponent<InventorySlotUI>().currentItem
             );
+            */
+            //*******************
         }
     }
 
