@@ -45,13 +45,43 @@ public class InventoryManager : MonoBehaviour
 
         currentItems.Add(itemToAdd);
 
+        // **** ARREGLO BUG FANTASMA QUE NO PERMITE RECOGER OBJ AL REVIVIR SIN CHECKPOINT
+        // Reemplazo de operador ? por == pues tiene problemas con los objetos destruidos 
+        // Detecta si la UI murio o si la UI existe pero su slotsParent fue destruido
+        if (inventoryUI == null || inventoryUI.slotsParent == null)
+        {
+            // Busca interfaces en la escena incluso si estan ocultas/apagadas
+            InventoryPanelUI[] uis = FindObjectsByType<InventoryPanelUI>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+            
+            foreach (InventoryPanelUI ui in uis)
+            {
+                // Elige la interfaz que tenga un Canvas vivo
+                if (ui.slotsParent != null)
+                {
+                    inventoryUI = ui;
+                    break;
+                }
+            }
+        }
+
+        // Si encuentra UI valida y viva dibuja el item
+        if (inventoryUI != null)
+        {
+            GameObject availableSlot = inventoryUI.GetAvailableSlot();
+            if (availableSlot != null)
+            {
+                availableSlot.GetComponent<InventorySlotUI>().SetSlot(itemToAdd);
+            }
+        }
+        // ---------------------------------
+        /*
         // Buscar un slot vacío en la UI y asignarle el ítem
         GameObject availableSlot = inventoryUI?.GetAvailableSlot();
         if (availableSlot != null)
         {
             availableSlot.GetComponent<InventorySlotUI>().SetSlot(itemToAdd);
         }
-
+        */
         Debug.Log("[InventoryManager] Ítem añadido: " + itemToAdd.itemName);
         return true;
     }

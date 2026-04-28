@@ -48,6 +48,13 @@ public class InventoryPanelUI : MonoBehaviour
 
     private void Start()
     {
+        // Al cargar la escena esta nueva UI busca al Manager sobreviviente
+        // y se conecta reemplazando a la UI muerta
+        if (InventoryManager.Instance != null)
+        {
+            InventoryManager.Instance.inventoryUI = this;
+            Debug.Log("UI del Inventario reconectada exitosamente tras morir");
+        }
         InitializeInventoryUI();
     }
 
