@@ -201,6 +201,7 @@ GameObject:
   - component: {fileID: 8468857008170114066}
   - component: {fileID: 4876347335543662913}
   - component: {fileID: 6345794681790175358}
+  - component: {fileID: 4122158519674912973}
   m_Layer: 7
   m_Name: Creep2
   m_TagString: Enemy
@@ -355,6 +356,24 @@ MonoBehaviour:
   maxHealth: 100
   healthBar: {fileID: 7778995604441233309}
   madnessReduction: -20
+--- !u!114 &4122158519674912973
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1948459100426964006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5163c4d73fe6e6b44b1137222b60eda4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CreepAudioController
+  creepClip: {fileID: 0}
+  minInterval: 4
+  maxInterval: 10
+  volume: 0.4
+  maxDistance: 12
+  minDistance: 1
 --- !u!1 &3942152991883078648
 GameObject:
   m_ObjectHideFlags: 0

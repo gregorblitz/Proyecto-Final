@@ -74,8 +74,36 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public static void OnGameVictory()
+    IEnumerator slowTimeWin()
     {
+        float slowMoTimer = 0f;
+
+        while (slowMoTimer < totalSlowMoLenght)
+        {
+            slowMoTimer += Time.unscaledDeltaTime;
+
+            float t = Mathf.InverseLerp(0f, totalSlowMoLenght, slowMoTimer);
+            float alpha = Mathf.Lerp(1f, 0f, t);
+
+            Time.timeScale = alpha;
+            yield return null;
+        }
+
+        Time.timeScale = 0f;
+
+        
+
+    }
+
+    public void OnGameVictory()
+    {
+        RenderSettings.fog = true;
+        RenderSettings.fogColor = Color.white;
+        RenderSettings.fogDensity = 1;
+        RenderSettings.fogDensity = 1;
+        RenderSettings.skybox.SetFloat("_Exposure", 8f);
+        RenderSettings.ambientIntensity = 8f;
+        StartCoroutine(slowTimeWin());
         Debug.Log("You won!");
     }
 

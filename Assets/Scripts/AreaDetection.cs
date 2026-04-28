@@ -7,9 +7,12 @@ public class AreaDetection : MonoBehaviour
 
     private PlayerStatus playerStatus;
 
+    private GameManager gameManager;
+
     private void Start() {
       //  gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
         playerStatus = GameObject.FindWithTag("Player").GetComponent<PlayerStatus>();
+        gameManager = GameObject.FindFirstObjectByType<GameManager>();
 
     }
 
@@ -25,7 +28,7 @@ public class AreaDetection : MonoBehaviour
 
                 case AreaType.Victory:
                     Debug.Log("Area was of victory type");
-                    GameManager.OnGameVictory();
+                    gameManager.OnGameVictory();
                     break;
 
                 case AreaType.Death:
