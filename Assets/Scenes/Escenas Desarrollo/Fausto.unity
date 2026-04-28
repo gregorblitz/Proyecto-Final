@@ -3543,6 +3543,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dcf2c719e4b6d1042a9c695ab15278b2, type: 3}
+--- !u!1 &1134769939 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 592406395170217638, guid: e99404ff3731f1442b8dc2448401c968, type: 3}
+  m_PrefabInstance: {fileID: 2035904994}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1155702108
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6054,6 +6059,94 @@ PrefabInstance:
       propertyPath: 'patrolWaypoints.Array.data[5]'
       value: 
       objectReference: {fileID: 1281565885}
+    - target: {fileID: 5018630962432991348, guid: e99404ff3731f1442b8dc2448401c968, type: 3}
+      propertyPath: OnAlert.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5018630962432991348, guid: e99404ff3731f1442b8dc2448401c968, type: 3}
+      propertyPath: OnFleeing.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5018630962432991348, guid: e99404ff3731f1442b8dc2448401c968, type: 3}
+      propertyPath: OnHidding.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5018630962432991348, guid: e99404ff3731f1442b8dc2448401c968, type: 3}
+      propertyPath: OnHunting.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5018630962432991348, guid: e99404ff3731f1442b8dc2448401c968, type: 3}
+      propertyPath: OnStalking.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5018630962432991348, guid: e99404ff3731f1442b8dc2448401c968, type: 3}
+      propertyPath: OnAttacking.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5018630962432991348, guid: e99404ff3731f1442b8dc2448401c968, type: 3}
+      propertyPath: OnAlert.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5018630962432991348, guid: e99404ff3731f1442b8dc2448401c968, type: 3}
+      propertyPath: OnIdleOrPatrolling.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5018630962432991348, guid: e99404ff3731f1442b8dc2448401c968, type: 3}
+      propertyPath: OnAlert.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 11500000, guid: 9e13a626fe620c040b9ef1ca4360ba19, type: 3}
+    - target: {fileID: 5018630962432991348, guid: e99404ff3731f1442b8dc2448401c968, type: 3}
+      propertyPath: OnFleeing.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 11500000, guid: 9e13a626fe620c040b9ef1ca4360ba19, type: 3}
+    - target: {fileID: 5018630962432991348, guid: e99404ff3731f1442b8dc2448401c968, type: 3}
+      propertyPath: OnHidding.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 11500000, guid: 9e13a626fe620c040b9ef1ca4360ba19, type: 3}
+    - target: {fileID: 5018630962432991348, guid: e99404ff3731f1442b8dc2448401c968, type: 3}
+      propertyPath: OnHunting.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 11500000, guid: 9e13a626fe620c040b9ef1ca4360ba19, type: 3}
+    - target: {fileID: 5018630962432991348, guid: e99404ff3731f1442b8dc2448401c968, type: 3}
+      propertyPath: OnAlert.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5018630962432991348, guid: e99404ff3731f1442b8dc2448401c968, type: 3}
+      propertyPath: OnStalking.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 11500000, guid: 9e13a626fe620c040b9ef1ca4360ba19, type: 3}
+    - target: {fileID: 5018630962432991348, guid: e99404ff3731f1442b8dc2448401c968, type: 3}
+      propertyPath: OnAttacking.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 11500000, guid: 9e13a626fe620c040b9ef1ca4360ba19, type: 3}
+    - target: {fileID: 5018630962432991348, guid: e99404ff3731f1442b8dc2448401c968, type: 3}
+      propertyPath: OnFleeing.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5018630962432991348, guid: e99404ff3731f1442b8dc2448401c968, type: 3}
+      propertyPath: OnHidding.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5018630962432991348, guid: e99404ff3731f1442b8dc2448401c968, type: 3}
+      propertyPath: OnHunting.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5018630962432991348, guid: e99404ff3731f1442b8dc2448401c968, type: 3}
+      propertyPath: OnStalking.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5018630962432991348, guid: e99404ff3731f1442b8dc2448401c968, type: 3}
+      propertyPath: OnAttacking.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5018630962432991348, guid: e99404ff3731f1442b8dc2448401c968, type: 3}
+      propertyPath: OnIdleOrPatrolling.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 11500000, guid: 9e13a626fe620c040b9ef1ca4360ba19, type: 3}
+    - target: {fileID: 5018630962432991348, guid: e99404ff3731f1442b8dc2448401c968, type: 3}
+      propertyPath: OnIdleOrPatrolling.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7106895052002605853, guid: e99404ff3731f1442b8dc2448401c968, type: 3}
       propertyPath: m_LocalPosition.x
       value: -4.43
@@ -6104,13 +6197,40 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7106895052002605853, guid: e99404ff3731f1442b8dc2448401c968, type: 3}
       insertIndex: -1
       addedObject: {fileID: 585755574}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 592406395170217638, guid: e99404ff3731f1442b8dc2448401c968, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2035905001}
   m_SourcePrefab: {fileID: 100100000, guid: e99404ff3731f1442b8dc2448401c968, type: 3}
 --- !u!4 &2035904995 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7106895052002605853, guid: e99404ff3731f1442b8dc2448401c968, type: 3}
   m_PrefabInstance: {fileID: 2035904994}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2035905001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1134769939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e13a626fe620c040b9ef1ca4360ba19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CreatureAudio
+  alertClip: {fileID: 8300000, guid: e35f141479082b644bebeecc2c64d795, type: 3}
+  huntingStepClip: {fileID: 8300000, guid: 6bd91a623fe5aaf40877202f1aa1fddc, type: 3}
+  huntingGrowlClip: {fileID: 8300000, guid: 114f3997a79e5ed46b2617fd9e1dab77, type: 3}
+  stalkingLoopClip: {fileID: 8300000, guid: ba019ba15f9289d45a84c40b789119dd, type: 3}
+  attackClip: {fileID: 8300000, guid: 16df060e03cbbbc4fa575b3394590a11, type: 3}
+  fleeClip: {fileID: 8300000, guid: 98d0c68088d17144dab87ae0e6b93c41, type: 3}
+  stepInterval: 0.55
+  stepVolume: 0.85
+  growlInterval: 4
+  growlVolume: 0.7
+  stalkingVolume: 0.55
+  stalkingFadeDuration: 1.2
 --- !u!1001 &2066168907
 PrefabInstance:
   m_ObjectHideFlags: 0
