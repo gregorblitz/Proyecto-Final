@@ -431,6 +431,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4894894992721378996, guid: 8d36b889abe825544a0a3e107d2dfbbf, type: 3}
   m_PrefabInstance: {fileID: 1009398899}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &109977795 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 191986637101941772, guid: e3cec766a83c52b4082d4bb4aacdec98, type: 3}
+  m_PrefabInstance: {fileID: 903767346}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27a94357a991157449218c8a428655ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InventoryManager
 --- !u!1001 &118429305
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2645,6 +2656,26 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5377749954947008754, guid: e0cddce09e90a1d458c025eaf1c8bac3, type: 3}
   m_PrefabInstance: {fileID: 975051965}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &737779540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 737779534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2f3b84160e49d840afd1b8e7091be07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InventoryPanelUI
+  inventoryPanel: {fileID: 737779534}
+  slotsParent: {fileID: 737779535}
+  slotPrefab: {fileID: 6974343230791804870, guid: 9514be5d7aa793c42b563717cd945854, type: 3}
+  isInventoryOpen: 0
+  selectedSlotIndex: 0
+  playerInput: {fileID: 0}
+  playerActionMapName: Player
+  uiActionMapName: UI
 --- !u!1001 &741165515
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2882,6 +2913,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 191986637101941772, guid: e3cec766a83c52b4082d4bb4aacdec98, type: 3}
+      propertyPath: inventoryUI
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 718018479113094709, guid: e3cec766a83c52b4082d4bb4aacdec98, type: 3}
       propertyPath: m_LocalPosition.x
       value: 6.62258
@@ -2922,6 +2957,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2151142747485988477, guid: e3cec766a83c52b4082d4bb4aacdec98, type: 3}
+      propertyPath: m_ActionEvents.Array.data[19].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2151142747485988477, guid: e3cec766a83c52b4082d4bb4aacdec98, type: 3}
+      propertyPath: m_ActionEvents.Array.data[19].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 109977795}
+    - target: {fileID: 2151142747485988477, guid: e3cec766a83c52b4082d4bb4aacdec98, type: 3}
+      propertyPath: m_ActionEvents.Array.data[19].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: InputAbrirInventario
+      objectReference: {fileID: 0}
+    - target: {fileID: 2151142747485988477, guid: e3cec766a83c52b4082d4bb4aacdec98, type: 3}
+      propertyPath: m_ActionEvents.Array.data[19].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: InventoryManager, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 6777695517141811500, guid: e3cec766a83c52b4082d4bb4aacdec98, type: 3}
       propertyPath: m_Name
       value: FA__Systems
@@ -2934,7 +2985,8 @@ PrefabInstance:
       propertyPath: inventoryPanel
       value: 
       objectReference: {fileID: 737779534}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8362341890467885950, guid: e3cec766a83c52b4082d4bb4aacdec98, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -3221,7 +3273,10 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4248973880930707643, guid: e0cddce09e90a1d458c025eaf1c8bac3, type: 3}
       insertIndex: 1
       addedObject: {fileID: 1081786302}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1332194350502002025, guid: e0cddce09e90a1d458c025eaf1c8bac3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 737779540}
   m_SourcePrefab: {fileID: 100100000, guid: e0cddce09e90a1d458c025eaf1c8bac3, type: 3}
 --- !u!1 &980996000
 GameObject:

@@ -52,7 +52,7 @@ public class InventoryManager : MonoBehaviour
         {
             // Busca interfaces en la escena incluso si estan ocultas/apagadas
             InventoryPanelUI[] uis = FindObjectsByType<InventoryPanelUI>(FindObjectsInactive.Include, FindObjectsSortMode.None);
-            
+
             foreach (InventoryPanelUI ui in uis)
             {
                 // Elige la interfaz que tenga un Canvas vivo
@@ -146,4 +146,14 @@ public class InventoryManager : MonoBehaviour
             AddItem(item);
         }
     }
+
+    // ***** Puente para que el Input System abra la UI sin importar si el jugador murio
+    public void InputAbrirInventario(InputAction.CallbackContext context)
+    {
+        if (context.started && inventoryUI != null)
+        {
+            inventoryUI.ToggleInventory();
+        }
+    }
+    //******
 }
