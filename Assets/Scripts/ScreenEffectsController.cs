@@ -213,9 +213,10 @@ public class ScreenEffectsController : MonoBehaviour
 
     // Actualiza el ruido visual de pantalla basado en la proximidad de la criatura
     private void UpdateScreenStatic()
-    {
+    {   
+        float t = maxDistanceFromPlayer;
         // Convierte la distancia en un valor normalizado (0-1)
-        float t = Mathf.InverseLerp(minDistanceFromPlayer, maxDistanceFromPlayer, creatureController.distanceToPlayer);        
+        if (creatureController != null) t = Mathf.InverseLerp(minDistanceFromPlayer, maxDistanceFromPlayer, creatureController.distanceToPlayer);        
         
         // Ajusta parámetros del material de ruido según la distancia
         ScreenNoiseRendererRef.passMaterial.SetFloat("_opacity", Mathf.Lerp(1f, 0.9f, t )); // Opacidad del ruido
@@ -426,7 +427,7 @@ public class ScreenEffectsController : MonoBehaviour
             print("SWITCH TO " + newVolume + " WAS SUCESSFULL");
         }
 
-        else
+        else if (currentCreatureVolume!= null)
         {
             while (currentCreatureVolume.weight > 0.01)
             {
