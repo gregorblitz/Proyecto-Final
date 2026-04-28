@@ -45,33 +45,12 @@ public class CreatureController : MonoBehaviour
     public float minWhisperInterval = 5f;
     public float maxWhisperInterval = 15f;
 
-    // ── NUEVO: clips por estado ──────────────────────────────────────────
-    [Header("Sonido — Estados de la Criatura")]
-    public AudioClip alertSound;       // Al detectar al jugador (Alert)
-    public AudioClip stalkingSound;    // Loop suave durante el acecho (Stalking)
-    public AudioClip huntingStepClip;  // Pasos mientras persigue (Hunting)
-    public AudioClip attackSound;      // Jumpscare / ataque
-
-    [Header("Sonido — Pasos en Hunting")]
-    public float stepInterval = 0.5f;  // Segundos entre cada paso de la criatura
-    public float stepVolume   = 0.85f;
-
-    [Header("Sonido — Acecho")]
-    [Tooltip("Volumen del loop de acecho")]
-    public float stalkingVolume = 0.6f;
-    // ────────────────────────────────────────────────────────────────────
-
     [Header("Jumpsacre")]
     public GameObject jumpscareUI;
 
 #region REFERENCIAS PRIVADAS
     private NavMeshAgent agent;
     private AudioSource audioSource;
-
-    // ───── NUEVO: segunda fuente para loops (acecho) sin interrumpir whispers
-    private AudioSource loopSource;
-    // ────────────────────────────────────────────────────────────────────
-    
     private Transform player;
     private PlayerStatus playerStatus;
     private float stateTimer;
@@ -79,10 +58,6 @@ public class CreatureController : MonoBehaviour
     private bool isTakingSanity;
     public  float distanceToPlayer {get; private set;} 
 #endregion
-
-    // ───── NUEVO: control interno de pasos ──────────────────────────────
-    private float stepTimer = 0f;
-    // ────────────────────────────────────────────────────────────────────
 
 #region EVENTOS
     public UnityEvent OnAlert;
@@ -102,18 +77,6 @@ public class CreatureController : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         audioSource = GetComponent<AudioSource>();
-
-
-        // ───── NUEVO: creamos una segunda AudioSource para el loop de acecho
-        // así no interrumpe los susurros ni otros sonidos puntuales
-        loopSource = gameObject.AddComponent<AudioSource>();
-        loopSource.loop         = true;
-        loopSource.spatialBlend = 1f;
-        loopSource.playOnAwake  = false;
-        loopSource.volume       = 0f;
-        // ────────────────────────────────────────────────────────────────────
-
-
         GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
         
         if (playerObj != null)
@@ -222,19 +185,9 @@ public class CreatureController : MonoBehaviour
         agent.speed = huntSpeed; 
         agent.SetDestination(player.position);
 
-
-         // ───── NUEVO: pasos de la criatura mientras persigue ────────────
-        stepTimer += Time.deltaTime;
-        if (stepTimer >= stepInterval)
-        {
-            stepTimer = 0f;
-            if (huntingStepClip != null)
-                audioSource.PlayOneShot(huntingStepClip, stepVolume);
-        }
-        // ────────────────────────────────────────────────────────────────────
-
         // Si entra en rango de acecho, se detiene[cite: 12]
         
+
         if (distanceToPlayer <= attackRange)
         {
             ChangeState(CreatureState.Attacking);
@@ -337,12 +290,6 @@ public class CreatureController : MonoBehaviour
         currentState = newState;
         stateTimer = 0;
 
-
-        // ── NUEVO: lógica de audio por cambio de estado ──────────────────
-        OnCreatureStateChanged(newState);
-        // ────────────────────────────────────────────────────────────────
-
-
         if(newState == CreatureState.Hidden)
         {
             // Desactivar visuales para "desespawnear" 
@@ -362,91 +309,6 @@ public class CreatureController : MonoBehaviour
             case CreatureState.Patrolling: OnIdleOrPatrolling?.Invoke(); break;
         }
     }
-
-
-     // ── NUEVO: método separado para no mezclar audio con la lógica de estados ──────────────────
-    private void OnCreatureStateChanged(CreatureState newState)
-    {
-        // Detener el loop de acecho por defecto; se reactiva solo en Stalking
-        StopStalkingLoop();
-
-        switch (newState)
-        {
-            case CreatureState.Alert:
-                // Sonido puntual de detección
-                if (alertSound != null)
-                    audioSource.PlayOneShot(alertSound);
-
-                // Avisar al AudioManager para activar música de persecución
-                if (AudioManager.instance != null)
-                    AudioManager.instance.SetChaseMode(true);
-
-                stepTimer = 0f;
-                break;
-
-            case CreatureState.Hunting:
-                // La música de chase ya está activa desde Alert
-                // Solo reiniciamos el timer de pasos
-                stepTimer = 0f;
-                break;
-
-            case CreatureState.Stalking:
-                // Loop de acecho suave
-                StartStalkingLoop();
-                break;
-
-            case CreatureState.Attacking:
-                // Sonido de ataque/jumpscare puntual
-                if (attackSound != null)
-                    audioSource.PlayOneShot(attackSound);
-                break;
-
-            case CreatureState.Fleeing:
-            case CreatureState.Hidden:
-            case CreatureState.Idle:
-            case CreatureState.Patrolling:
-                // Al escapar o esconderse, volvemos a música de ambiente
-                if (AudioManager.instance != null)
-                    AudioManager.instance.SetChaseMode(false);
-                break;
-        }
-    }
-
-    // ─── NUEVO: inicia el loop de acecho con fade-in suave ──────────────────
-    private void StartStalkingLoop()
-    {
-        if (stalkingSound == null) return;
-        loopSource.clip   = stalkingSound;
-        loopSource.volume = 0f;
-        loopSource.Play();
-        StartCoroutine(FadeLoopVolume(0f, stalkingVolume, 1.5f));
-    }
-
-    // ───── NUEVO: detiene el loop con fade-out suave ────────────────────────────────
-    private void StopStalkingLoop()
-    {
-        if (loopSource != null && loopSource.isPlaying)
-            StartCoroutine(FadeLoopVolume(loopSource.volume, 0f, 0.8f));
-    }
-
-    // ───── NUEVO: fade genérico del loopSource ────────────────────────────────────
-    private IEnumerator FadeLoopVolume(float from, float to, float duration)
-    {
-        float time = 0f;
-        loopSource.volume = from;
-
-        while (time < duration)
-        {
-            time += Time.deltaTime;
-            loopSource.volume = Mathf.Lerp(from, to, time / duration);
-            yield return null;
-        }
-
-        loopSource.volume = to;
-        if (to <= 0f) loopSource.Stop();
-    }
-    // ──────────────────────────────────────────────────────────────────────────────────────────
-
 
     private bool CanSeePlayer()
     {
