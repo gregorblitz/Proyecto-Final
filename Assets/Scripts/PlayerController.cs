@@ -43,6 +43,7 @@ public class PlayerController : MonoBehaviour
     private Vector3 originalCenter;
     private bool isCrawling = false;
     private bool isRunning = false; // Variable para saber si corre
+    [HideInInspector] public bool isDead = false; //congela al jugador cuando muere
 
     private void Awake()
     {
@@ -96,6 +97,7 @@ public class PlayerController : MonoBehaviour
     // LA LECTURA DE BOTONES
     private void Update()
     {
+        if (isDead) return; // Si esta muerto, no lee ninguna tecla
         // Lee el movimiento W, A, S, D
         moveAnim = moveAction.ReadValue<Vector2>();
 
@@ -168,6 +170,7 @@ public class PlayerController : MonoBehaviour
     //LA APLICACIÓN DE FÍSICAS
     private void FixedUpdate()
     {
+        if (isDead) return; // Si esta muerto no aplica fisicas de movimiento
         Walking();
         Rotating();
     }

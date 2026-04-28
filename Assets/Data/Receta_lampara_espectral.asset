@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CraftingRecipe
   recipeName: Lampara Espectral
   ingredients:
-  - {fileID: 11400000, guid: c271a21633d6d0a4ea43f55804947d4e, type: 2}
-  - {fileID: 11400000, guid: ef77dfac954d27542ba0feb4249af23a, type: 2}
+  - {fileID: 11400000, guid: 295af92c134417c448104aeeacd96262, type: 2}
+  - {fileID: 11400000, guid: bb0308927eaf67249b15f73ff9478eb5, type: 2}
   resultItem: {fileID: 11400000, guid: acd4e273ab5b0e042a0c604bc5d3c608, type: 2}
   glowColor: {r: 0, g: 1, b: 1, a: 1}

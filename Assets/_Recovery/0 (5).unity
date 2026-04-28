@@ -781,14 +781,6 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7966222705947892571, guid: 0732c85ef0ba0fd459110662542ca700, type: 3}
-      propertyPath: m_Mass
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 7966222705947892571, guid: 0732c85ef0ba0fd459110662542ca700, type: 3}
-      propertyPath: m_Constraints
-      value: 112
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1025,7 +1017,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: 0695e714035e16b4abdd83d1afd82c8a, type: 2}
+  m_NavMeshData: {fileID: 0}
   m_BuildHeightMesh: 0
 --- !u!4 &413044486 stripped
 Transform:
@@ -4180,9 +4172,33 @@ PrefabInstance:
       propertyPath: m_Name
       value: Creep2
       objectReference: {fileID: 0}
+    - target: {fileID: 1948459100426964006, guid: 7d95a28607dd15e4a99b35dd8988c62f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2682061272547932665, guid: 7d95a28607dd15e4a99b35dd8988c62f, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3179503678743981417, guid: 7d95a28607dd15e4a99b35dd8988c62f, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8638369403511552750, guid: 7d95a28607dd15e4a99b35dd8988c62f, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 2113157959}
+    - target: {fileID: 8638369403511552750, guid: 7d95a28607dd15e4a99b35dd8988c62f, type: 3}
+      propertyPath: isRunning
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8638369403511552750, guid: 7d95a28607dd15e4a99b35dd8988c62f, type: 3}
+      propertyPath: roarDuration
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8638369403511552750, guid: 7d95a28607dd15e4a99b35dd8988c62f, type: 3}
+      propertyPath: detectDistance
+      value: 4.82
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
