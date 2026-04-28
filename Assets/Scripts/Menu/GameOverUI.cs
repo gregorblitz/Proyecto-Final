@@ -63,7 +63,7 @@ public class GameOverUI : MonoBehaviour
         // Ya no usa SceneManager.LoadScene 
         // Ahora el GameManager teletransporta 
 
-        // SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         //*******************************
     }
 
