@@ -179,7 +179,6 @@ GameObject:
   - component: {fileID: 6205216054559984595}
   - component: {fileID: 4965086074143028991}
   - component: {fileID: 5508428265041347548}
-  - component: {fileID: 946954310212491396}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -226,6 +225,7 @@ MonoBehaviour:
   attackCooldown: 0.8
   freezeDuration: 0.8
   weaponCollider: {fileID: 7896706639810132820}
+  isDead: 0
 --- !u!54 &7966222705947892571
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -234,8 +234,8 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4198546031890967654}
   serializedVersion: 5
-  m_Mass: 1
-  m_LinearDamping: 0.1
+  m_Mass: 50
+  m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -251,7 +251,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!136 &6867987598651256725
 CapsuleCollider:
@@ -552,25 +552,6 @@ MonoBehaviour:
   normalCutoff: 22000
   suffocateCutoff: 500
   filterSmoothing: 3
---- !u!114 &946954310212491396
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4198546031890967654}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5a46cea4e91bcc4a92e0160ee391285, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerAudioController
-  currentSurface: 2
-  stepIntervalWalk: 0.45
-  stepIntervalRun: 0.28
-  crawlInterval: 0.6
-  stepVolume: 0.7
-  landVolume: 0.9
-  crawlVolume: 0.5
 --- !u!1 &8031834726336855441
 GameObject:
   m_ObjectHideFlags: 0

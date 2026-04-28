@@ -29,8 +29,13 @@ public class ItemCollectible : MonoBehaviour
             if (InventoryManager.Instance.AddItem(itemData))
             {
                 Debug.Log($"Recogido con éxito.");
-
-                // Si se añade correctamente, destruimos el objeto
+                // LE AVISA AL PLAYERCONTROLLER QUE HAGA LA ANIMACION
+                PlayerController pController = other.GetComponent<PlayerController>();
+                if (pController != null)
+                {
+                    pController.PlayPickupAnimation(); // Llama la funcion del PlayerController
+                }
+                // --------------------------------------------------------------------
                 DestroyCollectible();
             }
 

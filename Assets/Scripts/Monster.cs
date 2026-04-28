@@ -10,7 +10,7 @@ public class Monster : MonoBehaviour
     public float chaseSpeed = 5f;    // Velocidad con la que corre
 
     [Header("Tiempos de Animación")]
-    public float roarDuration = 2f; // Segundos que se queda quieto rugiendo
+    public float roarDuration = 4f; // Segundos que se queda quieto rugiendo
 
     [Header("Configuración de Ataque")]
     public float attackDamage = 15f; // Cantidad de vida que quita por golpe
@@ -20,7 +20,7 @@ public class Monster : MonoBehaviour
 
     private NavMeshAgent agent;
     private Animator animator; // Creacion de la variable para el cerebro de animaciones
-    // Lógica de estados
+    // Logica de estados
     private bool hasDetectedPlayer = false;
     public bool isRunning = false;
 
@@ -34,7 +34,7 @@ public class Monster : MonoBehaviour
             {
                 player = playerObj.transform;
                 // Indicador para saber a quien esta persiguiendo el clon
-                Debug.Log("El clon está persiguiendo a un objeto llamado: " + playerObj.name);
+                Debug.Log("El clon esta persiguiendo a un objeto llamado: " + playerObj.name);
             }
             else
             {
@@ -59,14 +59,20 @@ public class Monster : MonoBehaviour
             // Inicia la secuencia de Rugir y luego Correr
             StartCoroutine(RoarThenChase());
         }
-        // Logica de persecución ocurre despues del rugido
+
+        // Fase de Rugido, gira a mirar jugador pero no avanza
+        if (hasDetectedPlayer == true && isRunning == false)
+        {
+            FacePlayer();
+        }
+        // Persecucion ocurre despues del rugido
         if (isRunning == true)
         {
             // Persigue al jugador
             agent.SetDestination(player.position);
 
-            // Lógica de Ataque
-            // Si el monstruo llega al stopping distance ataca.
+            // Ataque
+            // Si el monstruo llega al stopping distance ataca
             // Le suma 0.2f como margen de error para que no falle al calcular.
             if (distance <= agent.stoppingDistance + 0.2f)
             {
@@ -85,17 +91,32 @@ public class Monster : MonoBehaviour
     IEnumerator RoarThenChase()
     {
         // Frena fisicamente al monstruo para que no se deslice ni se mueva
-        agent.isStopped = true;
-
+        agent.enabled = false; //apaga cerebro por completo
         // Dispara la animacion -- pasa de sniff a roar
         animator.SetBool("isChasing", true);
 
-        // Espera exactamente los segundos que dura el rugido
+         // Espera exactamente los segundos que dura el rugido
         yield return new WaitForSeconds(roarDuration);
-
-        // Termina el tiempo. Permite correr
+        
+        // PRENDE EL CEREBRO DE NUEVO PARA QUE CORRA
+        agent.enabled = true;
+        agent.speed = chaseSpeed; // Regresa su velocidad original    
         agent.isStopped = false;
-        isRunning = true; // Activa la parte del Update que mueve al NavMesh
+        isRunning = true;         // Activa la parte del Update que mueve al NavMesh
+        
+    }
+
+    // Obliga al monstruo a mirar al jugador
+    private void FacePlayer()
+    {
+        Vector3 direction = (player.position - transform.position).normalized;
+        direction.y = 0; // Ignora el eje Y para no inclinarse al suelo
+
+        if (direction != Vector3.zero)
+        {
+            Quaternion lookRotation = Quaternion.LookRotation(direction);
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 8f);
+        }
     }
 
     // para ver el círculo de detección en el editor de Unity

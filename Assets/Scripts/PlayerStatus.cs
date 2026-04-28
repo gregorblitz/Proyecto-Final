@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Events;
+using System.Collections; 
 
 // Script creado por Danna. Contanctar con ella antes de hacer cambios significativos para evitar conflictos.
 public class PlayerStatus : MonoBehaviour
@@ -86,6 +87,35 @@ public class PlayerStatus : MonoBehaviour
     void Die()
     {
         isAlive = false;
+
+        // AÑADIDO PARA LA ANIMACIÓN DE MUERTE
+        // Avisa al controlador que bloquee inputs (evita que siga caminando/saltando)
+        PlayerController controller = GetComponent<PlayerController>();
+        if (controller != null)
+        {
+            controller.isDead = true;
+        }
+
+        // Dispara la animacion de muerte en el Animator
+        Animator anim = GetComponentInChildren<Animator>();
+        if (anim != null)
+        {
+            anim.SetTrigger("Die");
+        }
+
+        // Inicia una cuenta regresiva antes de llamar al Game Over
+        StartCoroutine(SecuenciaDeMuerte());
+    }
+        // -------------------------------------------
+        // CORRUTINA PARA ANIMACION DE MUERTE
+    private IEnumerator SecuenciaDeMuerte()
+    {
+        // Duracion de animacion antes de que salga Game Over
+        yield return new WaitForSeconds(2.5f);
+
+        // Luego de que pase el tiempo dispara Game Over
+        OnPlayerDeath?.Invoke();
+        Debug.Log("Player died - Eventos disparados");
         OnPlayerDeath?.Invoke();
         Debug.Log("Player died");
     }
@@ -113,6 +143,15 @@ public class PlayerStatus : MonoBehaviour
         OnHealthChanged?.Invoke(currentHealth, playerStatusData.maxHealth);
         OnOxygenChanged?.Invoke(currentOxygen, playerStatusData.maxOxygen);
         OnMadnessChanged?.Invoke(currentMadness, playerStatusData.maxMadness);
+
+        // PARA REVIVIR Y QUITAR ESTADO DE MUERTO
+        // Desbloquea controles
+        PlayerController controller = GetComponent<PlayerController>();
+        if (controller != null) controller.isDead = false;
+
+        // Devuelve al jugador a su estado normal (Idle)
+        Animator anim = GetComponentInChildren<Animator>();
+        if (anim != null) anim.Play("Idle");
     }
 
         #region Métodos de prueba para el Editor

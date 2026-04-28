@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI; // Para usar Sliders de UI
+using UnityEngine.AI; // Necesario para apagar el NavMeshAgent
 public class EnemyHealth : MonoBehaviour
 {
     [Header("Vida del Monstruo")]
@@ -16,6 +17,11 @@ public class EnemyHealth : MonoBehaviour
     [Header("Recompensas")]
     public float madnessReduction = -20f; // cantidad de locura que quita al matar monstruos
 
+    // Referencias a los componentes del monstruo
+    private Animator animator;
+    private NavMeshAgent agent;
+    private Monster monsterScript;
+
     private void Start()
     {
         currentHealth = maxHealth;
@@ -26,6 +32,11 @@ public class EnemyHealth : MonoBehaviour
             healthBar.maxValue = maxHealth;
             healthBar.value = currentHealth;
         }
+
+        // Busca los componentes al iniciar
+        animator = GetComponentInChildren<Animator>();
+        agent = GetComponent<NavMeshAgent>();
+        monsterScript = GetComponent<Monster>();
     }
 
     // Se llamara cuando la pica lo golpee
@@ -67,9 +78,40 @@ public class EnemyHealth : MonoBehaviour
                 Debug.Log("El jugador recupera 20 de cordura");
             }
         }
+
+        // APAGA COMPORTAMIENTOS
+        // Detiene el movimiento fisico para que no resbale muerto
+        if (agent != null)
+        {
+            agent.isStopped = true;
+            agent.velocity = Vector3.zero;
+            agent.enabled = false; // El navemesh se apaga
+        }
+
+        // Apaga el script del monstruo para que no siga golpeando al aire
+        if (monsterScript != null)
+        {
+            monsterScript.enabled = false;
+        }
+
+        // Apaga el collider principal para que el jugador no choque con un cuerpo muerto
+        Collider miCollider = GetComponent<Collider>();
+        //if (miCollider != null) miCollider.enabled = false;
+
+        // ACTIVA ANIMACION MUERTE MONSTRUO
+        if (animator != null)
+        {
+            animator.SetTrigger("Die");
+            Debug.Log("El script encontrO el Animator y mandO la orden 'Die'");
+        }
+        else
+        {
+            Debug.LogError("El script EnemyHealth NO encuentra el Animator del monstruo");
+        }
+
+        // DESTRUIR CON RETRASO
+        // 5s para que la animacion se vea y el cuerpo quede en el piso un momento
+        Destroy(gameObject, 5f);
         
-        // Poner animacion de muerte
-        // Destruir por el momento
-        Destroy(gameObject);
     }
 }

@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74ba8cd6b72612f4eabc39719ce75029, type: 3}
   m_Name: Lampara_Espectral
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
-  itemName: 
+  itemName: Lampara Espectral
   type: 0
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 48db36096ce69fa44b3d29e3b755093f, type: 3}
   dropPrefab: {fileID: 0}
   description: 
   isConsumable: 0
