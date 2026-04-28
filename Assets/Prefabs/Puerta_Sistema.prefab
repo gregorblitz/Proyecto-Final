@@ -249,3 +249,4 @@ MonoBehaviour:
   requiresKey: 1
   requiredID: Llave
   objectName: Puerta
+  doorSound: {fileID: 8300000, guid: 956bf0c28fee2a1409f019b14cb623b7, type: 3}
