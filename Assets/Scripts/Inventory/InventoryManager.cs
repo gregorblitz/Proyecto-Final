@@ -63,6 +63,19 @@ public class InventoryManager : MonoBehaviour
         {
             currentItems.Remove(itemToRemove);
             Debug.Log("[InventoryManager] Ítem eliminado: " + itemToRemove.itemName);
+
+            // ***** BUG: Linterna desequipada que sigue consumiendo bateria al presionar F
+            // Verifica si el objeto desequipado es la linterna
+            if (itemToRemove.type == ItemData.ItemType.Flashlight)
+            {
+                FlashlightController flashlight = FindAnyObjectByType<FlashlightController>();
+                if (flashlight != null)
+                {
+                    // Comunica al script de la linterna que se desequipo
+                    flashlight.UnequipFlashlight();
+                }
+            }
+            // ************
         }
         else
         {
