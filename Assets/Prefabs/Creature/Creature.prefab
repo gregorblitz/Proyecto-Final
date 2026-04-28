@@ -165,12 +165,23 @@ MonoBehaviour:
   patrolWaypoints:
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   patrolSpeed: 2
   huntSpeed: 5.5
   hideLocation: {fileID: 0}
   whisperSounds: []
   minWhisperInterval: 5
   maxWhisperInterval: 15
+  alertSound: {fileID: 8300000, guid: 0d0e114c7e0a362419cac4a26cc5108e, type: 3}
+  stalkingSound: {fileID: 8300000, guid: ff3918bdd65bb504ba3bdcb4b17b121e, type: 3}
+  huntingStepClip: {fileID: 8300000, guid: 17b13d5726417e3408bfb3c09f550375, type: 3}
+  attackSound: {fileID: 8300000, guid: 8f1483d709577a442a5b30b98476447e, type: 3}
+  stepInterval: 0.5
+  stepVolume: 0.85
+  stalkingVolume: 0.6
   jumpscareUI: {fileID: 0}
   OnAlert:
     m_PersistentCalls:
