@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class MenuPausa : MonoBehaviour
 {
@@ -14,6 +15,14 @@ public class MenuPausa : MonoBehaviour
 
     [Header("Referencia Game Over")]
     public GameOverUI gameOverUI;
+
+    private GameManager gameManager;
+    private bool canToggle = true;
+
+    private void OnEnable() {
+        gameManager = GameObject.FindFirstObjectByType<GameManager>();
+        gameManager.isGameOver.AddListener(BloquearToggle);
+    }
 
     void Start()
     {
@@ -101,5 +110,10 @@ public class MenuPausa : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+    }
+
+    void BloquearToggle()
+    {
+        this.enabled = false;
     }
 }

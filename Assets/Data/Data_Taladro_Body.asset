@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74ba8cd6b72612f4eabc39719ce75029, type: 3}
+  m_Name: Data_Taladro_Body
+  m_EditorClassIdentifier: Assembly-CSharp::ItemData
+  itemName: Taladro Body
+  type: 5
+  icon: {fileID: 21300000, guid: 75fb364284fdea74285f85bfc88c4a59, type: 3}
+  dropPrefab: {fileID: 7795793595774788843, guid: 6c13f5e5c11f2b9499f3d8be52b6eab4, type: 3}
+  description: 
+  isConsumable: 0
+  effectType: 0
+  effectAmount: 0
+  value: 0
+  interactionID: 
+  batteryCapacity: 100

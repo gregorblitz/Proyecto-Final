@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   itemName: Taladro
   type: 1
-  icon: {fileID: 21300000, guid: 9c1122dcdeb732742b22368e1cf569ea, type: 3}
+  icon: {fileID: 21300000, guid: e32a48058ec7cbb4a8865700afd95630, type: 3}
   dropPrefab: {fileID: 6679491301103969803, guid: eba366a8df24e794293cac97468aaa24, type: 3}
   description: 
   isConsumable: 0

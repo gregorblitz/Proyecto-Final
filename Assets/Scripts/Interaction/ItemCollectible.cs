@@ -2,11 +2,11 @@
 using UnityEngine;
 using System.Collections;
 
-
 public class ItemCollectible : MonoBehaviour
 {
     [Header("Datos del Ítem")]
     public ItemData itemData;
+
     private bool canBeCollected;
     private bool doCollect;
     private PlayerInteractor playerInteractor;
@@ -21,11 +21,11 @@ public class ItemCollectible : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        
         if (other.CompareTag("Player") && canBeCollected && playerInteractor.doCollect)
         {
             Debug.Log($"Intentando recoger: {itemData.itemName}");
-            // Intentamos añadirlo al Manager. Si hay éxito (true), destruimos el objeto de la escena.
+
+            // Intentamos añadirlo al inventario
             if (InventoryManager.Instance.AddItem(itemData))
             {
                 Debug.Log($"Recogido con éxito.");
@@ -38,20 +38,27 @@ public class ItemCollectible : MonoBehaviour
                 // --------------------------------------------------------------------
                 DestroyCollectible();
             }
+
             playerInteractor.doCollect = false;
         }
     }
 
     void DestroyCollectible()
     {
+        // NUEVA LÍNEA: dispara el evento de sonido al recoger el ítem
+        SFXEvents.instance?.OnItemPickup();
+
+        // Eliminamos el objeto de la escena
         Destroy(gameObject);
     }
     
-
     IEnumerator waitForCollectibleOnDroped()
     {
-        canBeCollected = false; // Desactivamos el collider para evitar que el jugador lo recoja inmediatamente al soltarlo
+        // Evita recoger el objeto inmediatamente después de soltarlo
+        canBeCollected = false;
+
         yield return new WaitForSeconds(0.1f);
+
         canBeCollected = true; 
     }
 }

@@ -48,6 +48,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1741211564234276942, guid: 7d95a28607dd15e4a99b35dd8988c62f, type: 3}
+      propertyPath: maxDistance
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 1948459100426964006, guid: 7d95a28607dd15e4a99b35dd8988c62f, type: 3}
       propertyPath: m_Name
       value: Creep2 Variant

@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
+using UnityEngine.Events;
 
 public class GameManager : MonoBehaviour
 {
@@ -12,9 +13,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float delayBeforeRestar = 3.0f;
     public GameObject jumpscareUI;
     public GameOverUI gameOverUI;
+    public GameObject victoryUI;
 
-    [Header("Victory Config")]
-    [SerializeField] protected Collider victoryTrigger;
+    public UnityEvent isGameOver;
+
 
     [Header("Checkpoint Config")]
     [SerializeField] protected static GameObject currentCheckpoint;
@@ -74,8 +76,60 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public static void OnGameVictory()
+    IEnumerator slowTimeWin()
     {
+        float slowMoTimer = 0f;
+
+        // 1. Capturamos los valores iniciales (Punto A)
+        Color startFogColor = RenderSettings.fogColor;
+        float startFogDensity = RenderSettings.fogDensity;
+        float startAmbientIntensity = RenderSettings.ambientIntensity;
+        float startExposure = RenderSettings.skybox.GetFloat("_Exposure");
+
+        // 2. Definimos los valores de victoria (Punto B)
+        Color targetFogColor = Color.white;
+        float targetFogDensity = 1f;
+        float targetAmbientIntensity = 8f;
+        float targetExposure = 8f;
+
+        while (slowMoTimer < totalSlowMoLenght)
+        {
+            // Usamos unscaledDeltaTime porque vamos a alterar el Time.timeScale
+            slowMoTimer += Time.unscaledDeltaTime;
+
+            // t es nuestro factor de progreso (de 0 a 1)
+            float t = Mathf.InverseLerp(0f, totalSlowMoLenght, slowMoTimer);
+            
+            // Curva para el TimeScale (va de 1 a 0)
+            float alphaTime = Mathf.Lerp(1f, 0f, t);
+            Time.timeScale = alphaTime;
+
+            // --- Transición de Iluminación ---
+            RenderSettings.fogColor = Color.Lerp(startFogColor, targetFogColor, t);
+            RenderSettings.fogDensity = Mathf.Lerp(startFogDensity, targetFogDensity, t);
+            RenderSettings.ambientIntensity = Mathf.Lerp(startAmbientIntensity, targetAmbientIntensity, t);
+            
+            // Ajuste del Skybox (Exposure)
+            RenderSettings.skybox.SetFloat("_Exposure", Mathf.Lerp(startExposure, targetExposure, t));
+
+            yield return null;
+        }
+
+        // Aseguramos los valores finales exactos al terminar
+        Time.timeScale = 0f;
+        RenderSettings.fogColor = targetFogColor;
+        RenderSettings.fogDensity = targetFogDensity;
+        RenderSettings.ambientIntensity = targetAmbientIntensity;
+        RenderSettings.skybox.SetFloat("_Exposure", targetExposure);
+
+        victoryUI.SetActive(true);
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
+
+    public void OnGameVictory()
+    {
+        StartCoroutine(slowTimeWin());
         Debug.Log("You won!");
     }
 

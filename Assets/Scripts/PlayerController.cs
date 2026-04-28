@@ -105,7 +105,15 @@ public class PlayerController : MonoBehaviour
         lookAnim = lookAction.ReadValue<Vector2>();
 
         // isCrawling es true si se oprime el botón
-        isCrawling = crawlAction.IsPressed();
+        if (CanStand())
+        {
+            isCrawling = crawlAction.IsPressed();
+        }
+        else if (isCrawling)
+        {
+            isCrawling = true;
+        }
+        //isCrawling = crawlAction.IsPressed();
         isRunning = runAction.IsPressed(); // Lee si tiene presionado Shift
 
         // Modificacion fisica de la capsula si esta gateando
@@ -143,6 +151,13 @@ public class PlayerController : MonoBehaviour
             // Congela los pies hasta dentro de 0.8s
             unfreezeTime = Time.time + freezeDuration;
         }
+    }
+
+    bool CanStand() {
+        // Defines the height of the ceiling check
+        float checkHeight = 2.0f; 
+        // Cast a ray upward from the bottom of the player
+        return !Physics.Raycast(transform.position, Vector3.up, checkHeight);
     }
 
     // Verifica toca el suelo

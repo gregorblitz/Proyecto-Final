@@ -16,11 +16,16 @@ public class DoorController : MonoBehaviour, IInteractable
     [Header("UI e Información")]
     public string objectName = "Puerta";
 
+    // NUEVO: sonido de la puerta
+    [Header("Audio")]
+    public AudioClip doorSound; // Arrastrar el clip desde Assets/Audio/SFX
     private bool isOpen = false;
     private bool isMoving = false;
 
     private Quaternion closedRotation;
     private Quaternion openRotation;
+
+    private AudioSource audioSource; // NUEVO
 
     private void Start()
     {
@@ -28,6 +33,13 @@ public class DoorController : MonoBehaviour, IInteractable
         
         closedRotation = doorPivot.localRotation;
         openRotation = Quaternion.Euler(0, openAngle, 0) * closedRotation;
+
+         // NUEVO: preparar el AudioSource local en la puerta (sonido 3D posicional)
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+            audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.spatialBlend = 1f;
+        audioSource.playOnAwake  = false;
     }
 
     // Método para que el PlayerInteractor sepa qué mensaje mostrar
@@ -66,6 +78,11 @@ public class DoorController : MonoBehaviour, IInteractable
     private IEnumerator RotateDoor()
     {
         isMoving = true;
+
+        // NUEVO: reproducir sonido al empezar a moverse
+        if (doorSound != null && audioSource != null)
+            audioSource.PlayOneShot(doorSound);
+            
         Quaternion targetRotation = isOpen ? closedRotation : openRotation;
 
         while (Quaternion.Angle(doorPivot.localRotation, targetRotation) > 0.01f)

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   itemName: Curacion
   type: 0
-  icon: {fileID: 21300000, guid: c857f7511fbe8204dbe57242a463c4ea, type: 3}
+  icon: {fileID: 21300000, guid: ec3e7e8f77c8b3d498febbceb0544cd1, type: 3}
   dropPrefab: {fileID: 5112952847852368009, guid: 9e8310a59c540704ca4304cc26796daa, type: 3}
   description: 
   isConsumable: 1
@@ -22,3 +22,4 @@ MonoBehaviour:
   effectAmount: 20
   value: 0
   interactionID: 
+  batteryCapacity: 100

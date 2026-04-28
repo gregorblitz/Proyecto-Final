@@ -7,9 +7,12 @@ public class AreaDetection : MonoBehaviour
 
     private PlayerStatus playerStatus;
 
+    private GameManager gameManager;
+
     private void Start() {
       //  gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
         playerStatus = GameObject.FindWithTag("Player").GetComponent<PlayerStatus>();
+        gameManager = GameObject.FindFirstObjectByType<GameManager>();
 
     }
 
@@ -25,7 +28,7 @@ public class AreaDetection : MonoBehaviour
 
                 case AreaType.Victory:
                     Debug.Log("Area was of victory type");
-                    GameManager.OnGameVictory();
+                    gameManager.OnGameVictory();
                     break;
 
                 case AreaType.Death:
@@ -40,6 +43,10 @@ public class AreaDetection : MonoBehaviour
                     // envia playerStatus para que GameManager (metodo SetNewCheckpoint ) guarde stats.
                     //GameManager.SetNewCheckpoint(other.gameObject);
                     GameManager.SetNewCheckpoint(gameObject, playerStatus);
+
+                     // NUEVA LÍNEA: dispara el sonido cuando el jugador alcanza un checkpoint
+                    // Usa el operador ?. para evitar errores si SFXEvents.instance es null
+                    SFXEvents.instance?.OnCheckpointReached();
 
                     break;
 
