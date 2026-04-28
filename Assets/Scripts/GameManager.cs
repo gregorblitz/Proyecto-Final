@@ -179,10 +179,24 @@ public class GameManager : MonoBehaviour
     // RESTAURA LA FOTO (Al revivir)
     public void TakePlayerToCheckpoint()
     {
-        if (currentCheckpoint == null) 
+        if (currentCheckpoint == null)
         {
             Debug.LogWarning("No hay checkpoint. Reaparece al inicio del juego");
-            return;
+            // ***Bug: Cuando no hay checkpoint y reaparece no deja recoger objetos
+            // Al iniciar de cero se le manda una lista vacia para limpiar la mochila anterior a morir
+            if (InventoryManager.Instance != null)
+            {
+                InventoryManager.Instance.RestoreInventory(new List<ItemData>());
+            }
+
+            // Recarga la escena actual para empezar desde el inicio del nivel
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+
+            // Restaura el tiempo a normalidad si el slowMo quedo en 0
+            Time.timeScale = 1f;
+
+            return; // Corta aqui
+            //**********
         }
 
         // Ocultar la pantalla de muerte al revivir

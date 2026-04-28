@@ -108,4 +108,21 @@ public class FlashlightController : MonoBehaviour
         OnBatteryChanged?.Invoke(currentBattery, maxBattery);
         Debug.Log($"Batería recargada. Actual: {currentBattery}");
     }
+
+    // Solucion Bug: Gasta bateria cuando se prende y esta desequipada
+    public void UnequipFlashlight()
+    {
+        if (!hasFlashlight) return;
+
+        // Apagamos la linterna forzosamente si estaba encendida
+        if (isOn)
+        {
+            TurnOff();
+        }
+
+        // Le dice al cerebro que esta desequipada
+        hasFlashlight = false;
+
+        Debug.Log("Linterna desequipada y apagada");
+    }
 }
