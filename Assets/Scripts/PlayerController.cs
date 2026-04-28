@@ -242,11 +242,11 @@ public class PlayerController : MonoBehaviour
             rigidbody.angularVelocity = Vector3.zero;
         }
     }
-    
+
     // --- EVENTOS DE ANIMACIÓN PARA EL DAÑO ---
     public void ActivarDaño()
     {
-        if (weaponCollider != null) 
+        if (weaponCollider != null)
         {
             weaponCollider.enabled = true;
             Debug.Log("Collider de la Pica ON");
@@ -259,10 +259,22 @@ public class PlayerController : MonoBehaviour
 
     public void DesactivarDaño()
     {
-        if (weaponCollider != null) 
+        if (weaponCollider != null)
         {
             weaponCollider.enabled = false;
             Debug.Log("Collider de la Pica OFF.");
+        }
+    }
+    
+    // Reproducir animacion de recoger
+    public void PlayPickupAnimation()
+    {
+        if (isDead) return; // Si esta muerto no recoge nada
+
+        if (animator != null)
+        {
+            animator.SetTrigger("Pickup"); // Dispara el trigger del Animator
+            Debug.Log("Animacion de recoger activada.");
         }
     }
 }
