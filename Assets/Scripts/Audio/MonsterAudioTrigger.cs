@@ -6,7 +6,7 @@
 using UnityEngine;
 using System.Collections;
 
-[RequireComponent(typeof(Monster))]
+//[RequireComponent(typeof(Monster))]
 public class MonsterAudioTrigger : MonoBehaviour
 {
     [Header("Clips de Sonido del Monstruo")]
