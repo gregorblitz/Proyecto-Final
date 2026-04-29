@@ -6008,6 +6008,14 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5018630962432991348, guid: e99404ff3731f1442b8dc2448401c968, type: 3}
+      propertyPath: alertSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 0d0e114c7e0a362419cac4a26cc5108e, type: 3}
+    - target: {fileID: 5018630962432991348, guid: e99404ff3731f1442b8dc2448401c968, type: 3}
+      propertyPath: attackSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 8f1483d709577a442a5b30b98476447e, type: 3}
+    - target: {fileID: 5018630962432991348, guid: e99404ff3731f1442b8dc2448401c968, type: 3}
       propertyPath: jumpscareUI
       value: 
       objectReference: {fileID: 861956633}
@@ -6015,6 +6023,14 @@ PrefabInstance:
       propertyPath: hideLocation
       value: 
       objectReference: {fileID: 1281565884}
+    - target: {fileID: 5018630962432991348, guid: e99404ff3731f1442b8dc2448401c968, type: 3}
+      propertyPath: stalkingSound
+      value: 
+      objectReference: {fileID: 8300000, guid: ff3918bdd65bb504ba3bdcb4b17b121e, type: 3}
+    - target: {fileID: 5018630962432991348, guid: e99404ff3731f1442b8dc2448401c968, type: 3}
+      propertyPath: huntingStepClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 17b13d5726417e3408bfb3c09f550375, type: 3}
     - target: {fileID: 5018630962432991348, guid: e99404ff3731f1442b8dc2448401c968, type: 3}
       propertyPath: patrolWaypoints.Array.size
       value: 6
@@ -6043,6 +6059,94 @@ PrefabInstance:
       propertyPath: 'patrolWaypoints.Array.data[5]'
       value: 
       objectReference: {fileID: 1281565885}
+    - target: {fileID: 5018630962432991348, guid: e99404ff3731f1442b8dc2448401c968, type: 3}
+      propertyPath: OnAlert.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5018630962432991348, guid: e99404ff3731f1442b8dc2448401c968, type: 3}
+      propertyPath: OnFleeing.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5018630962432991348, guid: e99404ff3731f1442b8dc2448401c968, type: 3}
+      propertyPath: OnHidding.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5018630962432991348, guid: e99404ff3731f1442b8dc2448401c968, type: 3}
+      propertyPath: OnHunting.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5018630962432991348, guid: e99404ff3731f1442b8dc2448401c968, type: 3}
+      propertyPath: OnStalking.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5018630962432991348, guid: e99404ff3731f1442b8dc2448401c968, type: 3}
+      propertyPath: OnAttacking.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5018630962432991348, guid: e99404ff3731f1442b8dc2448401c968, type: 3}
+      propertyPath: OnAlert.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5018630962432991348, guid: e99404ff3731f1442b8dc2448401c968, type: 3}
+      propertyPath: OnIdleOrPatrolling.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5018630962432991348, guid: e99404ff3731f1442b8dc2448401c968, type: 3}
+      propertyPath: OnAlert.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 11500000, guid: 9e13a626fe620c040b9ef1ca4360ba19, type: 3}
+    - target: {fileID: 5018630962432991348, guid: e99404ff3731f1442b8dc2448401c968, type: 3}
+      propertyPath: OnFleeing.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 11500000, guid: 9e13a626fe620c040b9ef1ca4360ba19, type: 3}
+    - target: {fileID: 5018630962432991348, guid: e99404ff3731f1442b8dc2448401c968, type: 3}
+      propertyPath: OnHidding.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 11500000, guid: 9e13a626fe620c040b9ef1ca4360ba19, type: 3}
+    - target: {fileID: 5018630962432991348, guid: e99404ff3731f1442b8dc2448401c968, type: 3}
+      propertyPath: OnHunting.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 11500000, guid: 9e13a626fe620c040b9ef1ca4360ba19, type: 3}
+    - target: {fileID: 5018630962432991348, guid: e99404ff3731f1442b8dc2448401c968, type: 3}
+      propertyPath: OnAlert.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5018630962432991348, guid: e99404ff3731f1442b8dc2448401c968, type: 3}
+      propertyPath: OnStalking.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 11500000, guid: 9e13a626fe620c040b9ef1ca4360ba19, type: 3}
+    - target: {fileID: 5018630962432991348, guid: e99404ff3731f1442b8dc2448401c968, type: 3}
+      propertyPath: OnAttacking.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 11500000, guid: 9e13a626fe620c040b9ef1ca4360ba19, type: 3}
+    - target: {fileID: 5018630962432991348, guid: e99404ff3731f1442b8dc2448401c968, type: 3}
+      propertyPath: OnFleeing.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5018630962432991348, guid: e99404ff3731f1442b8dc2448401c968, type: 3}
+      propertyPath: OnHidding.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5018630962432991348, guid: e99404ff3731f1442b8dc2448401c968, type: 3}
+      propertyPath: OnHunting.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5018630962432991348, guid: e99404ff3731f1442b8dc2448401c968, type: 3}
+      propertyPath: OnStalking.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5018630962432991348, guid: e99404ff3731f1442b8dc2448401c968, type: 3}
+      propertyPath: OnAttacking.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5018630962432991348, guid: e99404ff3731f1442b8dc2448401c968, type: 3}
+      propertyPath: OnIdleOrPatrolling.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 11500000, guid: 9e13a626fe620c040b9ef1ca4360ba19, type: 3}
+    - target: {fileID: 5018630962432991348, guid: e99404ff3731f1442b8dc2448401c968, type: 3}
+      propertyPath: OnIdleOrPatrolling.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7106895052002605853, guid: e99404ff3731f1442b8dc2448401c968, type: 3}
       propertyPath: m_LocalPosition.x
       value: -4.43
@@ -6096,12 +6200,6 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 592406395170217638, guid: e99404ff3731f1442b8dc2448401c968, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2035905003}
-    - targetCorrespondingSourceObject: {fileID: 592406395170217638, guid: e99404ff3731f1442b8dc2448401c968, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2035905002}
-    - targetCorrespondingSourceObject: {fileID: 592406395170217638, guid: e99404ff3731f1442b8dc2448401c968, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 2035905001}
   m_SourcePrefab: {fileID: 100100000, guid: e99404ff3731f1442b8dc2448401c968, type: 3}
 --- !u!4 &2035904995 stripped
@@ -6109,104 +6207,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7106895052002605853, guid: e99404ff3731f1442b8dc2448401c968, type: 3}
   m_PrefabInstance: {fileID: 2035904994}
   m_PrefabAsset: {fileID: 0}
---- !u!82 &2035905001
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1134769939}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: -5366116467697678042, guid: cf2623621319d3847886d6943001653f, type: 2}
-  m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 0}
-  m_PlayOnAwake: 1
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 22
-  Pan2D: 0
-  rolloffMode: 1
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
---- !u!114 &2035905002
+--- !u!114 &2035905001
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6215,34 +6216,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 1134769939}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dfb5797d06c3c6f4c80525eef30634a2, type: 3}
+  m_Script: {fileID: 11500000, guid: 9e13a626fe620c040b9ef1ca4360ba19, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MonsterAudioTrigger
-  roarClip: {fileID: 8300000, guid: 0d0e114c7e0a362419cac4a26cc5108e, type: 3}
-  attackClip: {fileID: 8300000, guid: 8f1483d709577a442a5b30b98476447e, type: 3}
-  footstepClip: {fileID: 8300000, guid: 17b13d5726417e3408bfb3c09f550375, type: 3}
+  m_EditorClassIdentifier: Assembly-CSharp::CreatureAudio
+  alertClip: {fileID: 8300000, guid: e35f141479082b644bebeecc2c64d795, type: 3}
+  huntingStepClip: {fileID: 8300000, guid: 6bd91a623fe5aaf40877202f1aa1fddc, type: 3}
+  huntingGrowlClip: {fileID: 8300000, guid: 114f3997a79e5ed46b2617fd9e1dab77, type: 3}
+  stalkingLoopClip: {fileID: 8300000, guid: ba019ba15f9289d45a84c40b789119dd, type: 3}
+  attackClip: {fileID: 8300000, guid: 16df060e03cbbbc4fa575b3394590a11, type: 3}
+  fleeClip: {fileID: 8300000, guid: 98d0c68088d17144dab87ae0e6b93c41, type: 3}
   stepInterval: 0.55
-  stepVolume: 0.5
-  checkInterval: 0.3
---- !u!114 &2035905003
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1134769939}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e5096f08f47939046bcab66a1d37a6c7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Monster
-  detectDistance: 10
-  chaseSpeed: 5
-  roarDuration: 2
-  attackDamage: 15
-  attackCooldown: 2
-  attackReach: 2
-  isRunning: 0
+  stepVolume: 0.85
+  growlInterval: 4
+  growlVolume: 0.7
+  stalkingVolume: 0.55
+  stalkingFadeDuration: 1.2
 --- !u!1001 &2066168907
 PrefabInstance:
   m_ObjectHideFlags: 0
